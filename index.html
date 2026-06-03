@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Asmar Rahman — Odoo Developer</title>
+<title>Asmar Rahman</title>
 <meta name="description" content="Asmar Rahman — Odoo Developer specializing in customizing Odoo modules, integrating third-party applications, and automating business processes. Based in Kerala, India.">
 <meta name="keywords" content="Odoo Developer, Python Developer, ERP Solutions, Kerala, India, Freelance Odoo, Business Automation">
 
@@ -814,7 +814,7 @@ body.pp-lock{overflow:hidden}
         <div class="avatar-overlay"></div>
       </div>
       <div class="badge-float b1"><span class="dot"></span>Available for freelance</div>
-      <div class="badge-float b2"><span class="dot"></span>Based in Kerala / UAE</div>
+      <div class="badge-float b2"><span class="dot"></span>Based in India / UAE</div>
     </div>
   </div>
 </section>
@@ -1258,7 +1258,7 @@ body.pp-lock{overflow:hidden}
       <span class="eyebrow">Portfolio</span>
       <h1>All <span class="ghost">projects</span></h1>
       <p>A detailed look at the Odoo modules, AI applications and third-party connectors I've designed, built and migrated across versions 14 through 19.</p>
-      <div class="count">34 featured projects</div>
+      <div class="count" id="pjCount">34 featured projects</div>
     </section>
     <div class="filters" id="pjFilters">
       <button class="filter-btn active" data-filter="all">All</button>
@@ -1558,7 +1558,7 @@ body.pp-lock{overflow:hidden}
       <span class="eyebrow">Credentials</span>
       <h1>Licenses &amp; <span class="ghost">certifications</span></h1>
       <p>A full record of the courses, certifications and credentials I've earned across development, AI, cybersecurity, cloud and design.</p>
-      <div class="count">31 certifications</div>
+      <div class="count" id="allCertsCount">31 certifications</div>
     </section>
     <div class="cgrid" id="certGrid">
       <article class="cert">
@@ -1827,7 +1827,7 @@ body.pp-lock{overflow:hidden}
       <span class="eyebrow">Tech expertise</span>
       <h1>All <span class="ghost">skills</span></h1>
       <p>The full toolkit I work with across Odoo development, AI integration, full-stack engineering, databases, systems, and design.</p>
-      <div class="count">26 skills &amp; technologies</div>
+      <div class="count" id="allSkillsCount">26 skills &amp; technologies</div>
     </section>
     <div class="skills-grid" id="allSkillsGrid">
       <article class="skill-card"><span class="dot"></span><span class="name">Odoo</span></article>
@@ -1902,7 +1902,7 @@ body.pp-lock{overflow:hidden}
   </div>
   <div class="container">
     <section class="pp-hero">
-      <span class="eyebrow">Admin / CMS &middot; v3.4</span>
+      <span class="eyebrow">Admin / CMS &middot; v3.5</span>
       <h1>Manage <span class="ghost">your work</span></h1>
       <p>Curate which projects appear in <strong>Selected work</strong> and <strong>Recent works</strong> on the homepage. Pick from the All&nbsp;Projects pool, drag rows to reorder, and × to remove. Changes save automatically and reflect immediately.</p>
       <button class="admin-cta" id="openRecordsBtn" type="button">
@@ -2701,7 +2701,7 @@ body.pp-lock{overflow:hidden}
     return WORK_IMAGE_BY_ID[id] || '';
   }
   try {
-    console.log('[Asmar Portfolio] Admin CMS v3.4 loaded (drag-reorder in Update Records). Sections:', ['selected','recent','skills','certs'], '| Pools — projects:', PROJECT_POOL.length, 'skills:', SKILL_POOL.length, 'certs:', CERT_POOL.length);
+    console.log('[Asmar Portfolio] Admin CMS v3.5 loaded (overlay grids reflect record changes). Sections:', ['selected','recent','skills','certs'], '| Pools — projects:', PROJECT_POOL.length, 'skills:', SKILL_POOL.length, 'certs:', CERT_POOL.length);
   } catch(e) {}
 
   var FEATURED_KEY = 'asmar_portfolio_featured_v1';
@@ -3305,12 +3305,70 @@ body.pp-lock{overflow:hidden}
     grid.innerHTML = html;
   }
 
+  /* Homepage re-renders for the FULL overlay grids (All projects, All skills, All certifications) — driven by the live pools so user-added records show up */
+  function renderAllProjectsGrid(){
+    var grid = document.getElementById('pjGrid');
+    if(!grid) return;
+    var html = PROJECT_POOL.map(function(p, i){
+      var num = String(i+1).length < 2 ? '0'+(i+1) : String(i+1);
+      var pcatText = p.subtitle && p.subtitle.indexOf('·') !== -1
+        ? p.subtitle
+        : (badgeLabel(p.cat) + (p.subtitle ? ' · ' + p.subtitle : ''));
+      var built = (p.builtWith || []).map(function(t){ return '<span class="tag">'+escHtml(t)+'</span>'; }).join('');
+      var roles = (p.roles || []).map(function(t){ return '<span class="tag role">'+escHtml(t)+'</span>'; }).join('');
+      return '<article class="pcard" data-cat="'+escHtml(p.cat || 'odoo')+'">'+
+        '<div class="ptop"><span class="pcat">'+escHtml(pcatText)+'</span><span class="pidx">'+num+'</span></div>'+
+        '<h3>'+escHtml(p.title || '')+'</h3>'+
+        (p.versions ? '<div class="pver">'+escHtml(p.versions)+'</div>' : '')+
+        (p.desc ? '<p class="pdesc">'+escHtml(p.desc)+'</p>' : '')+
+        (built ? '<div class="pblock"><div class="plabel">Built with</div><div class="ptags">'+built+'</div></div>' : '')+
+        (roles ? '<div class="pblock"><div class="plabel">My role</div><div class="ptags">'+roles+'</div></div>' : '')+
+      '</article>';
+    }).join('');
+    grid.innerHTML = html;
+    // Re-apply active filter
+    var activeBtn = document.querySelector('#pjFilters .filter-btn.active');
+    if(activeBtn){
+      var f = activeBtn.dataset.filter;
+      Array.prototype.forEach.call(grid.querySelectorAll('.pcard'), function(c){
+        c.classList.toggle('hide', !(f==='all' || c.dataset.cat===f));
+      });
+    }
+    var countEl = document.getElementById('pjCount');
+    if(countEl) countEl.textContent = PROJECT_POOL.length + ' featured projects';
+  }
+  function renderAllSkillsGrid(){
+    var grid = document.getElementById('allSkillsGrid');
+    if(!grid) return;
+    grid.innerHTML = SKILL_POOL.map(function(s){
+      return '<article class="skill-card show"><span class="dot"></span><span class="name">'+escHtml(s.name || '')+'</span></article>';
+    }).join('');
+    var countEl = document.getElementById('allSkillsCount');
+    if(countEl) countEl.textContent = SKILL_POOL.length + ' skills & technologies';
+  }
+  function renderAllCertsGrid(){
+    var grid = document.getElementById('certGrid');
+    if(!grid) return;
+    var sealSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="8" r="5"/><path d="M8.5 12.6L7 22l5-3 5 3-1.5-9.4"/></svg>';
+    grid.innerHTML = CERT_POOL.map(function(c){
+      return '<article class="cert show">'+
+        '<span class="seal">'+sealSvg+'</span>'+
+        '<div class="ctext"><h4>'+escHtml(c.title || '')+'</h4><div class="issuer">'+escHtml(c.issuer || '')+'</div><span class="date">'+escHtml(c.date || '')+'</span></div>'+
+      '</article>';
+    }).join('');
+    var countEl = document.getElementById('allCertsCount');
+    if(countEl) countEl.textContent = CERT_POOL.length + ' certifications';
+  }
+
   /* Extend renderAllHomepage to cover all 6 dynamic sections */
   var __prevRenderAllHomepage = renderAllHomepage;
   renderAllHomepage = function(){
     __prevRenderAllHomepage();
     renderHomeExperience();
     renderHomeAwards();
+    renderAllProjectsGrid();
+    renderAllSkillsGrid();
+    renderAllCertsGrid();
   };
 
   /* SVG icons used in record rows */
