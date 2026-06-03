@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Asmar Rahman</title>
+<title>Asmar Rahman — Odoo Developer</title>
 <meta name="description" content="Asmar Rahman — Odoo Developer specializing in customizing Odoo modules, integrating third-party applications, and automating business processes. Based in Kerala, India.">
 <meta name="keywords" content="Odoo Developer, Python Developer, ERP Solutions, Kerala, India, Freelance Odoo, Business Automation">
 
@@ -12,7 +12,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 /* ============== RESET & TOKENS ============== */
@@ -425,6 +425,176 @@ body.pp-lock{overflow:hidden}
 @media(max-width:900px){.certs-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:540px){.certs-grid{grid-template-columns:1fr}.cgrid{grid-template-columns:1fr}}
 
+
+/* ===== All-skills overlay ===== */
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;padding-bottom:50px}
+.skill-card{display:flex;align-items:center;gap:14px;border:1px solid var(--line);border-radius:14px;background:var(--bg-2);padding:18px 22px;transition:transform .3s,border-color .3s}
+.skill-card:hover{transform:translateY(-3px);border-color:var(--accent)}
+.skill-card .dot{flex-shrink:0;width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent-glow)}
+.skill-card .name{font-family:var(--font-display);font-weight:600;font-size:1rem}
+.projects-page .skill-card{opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s cubic-bezier(.16,1,.3,1),border-color .3s}
+.projects-page .skill-card.show{opacity:1;transform:none}
+
+
+/* ===== Notification bell ===== */
+.bell-btn{position:relative;width:42px;height:42px;border-radius:11px;border:1px solid var(--line-strong);background:transparent;color:var(--text);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color .25s,color .25s,transform .25s,background .25s;flex-shrink:0}
+.bell-btn:hover{border-color:var(--accent);color:var(--accent);transform:translateY(-2px)}
+.bell-btn svg{width:18px;height:18px}
+.bell-badge{position:absolute;top:-6px;right:-6px;min-width:18px;height:18px;padding:0 5px;border-radius:999px;background:var(--accent);color:#0b0b0e;font-family:var(--font-mono);font-size:.66rem;font-weight:700;display:flex;align-items:center;justify-content:center;box-shadow:0 0 12px var(--accent-glow);border:2px solid var(--bg)}
+.bell-badge.hide{display:none}
+.nav.scrolled .bell-badge{border-color:rgba(11,11,14,.72)}
+
+/* ===== Messages overlay ===== */
+.msgs-grid{display:flex;flex-direction:column;gap:14px;padding-bottom:50px}
+.msg-card{position:relative;border:1px solid var(--line);border-radius:14px;background:var(--bg-2);padding:22px 24px;transition:border-color .3s,transform .3s,opacity .3s}
+.msg-card.unread{border-color:rgba(212,255,69,.32);background:linear-gradient(135deg,rgba(212,255,69,.04),var(--bg-2))}
+.msg-card.removing{opacity:0;transform:translateX(40px)}
+.msg-head{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:10px}
+.msg-from{display:flex;align-items:center;gap:8px;font-size:.95rem;flex:1;min-width:0}
+.msg-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent-glow);flex-shrink:0}
+.msg-from b{font-weight:700}
+.msg-email{color:var(--muted);font-size:.84rem;word-break:break-all}
+.msg-time{font-family:var(--font-mono);font-size:.66rem;color:var(--muted-2);text-transform:uppercase;letter-spacing:.08em;white-space:nowrap}
+.msg-del{width:32px;height:32px;border-radius:8px;border:1px solid var(--line-strong);background:transparent;color:var(--muted);font-size:1.1rem;line-height:1;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;transition:.25s;flex-shrink:0}
+.msg-del:hover{background:#ff4d4d;border-color:#ff4d4d;color:#fff}
+.msg-subject{font-family:var(--font-display);font-weight:600;font-size:1.05rem;margin-bottom:6px;color:var(--text)}
+.msg-body{color:var(--muted);font-size:.92rem;white-space:pre-wrap;word-break:break-word}
+.msg-empty{text-align:center;padding:80px 20px;border:1px dashed var(--line-strong);border-radius:14px;color:var(--muted)}
+.msg-empty h4{font-family:var(--font-display);font-size:1.2rem;color:var(--text);margin-bottom:8px}
+
+/* required marker + invalid styling */
+.field label .req{color:var(--accent);margin-left:2px}
+.form input:invalid:not(:placeholder-shown),
+.form textarea:invalid:not(:placeholder-shown){border-color:#ff6b6b}
+.form input:invalid:not(:placeholder-shown):focus,
+.form textarea:invalid:not(:placeholder-shown):focus{box-shadow:0 0 0 3px rgba(255,107,107,.18)}
+
+/* success toast */
+.success-toast{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(.85);z-index:500;background:var(--bg-2);border:1px solid var(--accent);border-radius:18px;padding:26px 34px;display:flex;align-items:center;gap:20px;box-shadow:0 30px 80px -20px var(--accent-glow),0 0 0 1px rgba(212,255,69,.18);opacity:0;visibility:hidden;transition:opacity .35s ease,transform .45s cubic-bezier(.16,1,.3,1),visibility .35s;pointer-events:none;max-width:calc(100vw - 40px)}
+.success-toast.show{opacity:1;visibility:visible;transform:translate(-50%,-50%) scale(1)}
+.success-icon{width:54px;height:54px;border-radius:50%;background:var(--accent);color:#0b0b0e;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.success-toast.show .success-icon{animation:pulse-success 1s cubic-bezier(.16,1,.3,1)}
+.success-icon svg{width:26px;height:26px;stroke-width:3}
+@keyframes pulse-success{0%{transform:scale(.5)}55%{transform:scale(1.18)}100%{transform:scale(1)}}
+.success-text strong{display:block;font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:var(--text);margin-bottom:3px;letter-spacing:-.01em}
+.success-text span{color:var(--muted);font-size:.88rem}
+.success-backdrop{position:fixed;inset:0;background:rgba(11,11,14,.5);backdrop-filter:blur(3px);z-index:499;opacity:0;visibility:hidden;transition:opacity .3s ease,visibility .3s;pointer-events:none}
+.success-backdrop.show{opacity:1;visibility:visible}
+
+/* hire-me modal */
+.hire-modal{position:fixed;inset:0;z-index:400;display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;visibility:hidden;transition:opacity .35s ease,visibility .35s;pointer-events:none}
+.hire-modal.open{opacity:1;visibility:visible;pointer-events:auto}
+.hire-modal-backdrop{position:absolute;inset:0;background:rgba(11,11,14,.72);backdrop-filter:blur(8px)}
+.hire-modal-card{position:relative;width:100%;max-width:520px;background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius);padding:clamp(28px,4vw,40px);box-shadow:0 30px 80px -20px rgba(0,0,0,.7),0 0 0 1px rgba(212,255,69,.06);transform:scale(.92) translateY(20px);transition:transform .5s cubic-bezier(.16,1,.3,1);max-height:calc(100vh - 48px);overflow-y:auto}
+.hire-modal.open .hire-modal-card{transform:none}
+.hire-modal-close{position:absolute;top:14px;right:14px;width:36px;height:36px;border-radius:10px;border:1px solid var(--line-strong);background:transparent;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.3rem;line-height:1;transition:.25s;z-index:2}
+.hire-modal-close:hover{background:#ff4d4d;border-color:#ff4d4d;color:#fff}
+.hire-modal-head{margin-bottom:24px;padding-right:40px}
+.hire-modal-head .eyebrow{font-family:var(--font-mono);font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);display:inline-flex;align-items:center;gap:8px;margin-bottom:10px}
+.hire-modal-head .eyebrow::before{content:"";width:20px;height:1px;background:var(--accent);display:inline-block}
+.hire-modal-head h3{font-family:var(--font-display);font-size:1.6rem;font-weight:700;line-height:1.1;letter-spacing:-.01em;margin-bottom:8px}
+.hire-modal-head p{color:var(--muted);font-size:.93rem}
+.hire-modal-card .form{background:transparent;border:0;padding:0;box-shadow:none}
+
+/* hiring manager badge on messages */
+.msg-badge{display:inline-flex;align-items:center;font-family:var(--font-mono);font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:7px;margin-left:8px;white-space:nowrap}
+.msg-badge.hire{background:var(--accent-dim);color:var(--accent);border:1px solid rgba(212,255,69,.35)}
+
+
+/* ===== Login / Signup animated card (scoped) ===== */
+.login-stage{position:relative;width:100%;min-height:calc(100vh - 74px);display:flex;align-items:center;justify-content:center;padding:24px;overflow:hidden}
+
+.loginbox{
+  --orange-1:#d4ff45;
+  --orange-2:#a6e000;
+  --orange-glow:rgba(212,255,69,.45);
+  --lb-card:#111114;
+  --lb-text:#f3f3ee;
+  --lb-muted:#9a9a92;
+  --sweep-dur:.62s;
+  --sweep-ease:cubic-bezier(.66,0,.2,1);
+  position:relative;width:760px;height:500px;background:var(--lb-card);border-radius:20px;overflow:hidden;
+  transform-origin:center center;
+  box-shadow:0 0 1px var(--orange-1),0 0 22px var(--orange-glow),0 0 60px rgba(212,255,69,.16),inset 0 0 0 1px rgba(212,255,69,.18);
+  font-family:'Poppins',sans-serif;
+}
+.loginbox *{box-sizing:border-box}
+.loginbox h2,.loginbox p,.loginbox a,.loginbox button,.loginbox label,.loginbox input{margin:0;padding:0}
+
+.loginbox .lb-diagonal{position:absolute;inset:0;background:linear-gradient(135deg,var(--orange-1),var(--orange-2));clip-path:polygon(38% 0,100% 0,100% 100%,78% 100%);z-index:1}
+.loginbox.active .lb-diagonal{animation:lbSweepToReg var(--sweep-dur) var(--sweep-ease) forwards}
+.loginbox.reverse .lb-diagonal{animation:lbSweepToLog var(--sweep-dur) var(--sweep-ease) forwards}
+.loginbox .lb-diagonal-edge{position:absolute;inset:0;background:#eaff85;clip-path:polygon(37.4% 0,38% 0,78% 100%,77.4% 100%);z-index:2;opacity:.9}
+.loginbox.active .lb-diagonal-edge{animation:lbEdgeToReg var(--sweep-dur) var(--sweep-ease) forwards}
+.loginbox.reverse .lb-diagonal-edge{animation:lbEdgeToLog var(--sweep-dur) var(--sweep-ease) forwards}
+
+@keyframes lbSweepToReg{0%{clip-path:polygon(38% 0,100% 0,100% 100%,78% 100%)}46%{clip-path:polygon(0 0,100% 0,100% 100%,0 100%)}100%{clip-path:polygon(0 0,62% 0,22% 100%,0 100%)}}
+@keyframes lbSweepToLog{0%{clip-path:polygon(0 0,62% 0,22% 100%,0 100%)}46%{clip-path:polygon(0 0,100% 0,100% 100%,0 100%)}100%{clip-path:polygon(38% 0,100% 0,100% 100%,78% 100%)}}
+@keyframes lbEdgeToReg{0%{clip-path:polygon(37.4% 0,38% 0,78% 100%,77.4% 100%);opacity:.9}40%{opacity:0}60%{opacity:0}100%{clip-path:polygon(61.4% 0,62% 0,22% 100%,21.4% 100%);opacity:.9}}
+@keyframes lbEdgeToLog{0%{clip-path:polygon(61.4% 0,62% 0,22% 100%,21.4% 100%);opacity:.9}40%{opacity:0}60%{opacity:0}100%{clip-path:polygon(37.4% 0,38% 0,78% 100%,77.4% 100%);opacity:.9}}
+
+.loginbox .form-box{position:absolute;top:0;z-index:3;display:flex;flex-direction:column;justify-content:center;width:50%;height:100%;padding:0 50px;background:transparent;border:0}
+.loginbox .form-box.Login{left:0}
+.loginbox .form-box.Register{right:0}
+
+.loginbox .form-box.Register,.loginbox .info-content.Register{pointer-events:none}
+.loginbox.active .form-box.Register,.loginbox.active .info-content.Register{pointer-events:auto}
+.loginbox .form-box.Login,.loginbox .info-content.Login{pointer-events:auto}
+.loginbox.active .form-box.Login,.loginbox.active .info-content.Login{pointer-events:none}
+
+.loginbox .form-box h2{font-size:34px;color:var(--lb-text);font-weight:700;text-align:center;margin-bottom:8px;font-family:'Poppins',sans-serif;letter-spacing:0}
+
+.loginbox .input-box{position:relative;width:100%;height:50px;margin:22px 0}
+.loginbox .input-box input{width:100%;height:100%;background:transparent;border:none;outline:none;border-bottom:2px solid rgba(233,233,238,.5);font-size:16px;color:var(--lb-text);font-weight:500;padding-right:26px;transition:border-color .3s;font-family:'Poppins',sans-serif;border-radius:0;box-shadow:none}
+.loginbox .input-box input:focus{box-shadow:none}
+.loginbox .input-box label{position:absolute;top:50%;left:0;transform:translateY(-50%);font-size:16px;color:var(--lb-muted);pointer-events:none;transition:.25s ease;font-family:'Poppins',sans-serif;font-weight:500;letter-spacing:0}
+.loginbox .input-box input:focus,.loginbox .input-box input:valid{border-bottom-color:var(--orange-1)}
+.loginbox .input-box input:focus~label,.loginbox .input-box input:valid~label{top:-6px;font-size:13px;color:var(--orange-1)}
+.loginbox .input-box .icon{position:absolute;top:50%;right:0;transform:translateY(-50%);width:20px;height:20px;fill:var(--lb-text);transition:.25s}
+.loginbox .input-box input:focus~.icon{fill:var(--orange-1)}
+
+.loginbox .lb-btn{position:relative;width:100%;height:48px;border:none;border-radius:40px;cursor:pointer;font-size:16px;font-weight:700;color:#0b0b0e;background:linear-gradient(90deg,var(--orange-1),var(--orange-2));box-shadow:0 6px 18px rgba(212,255,69,.35),inset 0 1px 1px rgba(255,255,255,.55);transition:transform .15s ease,box-shadow .25s ease;font-family:'Poppins',sans-serif;display:flex;align-items:center;justify-content:center;letter-spacing:0}
+.loginbox .lb-btn:hover{transform:translateY(-1px);box-shadow:0 10px 26px rgba(212,255,69,.5)}
+.loginbox .lb-btn:active{transform:translateY(0)}
+.loginbox .input-box.btn-box{height:48px}
+
+.loginbox .regi-link{text-align:center;margin-top:18px}
+.loginbox .regi-link p{font-size:14px;color:var(--lb-muted);line-height:1.6;font-family:'Poppins',sans-serif}
+.loginbox .regi-link a{color:var(--orange-1);text-decoration:none;font-weight:600;cursor:pointer;font-family:'Poppins',sans-serif}
+.loginbox .regi-link a:hover{text-decoration:underline}
+
+.loginbox .info-content{position:absolute;top:0;z-index:3;height:100%;width:50%;display:flex;flex-direction:column;justify-content:center;color:#0b0b0e;font-family:'Poppins',sans-serif}
+.loginbox .info-content.Login{right:0;padding:0 40px 0 150px;text-align:right}
+.loginbox .info-content.Register{left:0;padding:0 150px 0 40px;text-align:left}
+.loginbox .info-content h2{font-size:38px;line-height:1.05;text-transform:uppercase;font-weight:800;letter-spacing:.5px;color:#0b0b0e}
+.loginbox .info-content p{font-size:15px;line-height:1.6;margin-top:14px;font-weight:400;color:rgba(11,11,14,.78)}
+
+.loginbox .lb-note{position:absolute;bottom:14px;left:0;right:0;padding:0 50px;font-size:13px;color:#ff8a8a;font-weight:500;text-align:center;font-family:'Poppins',sans-serif;min-height:18px;pointer-events:none}
+
+/* sweep animation system for fields */
+.loginbox .form-box.Register .animation,.loginbox .info-content.Register .animation{transform:translateX(120%);opacity:0;filter:blur(10px);transition:transform .38s ease,opacity .38s ease,filter .38s ease;transition-delay:calc(.02s * var(--i))}
+.loginbox.active .form-box.Register .animation,.loginbox.active .info-content.Register .animation{transform:translateX(0);opacity:1;filter:blur(0);transition-delay:calc(.28s + .045s * var(--i))}
+.loginbox .form-box.Login .animation,.loginbox .info-content.Login .animation{transform:translateX(0);opacity:1;filter:blur(0);transition:transform .38s ease,opacity .38s ease,filter .38s ease;transition-delay:calc(.28s + .045s * var(--i))}
+.loginbox.active .form-box.Login .animation,.loginbox.active .info-content.Login .animation{transform:translateX(-120%);opacity:0;filter:blur(10px);transition-delay:calc(.02s * var(--i))}
+
+/* mobile */
+@media (max-width:720px){
+  .loginbox{width:min(420px,92vw);height:600px;transform:none !important}
+  .loginbox .lb-diagonal{clip-path:polygon(0 0,100% 0,100% 30%,0 40%);animation:none !important}
+  .loginbox .lb-diagonal-edge{clip-path:polygon(0 39.4%,100% 29.4%,100% 30%,0 40%);animation:none !important;opacity:.9}
+  .loginbox .info-content{width:100%;height:38%;top:0;padding:28px 32px 0 !important;justify-content:center}
+  .loginbox .info-content.Login,.loginbox .info-content.Register{text-align:center}
+  .loginbox .info-content h2{font-size:30px;line-height:1.05}
+  .loginbox .info-content p{font-size:13.5px;margin-top:8px}
+  .loginbox .form-box{width:100%;height:62%;top:38%;padding:0 38px;justify-content:flex-start}
+  .loginbox .form-box h2{font-size:28px;margin:6px 0 4px}
+  .loginbox .input-box{margin:16px 0;height:46px}
+  .loginbox .regi-link{margin-top:12px}
+  .loginbox .form-box.Register .animation,.loginbox .info-content.Register .animation{transform:translateY(40px)}
+  .loginbox.active .form-box.Register .animation,.loginbox.active .info-content.Register .animation{transform:translateY(0)}
+  .loginbox.active .form-box.Login .animation,.loginbox.active .info-content.Login .animation{transform:translateY(-40px)}
+}
+
 /* ============== RESPONSIVE ============== */
 @media(max-width:980px){
   .nav-links{display:none}
@@ -472,8 +642,12 @@ body.pp-lock{overflow:hidden}
       <a href="#contact">Contact</a>
     </nav>
     <div class="nav-cta">
-      <a href="#contact" class="btn btn-ghost">Let's talk</a>
-      <a href="#contact" class="btn btn-primary">Hire me</a>
+      <button class="bell-btn js-open-messages" id="bellBtn" aria-label="Open messages">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 00-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+        <span class="bell-badge hide" id="bellBadge">0</span>
+      </button>
+      <a href="#contact" class="btn btn-ghost">Let&apos;s talk</a>
+      <a href="#contact" class="btn btn-primary js-open-hire">Hire me</a>
       <button class="burger" id="burger" aria-label="Open menu"><span></span><span></span><span></span></button>
     </div>
   </div>
@@ -596,13 +770,19 @@ body.pp-lock{overflow:hidden}
     </div>
     <div class="skills-wrap reveal" id="skills">
       <div class="skill"><div class="skill-top"><span class="name">Odoo</span><span class="pct">95%</span></div><div class="bar"><i data-pct="95"></i></div></div>
-      <div class="skill"><div class="skill-top"><span class="name">Python</span><span class="pct">90%</span></div><div class="bar"><i data-pct="90"></i></div></div>
+      <div class="skill"><div class="skill-top"><span class="name">Python</span><span class="pct">95%</span></div><div class="bar"><i data-pct="95"></i></div></div>
       <div class="skill"><div class="skill-top"><span class="name">JavaScript</span><span class="pct">85%</span></div><div class="bar"><i data-pct="85"></i></div></div>
       <div class="skill"><div class="skill-top"><span class="name">XML</span><span class="pct">88%</span></div><div class="bar"><i data-pct="88"></i></div></div>
       <div class="skill"><div class="skill-top"><span class="name">PostgreSQL</span><span class="pct">82%</span></div><div class="bar"><i data-pct="82"></i></div></div>
-      <div class="skill"><div class="skill-top"><span class="name">React</span><span class="pct">78%</span></div><div class="bar"><i data-pct="78"></i></div></div>
+      <div class="skill"><div class="skill-top"><span class="name">AI Integration</span><span class="pct">95%</span></div><div class="bar"><i data-pct="95"></i></div></div>
       <div class="skill"><div class="skill-top"><span class="name">API Integration</span><span class="pct">92%</span></div><div class="bar"><i data-pct="92"></i></div></div>
       <div class="skill"><div class="skill-top"><span class="name">Business Process</span><span class="pct">87%</span></div><div class="bar"><i data-pct="87"></i></div></div>
+    </div>
+
+    <div class="works-more reveal" style="margin-top:48px">
+      <a href="#allskills" class="btn btn-primary js-open-skills">View all skills
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
     </div>
 
     <!-- experience + education -->
@@ -614,44 +794,44 @@ body.pp-lock{overflow:hidden}
         </h3>
         <div class="tl">
           <div class="tl-item">
-            <div class="when">Mar 2026 – Present <span class="mode">On-site</span></div>
+            <div class="when">Mar 2026 – Present <span class="mode">On-site</span> <span class="mode">UAE</span></div>
             <div class="role">Odoo System Administrator</div>
-            <div class="org">Hassan Bin AlShaikh Group of Industries · Full-time</div>
+            <div class="org"><a href="https://www.hbas.ae" target="_blank" rel="noopener noreferrer">Hassan Bin AlShaikh Group of Industries</a> · Full-time</div>
           </div>
           <div class="tl-item">
-            <div class="when">May 2023 – Mar 2026 <span class="mode">On-site</span></div>
+            <div class="when">May 2023 – Mar 2026 <span class="mode">On-site</span> <span class="mode">INDIA</span></div>
             <div class="role">Odoo Developer</div>
-            <div class="org">Pragmatic Techsoft Pvt Ltd · Full-time</div>
+            <div class="org"><a href="https://www.pragtech.co.in" target="_blank" rel="noopener noreferrer">Pragmatic Techsoft Pvt Ltd</a> · Full-time</div>
           </div>
           <div class="tl-item">
             <div class="when">Nov 2023 – Feb 2025 <span class="mode">Remote</span></div>
             <div class="role">AI Developer</div>
-            <div class="org">EduAI Hub · Full-time</div>
+            <div class="org"><a href="https://eduaihub.in" target="_blank" rel="noopener noreferrer">EduAI Hub</a> · Full-time</div>
           </div>
           <div class="tl-item">
             <div class="when">Aug 2022 – Nov 2022 <span class="mode">Remote</span></div>
             <div class="role">Frontend Web Developer</div>
-            <div class="org">Upwork · Freelance</div>
+            <div class="org"><a href="https://www.upwork.com" target="_blank" rel="noopener noreferrer">Upwork</a> · Freelance</div>
           </div>
           <div class="tl-item">
-            <div class="when">Feb 2022 – Jul 2022 <span class="mode">On-site</span></div>
+            <div class="when">Feb 2022 – Jul 2022 <span class="mode">On-site</span> <span class="mode">INDIA</span></div>
             <div class="role">Python Full Stack Developer</div>
-            <div class="org">Baabtra.com Pvt Ltd · Intern</div>
+            <div class="org"><a href="https://baabtra.com" target="_blank" rel="noopener noreferrer">Baabtra.com Pvt Ltd</a> · Intern</div>
           </div>
           <div class="tl-item">
             <div class="when">Oct 2021 – Jun 2022 <span class="mode">Remote</span></div>
             <div class="role">Certified Ethical Hacker</div>
-            <div class="org">RedTeam Hacker Academy · Internship</div>
+            <div class="org"><a href="https://redteamacademy.com" target="_blank" rel="noopener noreferrer">RedTeam Hacker Academy</a> · Internship</div>
           </div>
           <div class="tl-item">
             <div class="when">May 2021 – Oct 2021 <span class="mode">Remote</span></div>
             <div class="role">Penetration Tester</div>
-            <div class="org">RedTeam Hacker Academy · Apprenticeship</div>
+            <div class="org"><a href="https://redteamacademy.com" target="_blank" rel="noopener noreferrer">RedTeam Hacker Academy</a> · Apprenticeship</div>
           </div>
           <div class="tl-item">
-            <div class="when">Jan 2021 – Mar 2021 <span class="mode">Hybrid</span></div>
+            <div class="when">Jan 2021 – Mar 2021 <span class="mode">Hybrid</span> <span class="mode">INDIA</span></div>
             <div class="role">Java Programmer</div>
-            <div class="org">Keltron Advanced Studies · Apprenticeship</div>
+            <div class="org"><a href="https://keltron.org" target="_blank" rel="noopener noreferrer">Keltron Advanced Studies</a> · Apprenticeship</div>
           </div>
         </div>
       </div>
@@ -700,21 +880,42 @@ body.pp-lock{overflow:hidden}
     </div>
     <div class="proj-grid">
       <article class="proj-card reveal">
-        <div class="proj-top"><span class="proj-when">Oct – Nov 2023</span><span class="proj-num">01</span></div>
-        <h3>Hotel Management</h3>
-        <p>A web-based, multi-company application that lets hotel managers run all hotel activities online. An interactive GUI plus flexible booking and room management make it convenient and adaptable.</p>
-        <div class="tags"><span>CSS</span><span>XML</span><span>GitHub</span><span>RPC</span><span class="more">+6 more</span></div>
-        <div class="proj-foot"><span class="co">Pragmatic Techsoft</span><span class="rl">Backend / Web</span></div>
+        <div class="proj-top"><span class="proj-when">Dec 2025 – Feb 2026</span><span class="proj-num">01</span></div>
+        <h3>Delivery Control App</h3>
+        <p>End-to-end home delivery for Odoo — accept orders across POS, web and a driver portal, and manage the full fulfillment cycle from placement to doorstep.</p>
+        <div class="tags"><span>JavaScript</span><span>Python</span><span>XML</span><span>OWL JS</span><span>SCSS</span></div>
+        <div class="proj-foot"><span class="co">Pragmatic Techsoft</span><span class="rl">Backend &amp; POS</span></div>
       </article>
       <article class="proj-card reveal">
-        <div class="proj-top"><span class="proj-when">Apr – Jun 2024</span><span class="proj-num">02</span></div>
+        <div class="proj-top"><span class="proj-when">Oct – Dec 2025</span><span class="proj-num">02</span></div>
+        <h3>HRMS — AI-Powered Human Resource Management System</h3>
+        <p>An A-to-Z HR system on Odoo that automates the full employee lifecycle, layering OpenAI on top of Recruitment for faster, more objective screening and evaluation.</p>
+        <div class="tags"><span>AI</span><span>Python</span><span>OpenAI</span><span>JavaScript</span><span>RPC</span><span>API</span><span>XML</span><span>CSS</span></div>
+        <div class="proj-foot"><span class="co">Pragmatic Techsoft</span><span class="rl">Project Owner</span></div>
+      </article>
+      <article class="proj-card reveal">
+        <div class="proj-top"><span class="proj-when">Feb – Mar 2024</span><span class="proj-num">03</span></div>
+        <h3>Odoo Copilot — AI Chatbot for Odoo</h3>
+        <p>An OpenAI-powered chatbot built into Odoo's Discuss module — ask about features, configuration or workflows and get instant, context-aware answers without leaving Odoo.</p>
+        <div class="tags"><span>API</span><span>OpenAI</span><span>JavaScript</span><span>Ajax</span><span>RPC</span><span>Python</span><span>XML</span><span>HTML</span><span>CSS</span></div>
+        <div class="proj-foot"><span class="co">Pragmatic Techsoft</span><span class="rl">Project Owner</span></div>
+      </article>
+      <article class="proj-card reveal">
+        <div class="proj-top"><span class="proj-when">Mar – Apr 2025</span><span class="proj-num">04</span></div>
+        <h3>CRM Advance — Automated Lead &amp; Meeting Management</h3>
+        <p>An Odoo CRM that auto-captures leads, triggers timely follow-up emails and books meetings directly through Google Meet and Zoom — letting reps focus on closing, not admin.</p>
+        <div class="tags"><span>Python</span><span>JavaScript</span><span>XML</span><span>SCSS</span><span>API</span></div>
+        <div class="proj-foot"><span class="co">Pragmatic Techsoft</span><span class="rl">Project Owner</span></div>
+      </article>
+      <article class="proj-card reveal">
+        <div class="proj-top"><span class="proj-when">Apr – Jun 2024</span><span class="proj-num">05</span></div>
         <h3>QuickBooks Connector</h3>
         <p>Seamless bi-directional sync between QuickBooks Online and Odoo for customers, vendors, products, invoices and payments — keeping both systems perfectly in step.</p>
         <div class="tags"><span>Odoo</span><span>Python</span><span>API</span><span>QuickBooks</span><span class="more">+4 more</span></div>
         <div class="proj-foot"><span class="co">Pragmatic Techsoft</span><span class="rl">Odoo Developer</span></div>
       </article>
       <article class="proj-card reveal">
-        <div class="proj-top"><span class="proj-when">Sep – Oct 2023</span><span class="proj-num">03</span></div>
+        <div class="proj-top"><span class="proj-when">Sep – Oct 2023</span><span class="proj-num">06</span></div>
         <h3>Tailoring Management</h3>
         <p>Complete tailoring-business orchestration — from customer interactions all the way to final product delivery — delivered as Team Lead.</p>
         <div class="tags"><span>CSS</span><span>XML</span><span>GitHub</span><span>RPC</span><span class="more">+5 more</span></div>
@@ -787,8 +988,8 @@ body.pp-lock{overflow:hidden}
       </article>
       <article class="award reveal">
         <div class="yr">2023</div>
-        <h4>Best Odoo Module Developer</h4>
-        <div class="by">Pragmatic Techsoft</div>
+        <h4>Odoo AI Integration Module Developer</h4>
+        <div class="by">Odoo Platform</div>
         <p>Awarded for consistently delivering high-quality Odoo modules with clean architecture and thorough documentation that exceeded client expectations.</p>
       </article>
       <article class="award reveal">
@@ -893,28 +1094,28 @@ body.pp-lock{overflow:hidden}
         </div>
       </div>
 
-      <div class="form reveal" data-rv="right">
+      <form class="form reveal" data-rv="right" id="contactForm">
         <div class="field">
-          <label for="name">Your name</label>
-          <input type="text" id="name" placeholder="John Doe">
+          <label for="name">Your name <span class="req">*</span></label>
+          <input type="text" id="name" placeholder="John Doe" required>
         </div>
         <div class="field">
-          <label for="email">Your email</label>
-          <input type="email" id="email" placeholder="john@example.com">
+          <label for="email">Your email <span class="req">*</span></label>
+          <input type="email" id="email" placeholder="john@example.com" required pattern="[^@\s]+@[^@\s]+\.[^@\s]{2,}" title="Please enter a complete email like name@example.com">
         </div>
         <div class="field">
           <label for="subject">Subject</label>
           <input type="text" id="subject" placeholder="Project enquiry">
         </div>
         <div class="field">
-          <label for="message">Message</label>
-          <textarea id="message" placeholder="Tell me about your project..."></textarea>
+          <label for="message">Message <span class="req">*</span></label>
+          <textarea id="message" placeholder="Tell me about your project..." required></textarea>
         </div>
-        <button class="btn btn-primary" id="sendBtn">Send message
+        <button type="submit" class="btn btn-primary" id="sendBtn">Send message
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
         </button>
         <div class="form-note" id="formNote"></div>
-      </div>
+      </form>
     </div>
   </div>
 </section>
@@ -1319,6 +1520,195 @@ body.pp-lock{overflow:hidden}
   </div>
 </div>
 
+<!-- ============== ALL-SKILLS OVERLAY (single-file dedicated view) ============== -->
+<div class="projects-page skills-page" id="skillsPage" role="dialog" aria-modal="true" aria-label="All skills">
+  <div class="pp-bar">
+    <span class="brand">Asmar<span>.</span></span>
+    <button class="btn btn-ghost btn-back" id="closeSkills">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+      Back to portfolio
+    </button>
+  </div>
+  <div class="container">
+    <section class="pp-hero">
+      <span class="eyebrow">Tech expertise</span>
+      <h1>All <span class="ghost">skills</span></h1>
+      <p>The full toolkit I work with across Odoo development, AI integration, full-stack engineering, databases, systems, and design.</p>
+      <div class="count">26 skills &amp; technologies</div>
+    </section>
+    <div class="skills-grid" id="allSkillsGrid">
+      <article class="skill-card"><span class="dot"></span><span class="name">Odoo</span></article>
+      <article class="skill-card"><span class="dot"></span><span class="name">Python</span></article>
+      <article class="skill-card"><span class="dot"></span><span class="name">JavaScript</span></article>
+      <article class="skill-card"><span class="dot"></span><span class="name">XML</span></article>
+      <article class="skill-card"><span class="dot"></span><span class="name">RPC</span></article>
+      <article class="skill-card"><span class="dot"></span><span class="name">Ubuntu</span></article>
+      <article class="skill-card"><span class="dot"></span><span class="name">Django</span></article>
+      <article class="skill-card"><span class="dot"></span><span class="name">API Integration</span></article>
+      <article class="skill-card"><span class="dot"></span><span class="name">Ajax</span></article>
+      <article class="skill-card"><span class="dot"></span><span class="name">Git</span></article>
+      <article class="skill-card"><span class="dot"></span><span class="name">jQuery</span></article>
+      <article class="skill-card"><span class="dot"></span><span class="name">HTML 5</span></article>
+      <article class="skill-card"><span class="dot"></span><span class="name">CSS</span></article>
+      <article class="skill-card"><span class="dot"></span><span class="name">SCSS</span></article>
+      <article class="skill-card"><span class="dot"></span><span class="name">OWL JS</span></article>
+      <article class="skill-card"><span class="dot"></span><span class="name">Bootstrap</span></article>
+      <article class="skill-card"><span class="dot"></span><span class="name">SQL</span></article>
+      <article class="skill-card"><span class="dot"></span><span class="name">Kali Linux</span></article>
+      <article class="skill-card"><span class="dot"></span><span class="name">Problem Solving</span></article>
+      <article class="skill-card"><span class="dot"></span><span class="name">AI</span></article>
+      <article class="skill-card"><span class="dot"></span><span class="name">AI Integration</span></article>
+      <article class="skill-card"><span class="dot"></span><span class="name">PostgreSQL</span></article>
+      <article class="skill-card"><span class="dot"></span><span class="name">Designing</span></article>
+      <article class="skill-card"><span class="dot"></span><span class="name">Debugging</span></article>
+      <article class="skill-card"><span class="dot"></span><span class="name">Business Process</span></article>
+      <article class="skill-card"><span class="dot"></span><span class="name">Odoo Administrator</span></article>
+    </div>
+  </div>
+</div>
+
+<!-- ============== MESSAGES OVERLAY (single-file dedicated view) ============== -->
+<div class="projects-page messages-page" id="messagesPage" role="dialog" aria-modal="true" aria-label="Messages">
+  <div class="pp-bar">
+    <span class="brand">Asmar<span>.</span></span>
+    <button class="btn btn-ghost btn-back" id="closeMessages">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+      Back to portfolio
+    </button>
+  </div>
+  <div class="container">
+    <section class="pp-hero">
+      <span class="eyebrow">Inbox</span>
+      <h1><span class="ghost">Messages</span></h1>
+      <p>Submissions from the contact form land here. Records are stored locally in this browser and can be deleted at any time.</p>
+      <div class="count" id="messagesCount">0 messages</div>
+    </section>
+    <div class="msgs-grid" id="messagesGrid"></div>
+  </div>
+</div>
+
+<!-- ============== LOGIN OVERLAY ============== -->
+<div class="projects-page login-page" id="loginPage" role="dialog" aria-modal="true" aria-label="Sign in">
+  <div class="pp-bar">
+    <span class="brand">Asmar<span>.</span></span>
+    <button class="btn btn-ghost btn-back" id="closeLogin">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+      Back to portfolio
+    </button>
+  </div>
+  <div class="login-stage">
+    <div class="loginbox" id="loginbox">
+      <div class="lb-diagonal"></div>
+      <div class="lb-diagonal-edge"></div>
+
+      <!-- LOGIN -->
+      <form class="form-box Login" id="lbLoginForm" novalidate>
+        <h2 class="animation" style="--i:0">Login</h2>
+        <div class="input-box animation" style="--i:1">
+          <input type="text" id="lbLoginUser" required autocomplete="username">
+          <label>Username</label>
+          <svg class="icon" viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5Zm0 2c-4 0-8 2-8 5v1h16v-1c0-3-4-5-8-5Z"/></svg>
+        </div>
+        <div class="input-box animation" style="--i:2">
+          <input type="password" id="lbLoginPass" required autocomplete="current-password">
+          <label>Password</label>
+          <svg class="icon" viewBox="0 0 24 24"><path d="M17 9V7a5 5 0 0 0-10 0v2H5v12h14V9Zm-8 0V7a3 3 0 0 1 6 0v2Z"/></svg>
+        </div>
+        <div class="input-box btn-box animation" style="--i:3">
+          <button class="lb-btn" type="submit">Login</button>
+        </div>
+        <div class="regi-link animation" style="--i:4">
+          <p>Don&apos;t have an account? <br><a href="#" class="lb-signup-link">Sign Up</a></p>
+        </div>
+        <div class="lb-note" id="lbLoginNote"></div>
+      </form>
+
+      <div class="info-content Login">
+        <h2 class="animation" style="--i:0">WELCOME<br>BACK!</h2>
+        <p class="animation" style="--i:1">We are happy to have you with us again. If you need anything, we are here to help.</p>
+      </div>
+
+      <!-- REGISTER -->
+      <form class="form-box Register" id="lbSignupForm" novalidate>
+        <h2 class="animation" style="--i:0">Register</h2>
+        <div class="input-box animation" style="--i:1">
+          <input type="text" id="lbSignupUser" required autocomplete="username">
+          <label>Username</label>
+          <svg class="icon" viewBox="0 0 24 24"><path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5Zm0 2c-4 0-8 2-8 5v1h16v-1c0-3-4-5-8-5Z"/></svg>
+        </div>
+        <div class="input-box animation" style="--i:2">
+          <input type="email" id="lbSignupEmail" required pattern="[^@\s]+@[^@\s]+\.[^@\s]{2,}" autocomplete="email">
+          <label>Email</label>
+          <svg class="icon" viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4-8 5-8-5V6l8 5 8-5Z"/></svg>
+        </div>
+        <div class="input-box animation" style="--i:3">
+          <input type="password" id="lbSignupPass" required autocomplete="new-password">
+          <label>Password</label>
+          <svg class="icon" viewBox="0 0 24 24"><path d="M17 9V7a5 5 0 0 0-10 0v2H5v12h14V9Zm-8 0V7a3 3 0 0 1 6 0v2Z"/></svg>
+        </div>
+        <div class="input-box btn-box animation" style="--i:4">
+          <button class="lb-btn" type="submit">Register</button>
+        </div>
+        <div class="regi-link animation" style="--i:5">
+          <p>Already have an account? <br><a href="#" class="lb-signin-link">Sign In</a></p>
+        </div>
+        <div class="lb-note" id="lbSignupNote"></div>
+      </form>
+
+      <div class="info-content Register">
+        <h2 class="animation" style="--i:0">WELCOME!</h2>
+        <p class="animation" style="--i:1">We&apos;re delighted to have you here. If you need any assistance, feel free to reach out.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============== HIRE-ME MODAL ============== -->
+<div class="hire-modal" id="hireModal" role="dialog" aria-modal="true" aria-label="Hire me — get in touch">
+  <div class="hire-modal-backdrop" id="hireModalBackdrop"></div>
+  <div class="hire-modal-card">
+    <button class="hire-modal-close" id="hireModalClose" aria-label="Close">&times;</button>
+    <div class="hire-modal-head">
+      <span class="eyebrow">Hire me</span>
+      <h3>Let's work together</h3>
+      <p>Tell me about the role or project and I'll get back to you soon.</p>
+    </div>
+    <form class="form" id="hireForm">
+      <div class="field">
+        <label for="hire-name">Your name <span class="req">*</span></label>
+        <input type="text" id="hire-name" placeholder="John Doe" required>
+      </div>
+      <div class="field">
+        <label for="hire-email">Your email <span class="req">*</span></label>
+        <input type="email" id="hire-email" placeholder="john@example.com" required pattern="[^@\s]+@[^@\s]+\.[^@\s]{2,}" title="Please enter a complete email like name@example.com">
+      </div>
+      <div class="field">
+        <label for="hire-subject">Subject</label>
+        <input type="text" id="hire-subject" placeholder="Role / project enquiry">
+      </div>
+      <div class="field">
+        <label for="hire-message">Message <span class="req">*</span></label>
+        <textarea id="hire-message" placeholder="Tell me about the role or project..." required></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Send message
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+      </button>
+      <div class="form-note" id="hireFormNote"></div>
+    </form>
+  </div>
+</div>
+
+<div class="success-backdrop" id="successBackdrop" aria-hidden="true"></div>
+<div class="success-toast" id="successToast" role="status" aria-live="polite">
+  <div class="success-icon">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg>
+  </div>
+  <div class="success-text">
+    <strong>Message sent!</strong>
+    <span>Check the bell to view it.</span>
+  </div>
+</div>
+
 <footer>
   <div class="container foot-inner">
     <div>
@@ -1431,6 +1821,349 @@ body.pp-lock{overflow:hidden}
   });
   if(location.hash === '#certifications'){ openCerts(false); }
 
+  /* ---- All-skills overlay (dedicated view in a single file) ---- */
+  var sp = document.getElementById('skillsPage');
+  var sGrid = document.getElementById('allSkillsGrid');
+  function revealSkills(){
+    var cards = sGrid.querySelectorAll('.skill-card');
+    cards.forEach(function(c){ c.classList.remove('show'); });
+    cards.forEach(function(c,i){
+      var delay = ppReduce ? 0 : 40 + Math.min(i,18)*28;
+      setTimeout(function(){ c.classList.add('show'); }, delay);
+    });
+  }
+  function openSkills(push){
+    sp.classList.add('open'); document.body.classList.add('pp-lock'); sp.scrollTop = 0; revealSkills();
+    if(push !== false && location.hash !== '#allskills'){ history.pushState(null, '', '#allskills'); }
+  }
+  function closeSkills(useBack){
+    sp.classList.remove('open'); document.body.classList.remove('pp-lock');
+    if(useBack !== false && location.hash === '#allskills'){ history.back(); }
+  }
+  document.querySelectorAll('.js-open-skills').forEach(function(b){
+    b.addEventListener('click', function(e){ e.preventDefault(); openSkills(); });
+  });
+  document.getElementById('closeSkills').addEventListener('click', function(e){ e.preventDefault(); closeSkills(); });
+  window.addEventListener('popstate', function(){
+    if(location.hash === '#allskills'){ openSkills(false); } else { closeSkills(false); }
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && sp.classList.contains('open')){ closeSkills(); }
+  });
+  if(location.hash === '#allskills'){ openSkills(false); }
+
+  /* ---- Messages inbox (localStorage) ---- */
+  var MSG_KEY = 'asmar_portfolio_messages';
+  function loadMessages(){
+    try {
+      var raw = localStorage.getItem(MSG_KEY);
+      if(!raw) return [];
+      var arr = JSON.parse(raw);
+      return Array.isArray(arr) ? arr : [];
+    } catch(e){ return []; }
+  }
+  function saveMessages(arr){
+    try { localStorage.setItem(MSG_KEY, JSON.stringify(arr)); } catch(e){}
+  }
+  function unreadCount(){
+    return loadMessages().filter(function(m){ return !m.read; }).length;
+  }
+  function updateBell(){
+    var badge = document.getElementById('bellBadge');
+    if(!badge) return;
+    var n = unreadCount();
+    badge.textContent = n > 99 ? '99+' : String(n);
+    badge.classList.toggle('hide', n === 0);
+  }
+  function addMessage(name, email, subject, message, type){
+    var arr = loadMessages();
+    arr.unshift({
+      id: Date.now().toString(36) + Math.random().toString(36).slice(2,7),
+      name: name, email: email, subject: subject, message: message,
+      timestamp: Date.now(), read: false,
+      type: type || null
+    });
+    saveMessages(arr);
+    updateBell();
+  }
+  function formatTime(ts){
+    var d = new Date(ts), now = new Date(), diff = now - d;
+    var min = Math.floor(diff/60000);
+    if(min < 1) return 'just now';
+    if(min < 60) return min + 'm ago';
+    var hr = Math.floor(min/60);
+    if(hr < 24) return hr + 'h ago';
+    var day = Math.floor(hr/24);
+    if(day < 7) return day + 'd ago';
+    return d.toLocaleDateString();
+  }
+  function renderMessages(){
+    var arr = loadMessages();
+    var grid = document.getElementById('messagesGrid');
+    var counter = document.getElementById('messagesCount');
+    counter.textContent = arr.length + (arr.length === 1 ? ' message' : ' messages');
+    while(grid.firstChild) grid.removeChild(grid.firstChild);
+    if(arr.length === 0){
+      var empty = document.createElement('div');
+      empty.className = 'msg-empty';
+      var eh = document.createElement('h4'); eh.textContent = 'No messages yet.'; empty.appendChild(eh);
+      var ep = document.createElement('p'); ep.textContent = 'Submissions from the contact form will appear here.'; empty.appendChild(ep);
+      grid.appendChild(empty);
+      return;
+    }
+    arr.forEach(function(m){
+      var card = document.createElement('article');
+      card.className = 'msg-card' + (m.read ? '' : ' unread');
+      card.dataset.id = m.id;
+      var head = document.createElement('div'); head.className = 'msg-head';
+      var from = document.createElement('div'); from.className = 'msg-from';
+      if(!m.read){ var dot = document.createElement('span'); dot.className = 'msg-dot'; from.appendChild(dot); }
+      var nm = document.createElement('b'); nm.textContent = m.name; from.appendChild(nm);
+      if(m.type === 'hire'){
+        var badge = document.createElement('span');
+        badge.className = 'msg-badge hire';
+        badge.textContent = 'Hiring Manager';
+        from.appendChild(badge);
+      }
+      from.appendChild(document.createTextNode(' · '));
+      var em = document.createElement('span'); em.className = 'msg-email'; em.textContent = m.email; from.appendChild(em);
+      head.appendChild(from);
+      var time = document.createElement('span'); time.className = 'msg-time'; time.textContent = formatTime(m.timestamp); head.appendChild(time);
+      var del = document.createElement('button'); del.className = 'msg-del'; del.dataset.id = m.id; del.setAttribute('aria-label','Delete message'); del.textContent = '\u00d7';
+      head.appendChild(del);
+      card.appendChild(head);
+      if(m.subject){
+        var subj = document.createElement('div'); subj.className = 'msg-subject'; subj.textContent = m.subject; card.appendChild(subj);
+      }
+      var body = document.createElement('p'); body.className = 'msg-body'; body.textContent = m.message; card.appendChild(body);
+      grid.appendChild(card);
+    });
+  }
+  var mp = document.getElementById('messagesPage');
+  function openMessages(push){
+    var arr = loadMessages();
+    var changed = false;
+    arr.forEach(function(m){ if(!m.read){ m.read = true; changed = true; } });
+    if(changed) saveMessages(arr);
+    renderMessages();
+    setTimeout(updateBell, 250);
+    mp.classList.add('open');
+    document.body.classList.add('pp-lock');
+    mp.scrollTop = 0;
+    if(push !== false && location.hash !== '#messages'){ history.pushState(null, '', '#messages'); }
+  }
+  function closeMessages(useBack){
+    try { sessionStorage.removeItem('asmar_portfolio_auth'); } catch(e){}
+    mp.classList.remove('open');
+    document.body.classList.remove('pp-lock');
+    if(useBack !== false && location.hash === '#messages'){ history.back(); }
+  }
+  /* ---- Auth gate (session-only) ---- */
+  var AUTH_KEY = 'asmar_portfolio_auth';
+  function isAuthed(){ try { return sessionStorage.getItem(AUTH_KEY) === '1'; } catch(e){ return false; } }
+  function setAuthed(v){ try { if(v) sessionStorage.setItem(AUTH_KEY,'1'); else sessionStorage.removeItem(AUTH_KEY); } catch(e){} }
+
+  var lp = document.getElementById('loginPage');
+  var loginbox = document.getElementById('loginbox');
+  var lbLoginForm = document.getElementById('lbLoginForm');
+  var lbSignupForm = document.getElementById('lbSignupForm');
+  var lbLoginNote = document.getElementById('lbLoginNote');
+  var lbSignupNote = document.getElementById('lbSignupNote');
+
+  /* registered users (in addition to the built-in asmar/asmar) */
+  /* Active credentials — Register replaces these (gated by authorized email) */
+  var CREDS_KEY = 'asmar_portfolio_active_creds';
+  var ALLOWED_EMAIL = 'asmarrahmant@gmail.com';
+  function loadActiveCreds(){
+    try {
+      var raw = localStorage.getItem(CREDS_KEY);
+      if(!raw) return null;
+      var c = JSON.parse(raw);
+      return (c && c.username && c.password) ? c : null;
+    } catch(e){ return null; }
+  }
+  function saveActiveCreds(username, password){
+    try { localStorage.setItem(CREDS_KEY, JSON.stringify({ username: username, password: password })); } catch(e){}
+  }
+  function credsOk(user, pass){
+    var active = loadActiveCreds();
+    if(active) return user === active.username && pass === active.password;
+    return user === 'asmar' && pass === 'asmar';
+  }
+
+  function lbScale(){
+    if(window.innerWidth <= 720){ loginbox.style.transform = 'none'; return; }
+    var avW = window.innerWidth - 60;
+    var avH = window.innerHeight - 150;
+    var s = Math.min(1, avW/760, avH/500);
+    loginbox.style.transform = 'scale(' + s + ')';
+  }
+  window.addEventListener('resize', lbScale);
+
+  function openLogin(push){
+    /* reset to Login side, clear inputs and notes */
+    loginbox.classList.remove('active');
+    loginbox.classList.remove('reverse');
+    lbLoginForm.reset();
+    lbSignupForm.reset();
+    if(lbLoginNote) lbLoginNote.textContent = '';
+    if(lbSignupNote) lbSignupNote.textContent = '';
+    lp.classList.add('open');
+    document.body.classList.add('pp-lock');
+    lp.scrollTop = 0;
+    lbScale();
+    setTimeout(function(){ var f = document.getElementById('lbLoginUser'); if(f) f.focus(); }, 350);
+    if(push !== false && location.hash !== '#login'){ history.pushState(null, '', '#login'); }
+  }
+  function closeLogin(useBack){
+    lp.classList.remove('open');
+    document.body.classList.remove('pp-lock');
+    if(useBack !== false && location.hash === '#login'){ history.back(); }
+  }
+  document.getElementById('closeLogin').addEventListener('click', function(e){ e.preventDefault(); closeLogin(); });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && lp.classList.contains('open')){ closeLogin(); }
+  });
+
+  /* switch between Login and Register */
+  loginbox.querySelector('.lb-signup-link').addEventListener('click', function(e){
+    e.preventDefault();
+    if(lbLoginNote) lbLoginNote.textContent = '';
+    loginbox.classList.remove('reverse');
+    loginbox.classList.add('active');
+    setTimeout(function(){ var f = document.getElementById('lbSignupUser'); if(f) f.focus(); }, 350);
+  });
+  loginbox.querySelector('.lb-signin-link').addEventListener('click', function(e){
+    e.preventDefault();
+    if(lbSignupNote) lbSignupNote.textContent = '';
+    loginbox.classList.remove('active');
+    loginbox.classList.add('reverse');
+    setTimeout(function(){ var f = document.getElementById('lbLoginUser'); if(f) f.focus(); }, 350);
+  });
+
+  /* Login submit */
+  lbLoginForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    var u = document.getElementById('lbLoginUser').value.trim();
+    var p = document.getElementById('lbLoginPass').value;
+    if(!u || !p){ lbLoginNote.textContent = 'Please enter your username and password.'; return; }
+    if(credsOk(u, p)){
+      setAuthed(true);
+      lbLoginForm.reset();
+      closeLogin(false);
+      history.replaceState(null, '', '#messages');
+      openMessages(false);
+    } else {
+      lbLoginNote.textContent = 'Invalid username or password.';
+    }
+  });
+
+  /* Signup submit */
+  lbSignupForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    var u = document.getElementById('lbSignupUser').value.trim();
+    var em = document.getElementById('lbSignupEmail').value.trim();
+    var p = document.getElementById('lbSignupPass').value;
+    if(!u || !em || !p){ lbSignupNote.textContent = 'Please fill in all fields.'; return; }
+    if(u.length < 3){ lbSignupNote.textContent = 'Username must be at least 3 characters.'; return; }
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(em)){ lbSignupNote.textContent = 'Please enter a complete email.'; return; }
+    if(em.toLowerCase() !== ALLOWED_EMAIL){
+      lbSignupNote.textContent = 'This email is not authorized to change credentials.';
+      return;
+    }
+    if(p.length < 4){ lbSignupNote.textContent = 'Password must be at least 4 characters.'; return; }
+    saveActiveCreds(u, p);
+    setAuthed(true);
+    lbSignupForm.reset();
+    closeLogin(false);
+    history.replaceState(null, '', '#messages');
+    openMessages(false);
+  });
+
+  document.querySelectorAll('.js-open-messages').forEach(function(b){
+    b.addEventListener('click', function(e){
+      e.preventDefault();
+      setAuthed(false);
+      openLogin();
+    });
+  });
+  document.getElementById('closeMessages').addEventListener('click', function(e){ e.preventDefault(); closeMessages(); });
+  window.addEventListener('popstate', function(){
+    if(location.hash === '#login'){ openLogin(false); }
+    else if(location.hash === '#messages'){
+      if(isAuthed()) openMessages(false);
+      else { closeMessages(false); history.replaceState(null,'','#login'); openLogin(false); }
+    } else { closeMessages(false); closeLogin(false); }
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && mp.classList.contains('open')){ closeMessages(); }
+  });
+  document.getElementById('messagesGrid').addEventListener('click', function(e){
+    var btn = e.target.closest('.msg-del'); if(!btn) return;
+    var id = btn.dataset.id;
+    var card = btn.closest('.msg-card');
+    if(card) card.classList.add('removing');
+    setTimeout(function(){
+      var arr = loadMessages().filter(function(m){ return m.id !== id; });
+      saveMessages(arr);
+      renderMessages();
+      updateBell();
+    }, 280);
+  });
+  updateBell();
+  if(location.hash === '#login'){ openLogin(false); }
+  else if(location.hash === '#messages'){
+    if(isAuthed()) openMessages(false);
+    else { history.replaceState(null,'','#login'); openLogin(false); }
+  }
+
+  /* ---- Hire-me modal ---- */
+  var hireModal = document.getElementById('hireModal');
+  var hireForm = document.getElementById('hireForm');
+  var hireNote = document.getElementById('hireFormNote');
+  function openHireModal(){
+    hireModal.classList.add('open');
+    document.body.classList.add('pp-lock');
+    setTimeout(function(){
+      var f = document.getElementById('hire-name');
+      if(f) f.focus();
+    }, 350);
+  }
+  function closeHireModal(){
+    hireModal.classList.remove('open');
+    document.body.classList.remove('pp-lock');
+    if(hireNote) hireNote.textContent = '';
+  }
+  document.querySelectorAll('.js-open-hire').forEach(function(b){
+    b.addEventListener('click', function(e){ e.preventDefault(); openHireModal(); });
+  });
+  document.getElementById('hireModalClose').addEventListener('click', closeHireModal);
+  document.getElementById('hireModalBackdrop').addEventListener('click', closeHireModal);
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape' && hireModal.classList.contains('open')){ closeHireModal(); }
+  });
+  hireForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    var name = document.getElementById('hire-name').value.trim();
+    var email = document.getElementById('hire-email').value.trim();
+    var subject = document.getElementById('hire-subject').value.trim();
+    var message = document.getElementById('hire-message').value.trim();
+    if(!name || !email || !message){
+      hireNote.style.color = '#ff6b6b';
+      hireNote.textContent = 'Please fill in your name, email and message.';
+      return;
+    }
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(email)){
+      hireNote.style.color = '#ff6b6b';
+      hireNote.textContent = 'Please enter a complete email like name@example.com.';
+      return;
+    }
+    addMessage(name, email, subject, message, 'hire');
+    hireForm.reset();
+    closeHireModal();
+    showSuccessToast();
+  });
+
   /* ---- Nav: scroll bg + active link ---- */
   var nav = document.getElementById('nav');
   var navLinks = document.querySelectorAll('.nav-links a');
@@ -1509,7 +2242,22 @@ body.pp-lock{overflow:hidden}
   /* ---- Contact form -> mailto ---- */
   var sendBtn = document.getElementById('sendBtn');
   var note = document.getElementById('formNote');
-  sendBtn.addEventListener('click', function(){
+  var contactForm = document.getElementById('contactForm');
+  var successToast = document.getElementById('successToast');
+  var successBackdrop = document.getElementById('successBackdrop');
+  var successTimer = null;
+  function showSuccessToast(){
+    successToast.classList.add('show');
+    successBackdrop.classList.add('show');
+    if(successTimer) clearTimeout(successTimer);
+    successTimer = setTimeout(function(){
+      successToast.classList.remove('show');
+      successBackdrop.classList.remove('show');
+      successTimer = null;
+    }, 2400);
+  }
+  contactForm.addEventListener('submit', function(e){
+    e.preventDefault();
     var name = document.getElementById('name').value.trim();
     var email = document.getElementById('email').value.trim();
     var subject = document.getElementById('subject').value.trim();
@@ -1519,11 +2267,15 @@ body.pp-lock{overflow:hidden}
       note.textContent = 'Please fill in your name, email and message.';
       return;
     }
-    note.style.color = 'var(--accent)';
-    note.textContent = 'Opening your email client…';
-    var body = encodeURIComponent('Name: '+name+'\nEmail: '+email+'\n\n'+message);
-    var subj = encodeURIComponent(subject || ('Portfolio enquiry from '+name));
-    window.location.href = 'mailto:asmarrahmant@gmail.com?subject='+subj+'&body='+body;
+    if(!/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(email)){
+      note.style.color = '#ff6b6b';
+      note.textContent = 'Please enter a complete email like name@example.com.';
+      return;
+    }
+    addMessage(name, email, subject, message);
+    note.textContent = '';
+    contactForm.reset();
+    showSuccessToast();
   });
 
   /* ---- Download CV (embedded PDF) ---- */
