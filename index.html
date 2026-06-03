@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Asmar Rahman</title>
+<title>Asmar Rahman — Odoo Developer</title>
 <meta name="description" content="Asmar Rahman — Odoo Developer specializing in customizing Odoo modules, integrating third-party applications, and automating business processes. Based in Kerala, India.">
 <meta name="keywords" content="Odoo Developer, Python Developer, ERP Solutions, Kerala, India, Freelance Odoo, Business Automation">
 
@@ -647,6 +647,77 @@ body.pp-lock{overflow:hidden}
 @media(max-width:880px){.admin-grid{grid-template-columns:1fr;gap:18px;margin:24px 0 60px}.admin-card{padding:24px}.admin-page .pp-bar-right{gap:6px}.admin-page .pp-bar #adminPageLogout{padding:10px 14px}}
 @media(max-width:540px){.admin-page .pp-bar .btn-back svg{display:none}.admin-card{padding:20px}}
 
+/* records page (Update Records overlay) */
+.records-page .pp-bar-right{display:flex;gap:10px;align-items:center}
+.admin-cta{display:inline-flex;align-items:center;gap:9px;margin-top:18px;padding:10px 18px;border:1px solid var(--accent);background:rgba(212,255,69,.06);color:var(--accent);font-family:var(--font-mono);font-size:.72rem;text-transform:uppercase;letter-spacing:.14em;border-radius:999px;cursor:pointer;transition:.25s;text-decoration:none}
+.admin-cta:hover{background:var(--accent);color:#0b0b0e;transform:translateY(-2px);box-shadow:0 10px 32px -10px var(--accent-glow)}
+.admin-cta svg{width:14px;height:14px}
+.records-section{margin:32px 0 14px;border:1px solid var(--line-strong);background:var(--bg-2);border-radius:18px;padding:30px}
+.records-section-head{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:20px;flex-wrap:wrap}
+.records-section-head h2{font-family:var(--font-display);font-size:1.5rem;font-weight:500;margin:6px 0 4px}
+.records-section-head .records-meta{color:var(--muted);font-size:.85rem}
+.records-add-btn{display:inline-flex;align-items:center;gap:7px;padding:9px 16px;background:var(--accent);color:#0b0b0e;border:0;border-radius:8px;font-family:var(--font-mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;cursor:pointer;transition:.25s;font-weight:700}
+.records-add-btn:hover{transform:translateY(-2px);box-shadow:0 8px 22px -6px var(--accent-glow)}
+.records-add-btn svg{width:14px;height:14px}
+.records-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.records-list.full{grid-template-columns:1fr}
+.record-item{display:flex;align-items:flex-start;gap:14px;padding:14px 16px;background:var(--bg-3);border:1px solid var(--line);border-radius:10px;transition:border-color .25s,transform .25s,opacity .2s;cursor:grab;user-select:none;position:relative}
+.record-item:hover{border-color:var(--accent)}
+.record-item:active{cursor:grabbing}
+.record-item.dragging{opacity:.35;cursor:grabbing}
+.record-item.drag-over-top::before,
+.record-item.drag-over-bottom::after{content:"";position:absolute;left:6px;right:6px;height:2px;background:var(--accent);border-radius:2px;box-shadow:0 0 8px var(--accent-glow);pointer-events:none}
+.record-item.drag-over-top::before{top:-5px}
+.record-item.drag-over-bottom::after{bottom:-5px}
+.record-grip{flex-shrink:0;color:var(--muted-2);display:inline-flex;align-items:center;font-size:.95rem;line-height:1;letter-spacing:-2px;transition:color .25s;padding-top:2px}
+.record-item:hover .record-grip{color:var(--accent)}
+.record-thumb{flex-shrink:0;width:60px;height:42px;border-radius:6px;overflow:hidden;background:linear-gradient(150deg,var(--bg-3),#0c0c0f);display:flex;align-items:center;justify-content:center;border:1px solid var(--line)}
+.record-thumb img{width:100%;height:100%;object-fit:cover}
+.record-thumb svg{width:18px;height:18px;color:var(--muted-2);opacity:.5}
+.record-body{flex:1;min-width:0}
+.record-title{font-family:var(--font-display);font-weight:500;font-size:.95rem;color:var(--text);overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.record-meta{font-family:var(--font-mono);font-size:.62rem;color:var(--muted-2);text-transform:uppercase;letter-spacing:.12em;margin-top:4px}
+.record-actions{display:flex;gap:6px;flex-shrink:0}
+.record-btn{width:30px;height:30px;border-radius:50%;border:1px solid var(--line-strong);background:transparent;color:var(--muted);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;transition:.25s}
+.record-btn:hover{color:var(--accent);border-color:var(--accent)}
+.record-btn.delete:hover{background:#ff4d4d;border-color:#ff4d4d;color:#fff}
+.record-btn svg{width:14px;height:14px}
+.records-empty{display:block;color:var(--muted-2);font-style:italic;font-size:.85rem;padding:18px 14px;text-align:center;border:1px dashed var(--line);border-radius:10px;grid-column:1/-1}
+
+/* record edit modal */
+.record-modal{position:fixed;inset:0;z-index:500;background:rgba(8,8,11,.85);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s}
+.record-modal.open{opacity:1;visibility:visible}
+.record-modal-inner{background:var(--bg-2);border:1px solid var(--line-strong);border-radius:18px;width:100%;max-width:640px;max-height:90vh;overflow:auto;padding:30px}
+.record-modal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px}
+.record-modal-head h3{font-family:var(--font-display);font-size:1.4rem;font-weight:500}
+.record-modal-close{width:34px;height:34px;border-radius:50%;border:1px solid var(--line-strong);background:transparent;color:var(--muted);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-size:1.3rem;line-height:1;transition:.25s}
+.record-modal-close:hover{color:var(--accent);border-color:var(--accent)}
+.record-form{display:flex;flex-direction:column;gap:16px}
+.record-field{display:flex;flex-direction:column;gap:6px}
+.record-field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.record-field label{font-family:var(--font-mono);font-size:.62rem;color:var(--muted-2);text-transform:uppercase;letter-spacing:.12em}
+.record-field input[type="text"],.record-field input[type="number"],.record-field textarea,.record-field select{width:100%;padding:11px 14px;background:var(--bg-3);border:1px solid var(--line-strong);border-radius:8px;color:var(--text);font-family:var(--font-body);font-size:.92rem;transition:.2s}
+.record-field input:focus,.record-field textarea:focus,.record-field select:focus{outline:none;border-color:var(--accent)}
+.record-field textarea{min-height:90px;resize:vertical;font-family:var(--font-body)}
+.record-field select{-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239a9a92' stroke-width='2'><path d='M6 9l6 6 6-6'/></svg>");background-repeat:no-repeat;background-position:right 12px center;background-size:14px;padding-right:34px;cursor:pointer}
+.record-field .help{font-size:.72rem;color:var(--muted-2);margin-top:2px}
+.record-image-field{display:flex;flex-direction:column;gap:10px}
+.record-image-preview{width:100%;max-width:300px;aspect-ratio:16/10;border-radius:10px;background:linear-gradient(150deg,var(--bg-3),#0c0c0f);border:1px dashed var(--line-strong);overflow:hidden;display:flex;align-items:center;justify-content:center;position:relative}
+.record-image-preview img{width:100%;height:100%;object-fit:cover}
+.record-image-preview .empty-icon{color:var(--muted-2);width:42px;height:42px;opacity:.4}
+.record-image-controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.record-image-controls input[type="file"]{display:none}
+.record-image-controls label.file-btn,.record-image-controls .remove-btn{padding:9px 14px;background:transparent;border:1px solid var(--line-strong);color:var(--text);border-radius:8px;cursor:pointer;font-family:var(--font-mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;transition:.25s}
+.record-image-controls label.file-btn:hover{border-color:var(--accent);color:var(--accent)}
+.record-image-controls .remove-btn:hover{border-color:#ff4d4d;color:#ff4d4d}
+.record-form-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:8px;padding-top:18px;border-top:1px solid var(--line)}
+.record-form-cancel{background:transparent;border:1px solid var(--line);color:var(--muted);font-family:var(--font-mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;padding:10px 18px;border-radius:8px;cursor:pointer;transition:.25s}
+.record-form-cancel:hover{border-color:var(--text);color:var(--text)}
+.record-form-save{background:var(--accent);border:0;color:#0b0b0e;font-family:var(--font-mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;padding:10px 22px;border-radius:8px;cursor:pointer;font-weight:700;transition:.25s}
+.record-form-save:hover{transform:translateY(-2px);box-shadow:0 8px 22px -6px var(--accent-glow)}
+.record-form-error{color:#ff4d4d;font-size:.85rem;padding:8px 0}
+@media(max-width:880px){.records-list{grid-template-columns:1fr}.records-section{padding:22px}.record-field-row{grid-template-columns:1fr}.record-modal-inner{padding:22px}}
+
 /* ============== RESPONSIVE ============== */
 @media(max-width:980px){
   .nav-links{display:none}
@@ -789,7 +860,7 @@ body.pp-lock{overflow:hidden}
       </div>
       <div class="about-copy reveal" data-rv="right">
         <h3>Building ERP solutions that just work.</h3>
-        <p>I turn complex business requirements into clean, maintainable Odoo modules from custom workflows and reports to robust third-party integrations. My focus is automation that removes friction and gives teams back their time.</p>
+        <p>I turn complex business requirements into clean, maintainable Odoo modules — from custom workflows and reports to robust third-party integrations. My focus is automation that removes friction and gives teams back their time.</p>
         <p>I'm currently open to freelance and full-time opportunities, and I love collaborating on ambitious ideas.</p>
         <div class="k" style="font-family:var(--font-mono);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted-2);margin-bottom:4px">Languages</div>
         <div class="lang-tags">
@@ -844,7 +915,7 @@ body.pp-lock{overflow:hidden}
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="7" width="18" height="14" rx="2"/><path d="M8 7V5a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
           Experience
         </h3>
-        <div class="tl">
+        <div class="tl" id="tlExperience">
           <div class="tl-item">
             <div class="when">Mar 2026 – Present <span class="mode">On-site</span> <span class="mode">UAE</span></div>
             <div class="role">Odoo System Administrator</div>
@@ -1831,9 +1902,13 @@ body.pp-lock{overflow:hidden}
   </div>
   <div class="container">
     <section class="pp-hero">
-      <span class="eyebrow">Admin / CMS</span>
+      <span class="eyebrow">Admin / CMS &middot; v3.4</span>
       <h1>Manage <span class="ghost">your work</span></h1>
       <p>Curate which projects appear in <strong>Selected work</strong> and <strong>Recent works</strong> on the homepage. Pick from the All&nbsp;Projects pool, drag rows to reorder, and × to remove. Changes save automatically and reflect immediately.</p>
+      <button class="admin-cta" id="openRecordsBtn" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 113 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        Record Update
+      </button>
     </section>
     <div class="admin-grid">
       <div class="admin-card">
@@ -1866,7 +1941,138 @@ body.pp-lock{overflow:hidden}
         </div>
         <button class="admin-reset" id="adminResetRecent" type="button">Reset to default</button>
       </div>
+      <div class="admin-card">
+        <div class="admin-card-head">
+          <span class="eyebrow">Section 03</span>
+          <h2>Tech expertise</h2>
+          <p class="admin-sub">Skills shown with proficiency bars on the homepage.</p>
+        </div>
+        <div class="admin-list" id="adminSkillsList"></div>
+        <div class="admin-add">
+          <label for="adminSkillsAdd" class="admin-add-label">Add a skill from All Skills</label>
+          <select id="adminSkillsAdd" class="admin-select">
+            <option value="">Select a skill to add&hellip;</option>
+          </select>
+        </div>
+        <button class="admin-reset" id="adminResetSkills" type="button">Reset to default</button>
+      </div>
+      <div class="admin-card">
+        <div class="admin-card-head">
+          <span class="eyebrow">Section 04</span>
+          <h2>Licenses &amp; certifications</h2>
+          <p class="admin-sub">Featured 6 cards in the credentials section.</p>
+        </div>
+        <div class="admin-list" id="adminCertsList"></div>
+        <div class="admin-add">
+          <label for="adminCertsAdd" class="admin-add-label">Add a certification</label>
+          <select id="adminCertsAdd" class="admin-select">
+            <option value="">Select a certification to add&hellip;</option>
+          </select>
+        </div>
+        <button class="admin-reset" id="adminResetCerts" type="button">Reset to default</button>
+      </div>
     </div>
+  </div>
+</div>
+
+<!-- ============== UPDATE RECORDS OVERLAY ============== -->
+<div class="projects-page records-page" id="recordsPage" role="dialog" aria-modal="true" aria-label="Update records">
+  <div class="pp-bar">
+    <span class="brand">Asmar<span>.</span></span>
+    <div class="pp-bar-right">
+      <button class="btn btn-ghost btn-back" id="closeRecords">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+        Back to admin
+      </button>
+    </div>
+  </div>
+  <div class="container">
+    <section class="pp-hero">
+      <span class="eyebrow">Admin / CMS &middot; Records</span>
+      <h1>Update <span class="ghost">records</span></h1>
+      <p>Edit the underlying content of the portfolio. Add, edit, or remove items from each section. Project entries support custom image uploads &mdash; uploaded images appear in <strong>Recent works</strong> on the homepage when the project is featured.</p>
+    </section>
+
+    <div class="records-section" data-kind="skills">
+      <div class="records-section-head">
+        <div>
+          <h2>All skills</h2>
+          <span class="records-meta" id="metaSkills">0 skills</span>
+        </div>
+        <button class="records-add-btn" data-add="skills" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+          Add new
+        </button>
+      </div>
+      <div class="records-list" id="recordsSkills"></div>
+    </div>
+
+    <div class="records-section" data-kind="experience">
+      <div class="records-section-head">
+        <div>
+          <h2>Experience</h2>
+          <span class="records-meta" id="metaExperience">0 entries</span>
+        </div>
+        <button class="records-add-btn" data-add="experience" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+          Add new
+        </button>
+      </div>
+      <div class="records-list full" id="recordsExperience"></div>
+    </div>
+
+    <div class="records-section" data-kind="projects">
+      <div class="records-section-head">
+        <div>
+          <h2>All projects</h2>
+          <span class="records-meta" id="metaProjects">0 projects</span>
+        </div>
+        <button class="records-add-btn" data-add="projects" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+          Add new
+        </button>
+      </div>
+      <div class="records-list full" id="recordsProjects"></div>
+    </div>
+
+    <div class="records-section" data-kind="awards">
+      <div class="records-section-head">
+        <div>
+          <h2>Awards &amp; honors</h2>
+          <span class="records-meta" id="metaAwards">0 awards</span>
+        </div>
+        <button class="records-add-btn" data-add="awards" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+          Add new
+        </button>
+      </div>
+      <div class="records-list full" id="recordsAwards"></div>
+    </div>
+
+    <div class="records-section" data-kind="certs">
+      <div class="records-section-head">
+        <div>
+          <h2>Licenses &amp; certifications</h2>
+          <span class="records-meta" id="metaCerts">0 certs</span>
+        </div>
+        <button class="records-add-btn" data-add="certs" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
+          Add new
+        </button>
+      </div>
+      <div class="records-list" id="recordsCerts"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============== RECORD EDIT MODAL ============== -->
+<div class="record-modal" id="recordModal" role="dialog" aria-modal="true" aria-hidden="true">
+  <div class="record-modal-inner">
+    <div class="record-modal-head">
+      <h3 id="recordModalTitle">Edit record</h3>
+      <button class="record-modal-close" id="recordModalClose" type="button" aria-label="Close">&times;</button>
+    </div>
+    <form class="record-form" id="recordForm" novalidate></form>
   </div>
 </div>
 
@@ -2440,8 +2646,63 @@ body.pp-lock{overflow:hidden}
   var DEFAULT_RECENT = ['Talking Avatar','Digi Era','Application Tracking','Tailoring Management','News And Complaint','QuickBooks Online Connector']
     .map(findIdBySub).filter(Boolean);
 
-  /* Stash existing Recent works images so we can cycle them through any selection */
+  /* Skills pool from #allSkillsGrid */
+  var SKILL_POOL = Array.prototype.map.call(document.querySelectorAll('#allSkillsGrid .skill-card'), function(card){
+    var nameEl = card.querySelector('.name');
+    var name = nameEl ? nameEl.textContent.trim() : '';
+    return { id: slugify(name), name: name };
+  });
+  /* Predefined proficiency percentages for each skill (id → pct) */
+  var SKILL_PCT = {
+    'odoo':95,'python':95,'javascript':85,'xml':88,'rpc':88,
+    'ubuntu':80,'django':82,'api-integration':92,'ajax':85,'git':90,
+    'jquery':78,'html-5':92,'css':90,'scss':85,'owl-js':85,
+    'bootstrap':82,'sql':85,'kali-linux':75,'problem-solving':92,
+    'ai':88,'ai-integration':95,'postgresql':82,'designing':80,
+    'debugging':92,'business-process':87,'odoo-administrator':88
+  };
+  function getSkillPct(id){ return SKILL_PCT[id] != null ? SKILL_PCT[id] : 80; }
+
+  var DEFAULT_SKILLS = ['Odoo','Python','JavaScript','XML','PostgreSQL','AI Integration','API Integration','Business Process']
+    .map(function(n){
+      var found = SKILL_POOL.filter(function(s){ return s.name.toLowerCase() === n.toLowerCase(); })[0];
+      return found ? found.id : null;
+    }).filter(Boolean);
+
+  /* Certifications pool from #certGrid */
+  var CERT_POOL = Array.prototype.map.call(document.querySelectorAll('#certGrid .cert'), function(card){
+    var titleEl = card.querySelector('h4');
+    var issuerEl = card.querySelector('.issuer');
+    var dateEl = card.querySelector('.date');
+    var title = titleEl ? titleEl.textContent.trim() : '';
+    return {
+      id: slugify(title),
+      title: title,
+      issuer: issuerEl ? issuerEl.textContent.trim() : '',
+      date: dateEl ? dateEl.textContent.trim() : ''
+    };
+  });
+  function findCertIdBySub(needle){
+    var n = (needle||'').toLowerCase();
+    var hit = CERT_POOL.filter(function(c){ return c.title.toLowerCase().indexOf(n) !== -1; })[0];
+    return hit ? hit.id : null;
+  }
+  var DEFAULT_CERTS = ['Python Certification','White Hat Hacker','Google Analytics','Penetration Tester','Python Full Stack','Team Essentials']
+    .map(findCertIdBySub).filter(Boolean);
+
+  /* Stash existing Recent works images, then key each one to its default project ID so the image follows the project (not the slot) when reordered. Projects added later get a deterministic image from the pool based on their ID. */
   var WORK_IMAGES = Array.prototype.map.call(document.querySelectorAll('#worksGrid .work-img'), function(img){ return img.src; });
+  var WORK_IMAGE_BY_ID = {};
+  for(var __wi = 0; __wi < DEFAULT_RECENT.length; __wi++){
+    if(WORK_IMAGES[__wi]) WORK_IMAGE_BY_ID[DEFAULT_RECENT[__wi]] = WORK_IMAGES[__wi];
+  }
+  function getImageForId(id){
+    // Mapped image for default Recent works projects; empty string otherwise (renders as empty placeholder)
+    return WORK_IMAGE_BY_ID[id] || '';
+  }
+  try {
+    console.log('[Asmar Portfolio] Admin CMS v3.4 loaded (drag-reorder in Update Records). Sections:', ['selected','recent','skills','certs'], '| Pools — projects:', PROJECT_POOL.length, 'skills:', SKILL_POOL.length, 'certs:', CERT_POOL.length);
+  } catch(e) {}
 
   var FEATURED_KEY = 'asmar_portfolio_featured_v1';
   function loadFeatured(){
@@ -2458,14 +2719,24 @@ body.pp-lock{overflow:hidden}
   }
   function getSelections(){
     var s = loadFeatured();
+    var validProj = PROJECT_POOL.map(function(p){ return p.id; });
+    var validSkill = SKILL_POOL.map(function(p){ return p.id; });
+    var validCert = CERT_POOL.map(function(p){ return p.id; });
+    function clean(arr, valid){ return (arr||[]).filter(function(id){ return valid.indexOf(id) !== -1; }); }
     if(s){
-      var validIds = PROJECT_POOL.map(function(p){ return p.id; });
       return {
-        selected: s.selected.filter(function(id){ return validIds.indexOf(id) !== -1; }),
-        recent: s.recent.filter(function(id){ return validIds.indexOf(id) !== -1; })
+        selected: Array.isArray(s.selected) ? clean(s.selected, validProj) : DEFAULT_SELECTED.slice(),
+        recent:   Array.isArray(s.recent)   ? clean(s.recent, validProj)   : DEFAULT_RECENT.slice(),
+        skills:   Array.isArray(s.skills)   ? clean(s.skills, validSkill)  : DEFAULT_SKILLS.slice(),
+        certs:    Array.isArray(s.certs)    ? clean(s.certs, validCert)    : DEFAULT_CERTS.slice()
       };
     }
-    return { selected: DEFAULT_SELECTED.slice(), recent: DEFAULT_RECENT.slice() };
+    return {
+      selected: DEFAULT_SELECTED.slice(),
+      recent: DEFAULT_RECENT.slice(),
+      skills: DEFAULT_SKILLS.slice(),
+      certs: DEFAULT_CERTS.slice()
+    };
   }
 
   function renderSelectedWork(){
@@ -2479,7 +2750,7 @@ body.pp-lock{overflow:hidden}
       var built = p.builtWith.slice(0,5).map(function(t){ return '<span>'+escHtml(t)+'</span>'; }).join('');
       if(p.builtWith.length > 5){ built += '<span class="more">+'+(p.builtWith.length-5)+' more</span>'; }
       var role = p.roles[0] || 'Project Lead';
-      return '<article class="proj-card reveal">'+
+      return '<article class="proj-card reveal in">'+
         '<div class="proj-top"><span class="proj-when">'+escHtml(p.subtitle)+'</span><span class="proj-num">'+num+'</span></div>'+
         '<h3>'+escHtml(p.title)+'</h3>'+
         '<p>'+escHtml(p.desc)+'</p>'+
@@ -2497,11 +2768,14 @@ body.pp-lock{overflow:hidden}
     var html = ids.map(function(id, i){
       var p = PROJECT_POOL.filter(function(x){ return x.id === id; })[0];
       if(!p) return '';
-      var img = WORK_IMAGES[i % WORK_IMAGES.length] || '';
+      var img = getImageForId(id);
       var desc = p.desc;
       if(desc.length > 140){ desc = desc.slice(0,137).replace(/\s+\S*$/,'') + '…'; }
+      var thumbInner = img
+        ? '<img class="work-img" alt="'+escHtml(p.title)+'" src="'+img+'">'
+        : '<div class="pattern"></div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M21 16l-4-4-10 8"/></svg>';
       return '<article class="work" data-cat="'+escHtml(p.cat)+'">'+
-        '<div class="work-thumb"><img class="work-img" alt="'+escHtml(p.title)+'" src="'+img+'"><span class="cat">'+escHtml(badgeLabel(p.cat))+'</span></div>'+
+        '<div class="work-thumb">'+thumbInner+'<span class="cat">'+escHtml(badgeLabel(p.cat))+'</span></div>'+
         '<div class="work-body"><h4>'+escHtml(p.title)+'</h4><p>'+escHtml(desc)+'</p></div>'+
       '</article>';
     }).join('');
@@ -2516,13 +2790,59 @@ body.pp-lock{overflow:hidden}
     }
   }
 
+  function renderTechSkills(){
+    var grid = document.getElementById('skills');
+    if(!grid) return;
+    var ids = getSelections().skills;
+    var html = ids.map(function(id){
+      var s = SKILL_POOL.filter(function(x){ return x.id === id; })[0];
+      if(!s) return '';
+      var pct = getSkillPct(id);
+      return '<div class="skill"><div class="skill-top"><span class="name">'+escHtml(s.name)+'</span><span class="pct">'+pct+'%</span></div><div class="bar"><i data-pct="'+pct+'"></i></div></div>';
+    }).join('');
+    grid.innerHTML = html;
+    // Trigger bar fill on next frame so CSS transition runs
+    requestAnimationFrame(function(){
+      Array.prototype.forEach.call(grid.querySelectorAll('i[data-pct]'), function(bar){
+        bar.style.width = bar.dataset.pct + '%';
+      });
+    });
+  }
+
+  function renderCerts(){
+    var grid = document.querySelector('#certs .certs-grid');
+    if(!grid) return;
+    var ids = getSelections().certs;
+    var sealSvg = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="8" r="5"/><path d="M8.5 12.6L7 22l5-3 5 3-1.5-9.4"/></svg>';
+    var html = ids.map(function(id){
+      var c = CERT_POOL.filter(function(x){ return x.id === id; })[0];
+      if(!c) return '';
+      return '<article class="cert reveal in">'+
+        '<span class="seal">'+sealSvg+'</span>'+
+        '<div class="ctext"><h4>'+escHtml(c.title)+'</h4><div class="issuer">'+escHtml(c.issuer)+'</div><span class="date">'+escHtml(c.date)+'</span></div>'+
+      '</article>';
+    }).join('');
+    grid.innerHTML = html;
+  }
+
+  function renderAllHomepage(){
+    renderSelectedWork();
+    renderRecentWorks();
+    renderTechSkills();
+    renderCerts();
+  }
+
   /* Render admin UI */
   function renderAdminPanel(){
     var sel = getSelections();
     renderAdminList('adminSelectedList', sel.selected, 'selected');
     renderAdminList('adminRecentList', sel.recent, 'recent');
-    populateAddDropdown('adminSelectedAdd', sel.selected);
-    populateAddDropdown('adminRecentAdd', sel.recent);
+    renderAdminList('adminSkillsList', sel.skills, 'skills');
+    renderAdminList('adminCertsList', sel.certs, 'certs');
+    populateAddDropdown('adminSelectedAdd', sel.selected, 'selected');
+    populateAddDropdown('adminRecentAdd', sel.recent, 'recent');
+    populateAddDropdown('adminSkillsAdd', sel.skills, 'skills');
+    populateAddDropdown('adminCertsAdd', sel.certs, 'certs');
   }
   function renderAdminList(containerId, ids, kind){
     var container = document.getElementById(containerId);
@@ -2531,20 +2851,37 @@ body.pp-lock{overflow:hidden}
     if(ids.length === 0){
       var empty = document.createElement('div');
       empty.className = 'admin-empty';
-      empty.textContent = 'No projects in this section yet — add one below.';
+      empty.textContent = 'No items in this section yet — add one below.';
       container.appendChild(empty);
       return;
     }
     ids.forEach(function(id, i){
-      var p = PROJECT_POOL.filter(function(x){ return x.id === id; })[0];
-      if(!p) return;
+      var title = '', meta = '';
+      if(kind === 'selected' || kind === 'recent'){
+        var p = PROJECT_POOL.filter(function(x){ return x.id === id; })[0];
+        if(!p) return;
+        title = p.title;
+        meta = badgeLabel(p.cat);
+      } else if(kind === 'skills'){
+        var sk = SKILL_POOL.filter(function(x){ return x.id === id; })[0];
+        if(!sk) return;
+        title = sk.name;
+        meta = getSkillPct(id) + '% proficiency';
+      } else if(kind === 'certs'){
+        var ct = CERT_POOL.filter(function(x){ return x.id === id; })[0];
+        if(!ct) return;
+        title = ct.title;
+        meta = ct.issuer || ct.date || '';
+      } else {
+        return;
+      }
       var item = document.createElement('div');
       item.className = 'admin-item';
       item.dataset.id = id;
       var num = String(i+1).length < 2 ? '0'+(i+1) : String(i+1);
       item.innerHTML = '<span class="admin-grip" aria-hidden="true">⋮⋮</span>'+
         '<span class="admin-item-num">'+num+'</span>'+
-        '<div class="admin-item-body"><div class="admin-item-title">'+escHtml(p.title)+'</div><div class="admin-item-meta">'+escHtml(badgeLabel(p.cat))+'</div></div>'+
+        '<div class="admin-item-body"><div class="admin-item-title">'+escHtml(title)+'</div><div class="admin-item-meta">'+escHtml(meta)+'</div></div>'+
         '<button class="admin-item-remove" aria-label="Remove" type="button" draggable="false"></button>';
       var btn = item.querySelector('.admin-item-remove');
       btn.textContent = '\u00d7';
@@ -2597,7 +2934,7 @@ body.pp-lock{overflow:hidden}
         var rect = item.getBoundingClientRect();
         var dropAfter = e.clientY > rect.top + rect.height/2;
         var data = getSelections();
-        var arr = (kind === 'selected') ? data.selected.slice() : data.recent.slice();
+        var arr = Array.isArray(data[kind]) ? data[kind].slice() : [];
         var fromIdx = arr.indexOf(dragSrcId);
         if(fromIdx === -1){ clearIndicators(); return; }
         arr.splice(fromIdx, 1);
@@ -2605,62 +2942,83 @@ body.pp-lock{overflow:hidden}
         if(toIdx === -1){ clearIndicators(); return; }
         arr.splice(dropAfter ? toIdx + 1 : toIdx, 0, dragSrcId);
         if(kind === 'selected') data.selected = arr;
-        else data.recent = arr;
+        else if(kind === 'recent') data.recent = arr;
+        else if(kind === 'skills') data.skills = arr;
+        else if(kind === 'certs') data.certs = arr;
         saveFeatured(data);
         renderAdminPanel();
-        renderSelectedWork();
-        renderRecentWorks();
+        renderHomepageSection(kind);
       });
     });
   }
-  function populateAddDropdown(selectId, currentIds){
+  function populateAddDropdown(selectId, currentIds, kind){
     var sel = document.getElementById(selectId);
     if(!sel) return;
-    var hadVal = sel.value;
-    sel.innerHTML = '<option value="">Select a project to add…</option>';
-    // Group by category for nicer browsing
-    var cats = ['odoo','ai','connector','webapp','fintech'];
-    var labels = {odoo:'Odoo',ai:'AI Apps',connector:'Connectors',webapp:'Web Apps',fintech:'Fintech'};
-    cats.forEach(function(cat){
-      var items = PROJECT_POOL.filter(function(p){ return p.cat === cat && currentIds.indexOf(p.id) === -1; });
-      if(items.length === 0) return;
-      var group = document.createElement('optgroup');
-      group.label = labels[cat] || cat;
-      items.forEach(function(p){
+    sel.innerHTML = '<option value="">Select an item to add…</option>';
+    if(kind === 'selected' || kind === 'recent'){
+      // Project pool — grouped by category
+      var cats = ['odoo','ai','connector','webapp','fintech'];
+      var labels = {odoo:'Odoo',ai:'AI Apps',connector:'Connectors',webapp:'Web Apps',fintech:'Fintech'};
+      cats.forEach(function(cat){
+        var items = PROJECT_POOL.filter(function(p){ return p.cat === cat && currentIds.indexOf(p.id) === -1; });
+        if(items.length === 0) return;
+        var group = document.createElement('optgroup');
+        group.label = labels[cat] || cat;
+        items.forEach(function(p){
+          var opt = document.createElement('option');
+          opt.value = p.id;
+          opt.textContent = p.title;
+          group.appendChild(opt);
+        });
+        sel.appendChild(group);
+      });
+    } else if(kind === 'skills'){
+      SKILL_POOL.forEach(function(p){
+        if(currentIds.indexOf(p.id) !== -1) return;
         var opt = document.createElement('option');
         opt.value = p.id;
-        opt.textContent = p.title;
-        group.appendChild(opt);
+        opt.textContent = p.name + '  (' + getSkillPct(p.id) + '%)';
+        sel.appendChild(opt);
       });
-      sel.appendChild(group);
-    });
+    } else if(kind === 'certs'){
+      CERT_POOL.forEach(function(p){
+        if(currentIds.indexOf(p.id) !== -1) return;
+        var opt = document.createElement('option');
+        opt.value = p.id;
+        opt.textContent = p.title + (p.issuer ? '  —  ' + p.issuer : '');
+        sel.appendChild(opt);
+      });
+    }
   }
   function addToSection(kind, id){
     var data = getSelections();
-    if(kind === 'selected' && data.selected.indexOf(id) === -1) data.selected.push(id);
-    else if(kind === 'recent' && data.recent.indexOf(id) === -1) data.recent.push(id);
+    if(data[kind] && data[kind].indexOf(id) === -1) data[kind].push(id);
     saveFeatured(data);
     renderAdminPanel();
-    renderSelectedWork();
-    renderRecentWorks();
+    renderHomepageSection(kind);
   }
   function removeFromSection(kind, id){
     var data = getSelections();
-    if(kind === 'selected') data.selected = data.selected.filter(function(x){ return x !== id; });
-    else if(kind === 'recent') data.recent = data.recent.filter(function(x){ return x !== id; });
+    if(data[kind]) data[kind] = data[kind].filter(function(x){ return x !== id; });
     saveFeatured(data);
     renderAdminPanel();
-    renderSelectedWork();
-    renderRecentWorks();
+    renderHomepageSection(kind);
   }
   function resetSection(kind){
     var data = getSelections();
     if(kind === 'selected') data.selected = DEFAULT_SELECTED.slice();
     else if(kind === 'recent') data.recent = DEFAULT_RECENT.slice();
+    else if(kind === 'skills') data.skills = DEFAULT_SKILLS.slice();
+    else if(kind === 'certs') data.certs = DEFAULT_CERTS.slice();
     saveFeatured(data);
     renderAdminPanel();
-    renderSelectedWork();
-    renderRecentWorks();
+    renderHomepageSection(kind);
+  }
+  function renderHomepageSection(kind){
+    if(kind === 'selected') renderSelectedWork();
+    else if(kind === 'recent') renderRecentWorks();
+    else if(kind === 'skills') renderTechSkills();
+    else if(kind === 'certs') renderCerts();
   }
 
   /* Admin overlay open/close */
@@ -2694,8 +3052,16 @@ body.pp-lock{overflow:hidden}
   document.getElementById('adminRecentAdd').addEventListener('change', function(){
     if(this.value){ addToSection('recent', this.value); this.value = ''; }
   });
+  document.getElementById('adminSkillsAdd').addEventListener('change', function(){
+    if(this.value){ addToSection('skills', this.value); this.value = ''; }
+  });
+  document.getElementById('adminCertsAdd').addEventListener('change', function(){
+    if(this.value){ addToSection('certs', this.value); this.value = ''; }
+  });
   document.getElementById('adminResetSelected').addEventListener('click', function(){ resetSection('selected'); });
   document.getElementById('adminResetRecent').addEventListener('click', function(){ resetSection('recent'); });
+  document.getElementById('adminResetSkills').addEventListener('click', function(){ resetSection('skills'); });
+  document.getElementById('adminResetCerts').addEventListener('click', function(){ resetSection('certs'); });
 
   /* Admin avatar (on messages page) opens admin overlay */
   var adminBtn = document.getElementById('adminBtn');
@@ -2704,16 +3070,669 @@ body.pp-lock{overflow:hidden}
     openAdmin(true);
   });
 
-  /* Hash routing: open admin if URL has #admin and authed */
-  if(location.hash === '#admin'){
+  /* ===== UPDATE RECORDS / CRUD layer (v3.3) ===== */
+
+  function mergeObj(a, b){
+    var o = {};
+    for(var k1 in a) if(Object.prototype.hasOwnProperty.call(a,k1)) o[k1] = a[k1];
+    for(var k2 in b) if(Object.prototype.hasOwnProperty.call(b,k2)) o[k2] = b[k2];
+    return o;
+  }
+
+  /* Extract initial data from DOM for the two new kinds: experience + awards */
+  var EXP_POOL_STATIC = Array.prototype.map.call(document.querySelectorAll('#tlExperience .tl-item'), function(item, i){
+    var whenNode = item.querySelector('.when');
+    var modes = whenNode ? Array.prototype.map.call(whenNode.querySelectorAll('.mode'), function(m){ return m.textContent.trim(); }) : [];
+    var when = '';
+    if(whenNode){
+      var clone = whenNode.cloneNode(true);
+      Array.prototype.forEach.call(clone.querySelectorAll('.mode'), function(m){ m.parentNode.removeChild(m); });
+      when = clone.textContent.trim();
+    }
+    var roleEl = item.querySelector('.role');
+    var role = roleEl ? roleEl.textContent.trim() : '';
+    var orgEl = item.querySelector('.org');
+    var linkEl = orgEl ? orgEl.querySelector('a') : null;
+    var company = linkEl ? linkEl.textContent.trim() : '';
+    var companyUrl = linkEl ? linkEl.getAttribute('href') : '';
+    var orgText = orgEl ? orgEl.textContent.trim() : '';
+    var employParts = orgText.split('·');
+    var employmentType = employParts.length > 1 ? employParts[employParts.length-1].trim() : '';
+    return {
+      id: slugify(role + '-' + company + '-' + (i+1)),
+      role: role, company: company, companyUrl: companyUrl,
+      when: when, modes: modes, employmentType: employmentType
+    };
+  });
+
+  var AWARDS_POOL_STATIC = Array.prototype.map.call(document.querySelectorAll('#awards .awards-grid .award'), function(card, i){
+    var yrEl = card.querySelector('.yr');
+    var titleEl = card.querySelector('h4');
+    var byEl = card.querySelector('.by');
+    var pEl = card.querySelector('p');
+    var title = titleEl ? titleEl.textContent.trim() : '';
+    return {
+      id: slugify(title + '-' + (i+1)),
+      title: title,
+      year: yrEl ? yrEl.textContent.trim() : '',
+      by: byEl ? byEl.textContent.trim() : '',
+      description: pEl ? pEl.textContent.trim() : ''
+    };
+  });
+
+  /* Deep-copy snapshots of the existing pools (immutable originals for the merge layer) */
+  function snapshotPool(arr){
+    return arr.map(function(p){
+      var out = {};
+      for(var k in p) if(Object.prototype.hasOwnProperty.call(p,k)){
+        out[k] = Array.isArray(p[k]) ? p[k].slice() : p[k];
+      }
+      return out;
+    });
+  }
+  var PROJECT_POOL_STATIC = snapshotPool(PROJECT_POOL);
+  var SKILL_POOL_STATIC = snapshotPool(SKILL_POOL);
+  var CERT_POOL_STATIC = snapshotPool(CERT_POOL);
+  var EXP_POOL = EXP_POOL_STATIC.slice();
+  var AWARDS_POOL = AWARDS_POOL_STATIC.slice();
+
+  /* Schema for each kind — drives form rendering */
+  var KIND_SCHEMAS = {
+    skills: {
+      singular:'skill', plural:'skills',
+      fields:[
+        {key:'name',label:'Skill name',type:'text',required:true,placeholder:'e.g., Rust'},
+        {key:'pct',label:'Proficiency (%)',type:'number',min:0,max:100,placeholder:'80'}
+      ]
+    },
+    experience: {
+      singular:'experience entry', plural:'entries',
+      fields:[
+        {key:'role',label:'Role / Title',type:'text',required:true,placeholder:'Odoo Developer'},
+        {key:'company',label:'Company',type:'text',required:true,placeholder:'Company name'},
+        {key:'companyUrl',label:'Company URL',type:'text',placeholder:'https://example.com'},
+        {key:'when',label:'Date range',type:'text',placeholder:'Jan 2024 – Present'},
+        {key:'modes',label:'Mode tags',type:'tags',help:'Comma-separated, e.g. "On-site, UAE"'},
+        {key:'employmentType',label:'Employment type',type:'text',placeholder:'Full-time'}
+      ]
+    },
+    projects: {
+      singular:'project', plural:'projects',
+      fields:[
+        {key:'title',label:'Title',type:'text',required:true,placeholder:'Project name'},
+        {key:'cat',label:'Category',type:'select',default:'odoo',options:[{value:'odoo',label:'Odoo'},{value:'ai',label:'AI App'},{value:'connector',label:'Connector'},{value:'webapp',label:'Web App'},{value:'fintech',label:'Fintech'}]},
+        {key:'subtitle',label:'Subtitle',type:'text',placeholder:'Odoo · Logistics Module'},
+        {key:'versions',label:'Versions',type:'text',placeholder:'Odoo v19, v18'},
+        {key:'desc',label:'Description',type:'textarea'},
+        {key:'builtWith',label:'Built with (tech tags)',type:'tags',help:'Comma-separated, e.g. "Python, JavaScript, XML"'},
+        {key:'roles',label:'My roles',type:'tags',help:'Comma-separated, e.g. "Backend Developer, Project Owner"'},
+        {key:'image',label:'Project image',type:'image'}
+      ]
+    },
+    awards: {
+      singular:'award', plural:'awards',
+      fields:[
+        {key:'title',label:'Title',type:'text',required:true},
+        {key:'by',label:'Awarded by',type:'text',placeholder:'Organisation / institution'},
+        {key:'year',label:'Year',type:'text',placeholder:'2024'},
+        {key:'description',label:'Description',type:'textarea'}
+      ]
+    },
+    certs: {
+      singular:'certification', plural:'certifications',
+      fields:[
+        {key:'title',label:'Title',type:'text',required:true},
+        {key:'issuer',label:'Issuer',type:'text'},
+        {key:'date',label:'Issued date',type:'text',placeholder:'Issued May 2022'}
+      ]
+    }
+  };
+
+  /* Records load/save */
+  var RECORDS_KEY = 'asmar_portfolio_records_v1';
+  function emptyRecords(){
+    return {
+      skills:{overrides:{},additions:[],deletions:[],order:[]},
+      experience:{overrides:{},additions:[],deletions:[],order:[]},
+      projects:{overrides:{},additions:[],deletions:[],order:[]},
+      awards:{overrides:{},additions:[],deletions:[],order:[]},
+      certs:{overrides:{},additions:[],deletions:[],order:[]}
+    };
+  }
+  function loadRecords(){
+    try {
+      var raw = localStorage.getItem(RECORDS_KEY);
+      if(!raw) return emptyRecords();
+      var p = JSON.parse(raw);
+      var e = emptyRecords();
+      Object.keys(e).forEach(function(k){
+        if(p[k] && typeof p[k] === 'object'){
+          if(p[k].overrides && typeof p[k].overrides === 'object') e[k].overrides = p[k].overrides;
+          if(Array.isArray(p[k].additions)) e[k].additions = p[k].additions;
+          if(Array.isArray(p[k].deletions)) e[k].deletions = p[k].deletions;
+          if(Array.isArray(p[k].order)) e[k].order = p[k].order;
+        }
+      });
+      return e;
+    } catch(err){ return emptyRecords(); }
+  }
+  function saveRecords(data){
+    try { localStorage.setItem(RECORDS_KEY, JSON.stringify(data)); return true; }
+    catch(err){ alert('Could not save — storage may be full. Try removing some images.'); return false; }
+  }
+  function hasAnyRecords(){
+    var R = loadRecords();
+    for(var k in R){
+      if(Object.keys(R[k].overrides).length || R[k].additions.length || R[k].deletions.length) return true;
+    }
+    return false;
+  }
+
+  /* Pool rebuilders — merge static + overrides + additions, minus deletions, then apply user order */
+  function rebuildPool(staticArr, recs){
+    var dels = recs.deletions || [];
+    var ovs = recs.overrides || {};
+    var adds = recs.additions || [];
+    var order = recs.order || [];
+    var merged = staticArr
+      .filter(function(p){ return dels.indexOf(p.id) === -1; })
+      .map(function(p){ return mergeObj(p, ovs[p.id] || {}); })
+      .concat(adds.map(function(a){ return mergeObj({}, a); }));
+    if(order.length){
+      var orderIdx = {};
+      order.forEach(function(id, i){ orderIdx[id] = i; });
+      var inOrder = [], notInOrder = [];
+      merged.forEach(function(item){
+        if(orderIdx[item.id] != null) inOrder.push(item);
+        else notInOrder.push(item);
+      });
+      inOrder.sort(function(a, b){ return orderIdx[a.id] - orderIdx[b.id]; });
+      return inOrder.concat(notInOrder);
+    }
+    return merged;
+  }
+  function rebuildAllPools(){
+    var R = loadRecords();
+    PROJECT_POOL = rebuildPool(PROJECT_POOL_STATIC, R.projects);
+    SKILL_POOL = rebuildPool(SKILL_POOL_STATIC, R.skills);
+    CERT_POOL = rebuildPool(CERT_POOL_STATIC, R.certs);
+    EXP_POOL = rebuildPool(EXP_POOL_STATIC, R.experience);
+    AWARDS_POOL = rebuildPool(AWARDS_POOL_STATIC, R.awards);
+  }
+
+  /* Override getImageForId & getSkillPct so they check the current pool first */
+  getImageForId = function(id){
+    var p = PROJECT_POOL.filter(function(x){ return x.id === id; })[0];
+    if(p && p.image) return p.image;
+    if(WORK_IMAGE_BY_ID[id]) return WORK_IMAGE_BY_ID[id];
+    return '';
+  };
+  getSkillPct = function(id){
+    var s = SKILL_POOL.filter(function(x){ return x.id === id; })[0];
+    if(s && s.pct != null && s.pct !== '') return Number(s.pct);
+    return SKILL_PCT[id] != null ? SKILL_PCT[id] : 80;
+  };
+
+  /* Homepage re-renders for experience + awards (so record edits reflect there too) */
+  function renderHomeExperience(){
+    var tl = document.getElementById('tlExperience');
+    if(!tl) return;
+    var html = EXP_POOL.map(function(e){
+      var modesHtml = (e.modes || []).map(function(m){ return '<span class="mode">'+escHtml(m)+'</span>'; }).join(' ');
+      var companyHtml = e.companyUrl
+        ? '<a href="'+escHtml(e.companyUrl)+'" target="_blank" rel="noopener noreferrer">'+escHtml(e.company || '')+'</a>'
+        : escHtml(e.company || '');
+      var employPart = e.employmentType ? ' · ' + escHtml(e.employmentType) : '';
+      return '<div class="tl-item">'+
+        '<div class="when">'+escHtml(e.when || '')+(modesHtml ? ' '+modesHtml : '')+'</div>'+
+        '<div class="role">'+escHtml(e.role || '')+'</div>'+
+        '<div class="org">'+companyHtml+employPart+'</div>'+
+      '</div>';
+    }).join('');
+    tl.innerHTML = html;
+  }
+  function renderHomeAwards(){
+    var grid = document.querySelector('#awards .awards-grid');
+    if(!grid) return;
+    var html = AWARDS_POOL.map(function(a){
+      return '<article class="award reveal in">'+
+        '<div class="yr">'+escHtml(a.year || '')+'</div>'+
+        '<h4>'+escHtml(a.title || '')+'</h4>'+
+        '<div class="by">'+escHtml(a.by || '')+'</div>'+
+        '<p>'+escHtml(a.description || '')+'</p>'+
+      '</article>';
+    }).join('');
+    grid.innerHTML = html;
+  }
+
+  /* Extend renderAllHomepage to cover all 6 dynamic sections */
+  var __prevRenderAllHomepage = renderAllHomepage;
+  renderAllHomepage = function(){
+    __prevRenderAllHomepage();
+    renderHomeExperience();
+    renderHomeAwards();
+  };
+
+  /* SVG icons used in record rows */
+  var ICON_EDIT = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 113 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>';
+  var ICON_DELETE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-2 14a2 2 0 01-2 2H9a2 2 0 01-2-2L5 6"/><path d="M10 11v6M14 11v6"/></svg>';
+  var ICON_NO_IMG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M21 16l-4-4-10 8"/></svg>';
+  var ICON_EMPTY_BIG = '<svg class="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="8.5" cy="10.5" r="1.5"/><path d="M21 16l-4-4-10 8"/></svg>';
+
+  function getPoolForKind(kind){
+    return {skills:SKILL_POOL, experience:EXP_POOL, projects:PROJECT_POOL, awards:AWARDS_POOL, certs:CERT_POOL}[kind] || [];
+  }
+
+  /* Render record list for a given kind */
+  function renderRecordList(kind){
+    var cap = kind.charAt(0).toUpperCase() + kind.slice(1);
+    var container = document.getElementById('records' + cap);
+    if(!container) return;
+    var pool = getPoolForKind(kind);
+    var metaEl = document.getElementById('meta' + cap);
+    if(metaEl) metaEl.textContent = pool.length + ' ' + KIND_SCHEMAS[kind].plural;
+    container.innerHTML = '';
+    if(pool.length === 0){
+      var e = document.createElement('div');
+      e.className = 'records-empty';
+      e.textContent = 'No records yet — click "Add new" to create one.';
+      container.appendChild(e);
+      return;
+    }
+    pool.forEach(function(rec){
+      var item = document.createElement('div');
+      item.className = 'record-item';
+      item.dataset.id = rec.id;
+      var title = '', meta = '', thumbHtml = '';
+      if(kind === 'skills'){
+        title = rec.name || '';
+        var pct = (rec.pct != null && rec.pct !== '') ? rec.pct : getSkillPct(rec.id);
+        meta = pct + '% proficiency';
+      } else if(kind === 'experience'){
+        title = rec.role || '';
+        meta = (rec.company || '') + (rec.when ? ' · ' + rec.when : '');
+      } else if(kind === 'projects'){
+        title = rec.title || '';
+        meta = badgeLabel(rec.cat);
+        var img = rec.image || WORK_IMAGE_BY_ID[rec.id] || '';
+        thumbHtml = img
+          ? '<div class="record-thumb"><img src="'+img+'" alt="" draggable="false"></div>'
+          : '<div class="record-thumb">'+ICON_NO_IMG+'</div>';
+      } else if(kind === 'awards'){
+        title = rec.title || '';
+        meta = (rec.year || '') + (rec.by ? ' · ' + rec.by : '');
+      } else if(kind === 'certs'){
+        title = rec.title || '';
+        meta = (rec.issuer || '') + (rec.date ? ' · ' + rec.date : '');
+      }
+      item.innerHTML = '<span class="record-grip" aria-hidden="true">⋮⋮</span>' + thumbHtml +
+        '<div class="record-body">'+
+          '<div class="record-title">'+escHtml(title)+'</div>'+
+          '<div class="record-meta">'+escHtml(meta)+'</div>'+
+        '</div>'+
+        '<div class="record-actions">'+
+          '<button class="record-btn edit" type="button" aria-label="Edit" draggable="false">'+ICON_EDIT+'</button>'+
+          '<button class="record-btn delete" type="button" aria-label="Delete" draggable="false">'+ICON_DELETE+'</button>'+
+        '</div>';
+      item.querySelector('.record-btn.edit').addEventListener('click', function(e){ e.stopPropagation(); showEditModal(kind, rec.id); });
+      item.querySelector('.record-btn.delete').addEventListener('click', function(e){ e.stopPropagation(); deleteRecord(kind, rec.id); });
+      container.appendChild(item);
+    });
+    setupRecordsDragSort(container, kind);
+  }
+  function renderAllRecordLists(){
+    ['skills','experience','projects','awards','certs'].forEach(renderRecordList);
+  }
+
+  /* Drag-sort for record items — persists order to records.<kind>.order, then re-renders everything */
+  function setupRecordsDragSort(container, kind){
+    var dragSrcId = null;
+    function clearIndicators(){
+      Array.prototype.forEach.call(container.children, function(c){
+        c.classList.remove('drag-over-top','drag-over-bottom');
+      });
+    }
+    Array.prototype.forEach.call(container.children, function(item){
+      if(!item.dataset || !item.dataset.id) return;
+      item.draggable = true;
+      item.addEventListener('dragstart', function(e){
+        dragSrcId = item.dataset.id;
+        item.classList.add('dragging');
+        e.dataTransfer.effectAllowed = 'move';
+        try { e.dataTransfer.setData('text/plain', dragSrcId); } catch(_){}
+      });
+      item.addEventListener('dragend', function(){
+        item.classList.remove('dragging');
+        clearIndicators();
+        dragSrcId = null;
+      });
+      item.addEventListener('dragover', function(e){
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
+        if(!dragSrcId || item.dataset.id === dragSrcId) return;
+        var rect = item.getBoundingClientRect();
+        var dropAfter = e.clientY > rect.top + rect.height/2;
+        clearIndicators();
+        item.classList.add(dropAfter ? 'drag-over-bottom' : 'drag-over-top');
+      });
+      item.addEventListener('dragleave', function(e){
+        if(!item.contains(e.relatedTarget)){
+          item.classList.remove('drag-over-top','drag-over-bottom');
+        }
+      });
+      item.addEventListener('drop', function(e){
+        e.preventDefault();
+        if(!dragSrcId || item.dataset.id === dragSrcId){ clearIndicators(); return; }
+        var targetId = item.dataset.id;
+        var rect = item.getBoundingClientRect();
+        var dropAfter = e.clientY > rect.top + rect.height/2;
+        var pool = getPoolForKind(kind);
+        var ids = pool.map(function(p){ return p.id; });
+        var fromIdx = ids.indexOf(dragSrcId);
+        if(fromIdx === -1){ clearIndicators(); return; }
+        ids.splice(fromIdx, 1);
+        var toIdx = ids.indexOf(targetId);
+        if(toIdx === -1){ clearIndicators(); return; }
+        ids.splice(dropAfter ? toIdx + 1 : toIdx, 0, dragSrcId);
+        var R = loadRecords();
+        R[kind].order = ids;
+        if(!saveRecords(R)){ clearIndicators(); return; }
+        rebuildAllPools();
+        renderAllRecordLists();
+        renderAdminPanel();
+        renderAllHomepage();
+      });
+    });
+  }
+
+  /* Image upload — resize via canvas to keep localStorage size reasonable */
+  function readImageFile(file, callback){
+    if(!file){ callback(''); return; }
+    if(file.size > 8 * 1024 * 1024){ alert('Image too large (max 8 MB).'); return; }
+    var reader = new FileReader();
+    reader.onload = function(){
+      var img = new Image();
+      img.onload = function(){
+        var canvas = document.createElement('canvas');
+        var maxW = 1000, maxH = 700;
+        var w = img.width, h = img.height;
+        if(w > maxW){ h = h * (maxW / w); w = maxW; }
+        if(h > maxH){ w = w * (maxH / h); h = maxH; }
+        canvas.width = Math.round(w); canvas.height = Math.round(h);
+        var ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        try { callback(canvas.toDataURL('image/jpeg', 0.78)); }
+        catch(e){ alert('Could not process image.'); }
+      };
+      img.onerror = function(){ alert('Invalid image file.'); };
+      img.src = reader.result;
+    };
+    reader.onerror = function(){ alert('Could not read file.'); };
+    reader.readAsDataURL(file);
+  }
+
+  /* Edit modal */
+  var recordModal = document.getElementById('recordModal');
+  var recordForm = document.getElementById('recordForm');
+
+  function showEditModal(kind, id){
+    var schema = KIND_SCHEMAS[kind];
+    var pool = getPoolForKind(kind);
+    var rec = id ? (pool.filter(function(p){ return p.id === id; })[0] || {}) : {};
+    document.getElementById('recordModalTitle').textContent = (id ? 'Edit ' : 'Add new ') + schema.singular;
+    recordForm.innerHTML = '';
+    recordForm.dataset.kind = kind;
+    recordForm.dataset.id = id || '';
+
+    schema.fields.forEach(function(f){
+      var field = document.createElement('div');
+      field.className = 'record-field';
+      var val = rec[f.key];
+      if(val == null || val === ''){
+        if(kind === 'skills' && f.key === 'pct' && rec.id) val = getSkillPct(rec.id);
+        else if(f.default != null) val = f.default;
+        else val = '';
+      }
+      if(f.type === 'image'){
+        field.classList.add('record-image-field');
+        var lblImg = document.createElement('label');
+        lblImg.textContent = f.label;
+        field.appendChild(lblImg);
+        var preview = document.createElement('div');
+        preview.className = 'record-image-preview';
+        preview.innerHTML = val ? '<img src="'+val+'" alt="">' : ICON_EMPTY_BIG;
+        field.appendChild(preview);
+        var controls = document.createElement('div');
+        controls.className = 'record-image-controls';
+        var fileInputId = 'imgInput_' + Date.now();
+        controls.innerHTML = '<input type="file" id="'+fileInputId+'" accept="image/*"><label for="'+fileInputId+'" class="file-btn">Upload image</label><button type="button" class="remove-btn">Remove</button>';
+        field.appendChild(controls);
+        var hidden = document.createElement('input');
+        hidden.type = 'hidden';
+        hidden.dataset.key = f.key;
+        hidden.value = val || '';
+        field.appendChild(hidden);
+        var helpImg = document.createElement('div');
+        helpImg.className = 'help';
+        helpImg.textContent = 'Recommended 16:10 ratio. Auto-resized to max 1000px wide as JPEG.';
+        field.appendChild(helpImg);
+        controls.querySelector('input[type="file"]').addEventListener('change', function(ev){
+          var file = ev.target.files && ev.target.files[0];
+          if(!file) return;
+          readImageFile(file, function(dataUrl){
+            hidden.value = dataUrl;
+            preview.innerHTML = '<img src="'+dataUrl+'" alt="">';
+          });
+        });
+        controls.querySelector('.remove-btn').addEventListener('click', function(){
+          hidden.value = '';
+          preview.innerHTML = ICON_EMPTY_BIG;
+        });
+        recordForm.appendChild(field);
+        return;
+      }
+      var lbl = document.createElement('label');
+      lbl.textContent = f.label + (f.required ? ' *' : '');
+      field.appendChild(lbl);
+      var inputEl;
+      if(f.type === 'textarea'){
+        inputEl = document.createElement('textarea');
+        inputEl.value = val;
+      } else if(f.type === 'select'){
+        inputEl = document.createElement('select');
+        f.options.forEach(function(opt){
+          var o = document.createElement('option');
+          var ov = opt.value || opt;
+          o.value = ov;
+          o.textContent = opt.label || opt;
+          if(ov === val) o.selected = true;
+          inputEl.appendChild(o);
+        });
+      } else if(f.type === 'tags'){
+        inputEl = document.createElement('input');
+        inputEl.type = 'text';
+        inputEl.value = Array.isArray(val) ? val.join(', ') : (val || '');
+        inputEl.dataset.fieldType = 'tags';
+      } else if(f.type === 'number'){
+        inputEl = document.createElement('input');
+        inputEl.type = 'number';
+        inputEl.value = (val === '' ? '' : val);
+        if(f.min != null) inputEl.min = f.min;
+        if(f.max != null) inputEl.max = f.max;
+        inputEl.dataset.fieldType = 'number';
+      } else {
+        inputEl = document.createElement('input');
+        inputEl.type = 'text';
+        inputEl.value = val;
+      }
+      if(f.placeholder) inputEl.placeholder = f.placeholder;
+      inputEl.dataset.key = f.key;
+      field.appendChild(inputEl);
+      if(f.help){
+        var helpEl = document.createElement('div');
+        helpEl.className = 'help';
+        helpEl.textContent = f.help;
+        field.appendChild(helpEl);
+      }
+      recordForm.appendChild(field);
+    });
+
+    var errBox = document.createElement('div');
+    errBox.className = 'record-form-error';
+    errBox.id = 'recordFormError';
+    recordForm.appendChild(errBox);
+
+    var actions = document.createElement('div');
+    actions.className = 'record-form-actions';
+    actions.innerHTML = '<button type="button" class="record-form-cancel" id="recordFormCancel">Cancel</button><button type="submit" class="record-form-save">Save</button>';
+    recordForm.appendChild(actions);
+    document.getElementById('recordFormCancel').addEventListener('click', hideEditModal);
+
+    recordModal.classList.add('open');
+    recordModal.setAttribute('aria-hidden','false');
+  }
+  function hideEditModal(){
+    recordModal.classList.remove('open');
+    recordModal.setAttribute('aria-hidden','true');
+  }
+
+  /* Form submit — collect, validate, save */
+  recordForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    try { console.log('[recordForm submit] fired'); } catch(_){}
+    var kind = recordForm.dataset.kind;
+    var id = recordForm.dataset.id || null;
+    var schema = KIND_SCHEMAS[kind];
+    var data = {};
+    Array.prototype.forEach.call(recordForm.querySelectorAll('[data-key]'), function(inp){
+      var key = inp.dataset.key;
+      var ft = inp.dataset.fieldType;
+      var v = inp.value;
+      if(ft === 'tags') v = v ? v.split(',').map(function(s){ return s.trim(); }).filter(Boolean) : [];
+      else if(ft === 'number') v = v === '' ? '' : Number(v);
+      data[key] = v;
+    });
+    var errors = [];
+    schema.fields.forEach(function(f){
+      if(f.required){
+        var v = data[f.key];
+        if(v == null || v === '' || (Array.isArray(v) && v.length === 0)){
+          errors.push(f.label + ' is required.');
+        }
+      }
+    });
+    var errEl = document.getElementById('recordFormError');
+    if(errors.length){ if(errEl) errEl.textContent = errors[0]; return; }
+    if(errEl) errEl.textContent = '';
+    saveRecord(kind, id, data);
+    hideEditModal();
+  });
+
+  function saveRecord(kind, id, data){
+    try { console.log('[saveRecord]', kind, id ? 'edit '+id : 'new', data); } catch(_){}
+    var R = loadRecords();
+    if(!id){
+      var keyField = (kind === 'skills') ? 'name' : (kind === 'experience' ? 'role' : 'title');
+      var baseId = slugify(data[keyField] || ('item-' + Date.now()));
+      if(!baseId) baseId = 'item-' + Date.now();
+      var allIds = getPoolForKind(kind).map(function(p){ return p.id; });
+      var newId = baseId, suffix = 1;
+      while(allIds.indexOf(newId) !== -1){ newId = baseId + '-' + (++suffix); }
+      data.id = newId;
+      R[kind].additions.push(data);
+      try { console.log('[saveRecord] generated id:', newId, '| additions now:', R[kind].additions.length); } catch(_){}
+    } else {
+      var addIdx = -1;
+      for(var i=0; i<R[kind].additions.length; i++){
+        if(R[kind].additions[i].id === id){ addIdx = i; break; }
+      }
+      if(addIdx !== -1){
+        data.id = id;
+        R[kind].additions[addIdx] = data;
+      } else {
+        var ov = {};
+        for(var k in data) if(Object.prototype.hasOwnProperty.call(data,k) && k !== 'id') ov[k] = data[k];
+        R[kind].overrides[id] = ov;
+      }
+    }
+    if(!saveRecords(R)){ try { console.warn('[saveRecord] saveRecords returned false (storage full?)'); } catch(_){} return; }
+    rebuildAllPools();
+    try { console.log('[saveRecord] after rebuild — pool size:', getPoolForKind(kind).length); } catch(_){}
+    renderAllRecordLists();
+    renderAdminPanel();
+    renderAllHomepage();
+    try { console.log('[saveRecord] done — list children:', document.getElementById('records' + kind.charAt(0).toUpperCase() + kind.slice(1)).children.length); } catch(_){}
+  }
+
+  function deleteRecord(kind, id){
+    if(!confirm('Delete this ' + KIND_SCHEMAS[kind].singular + '? This cannot be undone.')) return;
+    var R = loadRecords();
+    var addIdx = -1;
+    for(var i=0; i<R[kind].additions.length; i++){
+      if(R[kind].additions[i].id === id){ addIdx = i; break; }
+    }
+    if(addIdx !== -1){
+      R[kind].additions.splice(addIdx, 1);
+    } else if(R[kind].deletions.indexOf(id) === -1){
+      R[kind].deletions.push(id);
+    }
+    delete R[kind].overrides[id];
+    if(!saveRecords(R)) return;
+    rebuildAllPools();
+    renderAllRecordLists();
+    renderAdminPanel();
+    renderAllHomepage();
+  }
+
+  /* Records page open/close */
+  var recordsPage = document.getElementById('recordsPage');
+  function openRecords(push){
+    if(!isAuthed()){
+      history.replaceState(null,'','#login');
+      openLogin(false);
+      return;
+    }
+    recordsPage.classList.add('open');
+    document.body.classList.add('pp-lock');
+    if(push !== false) history.pushState(null,'','#records');
+    rebuildAllPools();
+    renderAllRecordLists();
+  }
+  function closeRecords(){
+    recordsPage.classList.remove('open');
+    // Only unlock body if admin isn't also open underneath
+    var adminEl = document.getElementById('adminPage');
+    if(!adminEl || !adminEl.classList.contains('open')){
+      document.body.classList.remove('pp-lock');
+    }
+    if(location.hash === '#records') history.replaceState(null,'',location.pathname + location.search);
+  }
+
+  /* Wire UI */
+  var openRecordsBtn = document.getElementById('openRecordsBtn');
+  if(openRecordsBtn) openRecordsBtn.addEventListener('click', function(){ openRecords(true); });
+  document.getElementById('closeRecords').addEventListener('click', closeRecords);
+  document.getElementById('recordModalClose').addEventListener('click', hideEditModal);
+  recordModal.addEventListener('click', function(e){ if(e.target === recordModal) hideEditModal(); });
+  Array.prototype.forEach.call(document.querySelectorAll('.records-add-btn[data-add]'), function(btn){
+    btn.addEventListener('click', function(){ showEditModal(btn.dataset.add, null); });
+  });
+
+  /* Hash routing for #records and #admin */
+  if(location.hash === '#records'){
+    if(isAuthed()) openRecords(false);
+    else { history.replaceState(null,'','#login'); openLogin(false); }
+  } else if(location.hash === '#admin'){
     if(isAuthed()) openAdmin(false);
     else { history.replaceState(null,'','#login'); openLogin(false); }
   }
 
-  /* On load, if user has saved a custom selection, re-render homepage sections */
-  if(loadFeatured()){
-    renderSelectedWork();
-    renderRecentWorks();
+  /* Initial pool rebuild — always (so admin sees user-added/edited records) */
+  rebuildAllPools();
+
+  /* On load, if user has saved a custom selection OR records, re-render homepage sections */
+  if(loadFeatured() || hasAnyRecords()){
+    renderAllHomepage();
   }
 
   /* ---- Hire-me modal ---- */
