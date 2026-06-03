@@ -384,7 +384,8 @@ body.pp-lock{overflow:hidden}
 .pp-hero h1 .ghost{-webkit-text-stroke:1px var(--line-strong);color:transparent}
 .pp-hero p{color:var(--muted);max-width:56ch;font-size:clamp(1rem,1.3vw,1.1rem)}
 .pp-hero .count{font-family:var(--font-mono);color:var(--accent);font-size:.78rem;margin-top:16px;letter-spacing:.1em;text-transform:uppercase}
-.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(380px,1fr));gap:24px;padding-bottom:50px}
+.pgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;padding-bottom:50px}
+@media(max-width:980px){.pgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .pcard{--mx:50%;--my:0%;border:1px solid var(--line);border-radius:var(--radius);background:var(--bg-2);padding:32px;position:relative;overflow:hidden;opacity:0;transform:translateY(26px);transition:opacity .55s ease,transform .55s cubic-bezier(.16,1,.3,1),border-color .35s}
 .pcard.show{opacity:1;transform:none}
 .pcard::after{content:"";position:absolute;inset:0;background:radial-gradient(360px 360px at var(--mx) var(--my),var(--accent-dim),transparent 60%);opacity:0;transition:opacity .4s;pointer-events:none}
@@ -595,6 +596,56 @@ body.pp-lock{overflow:hidden}
   .loginbox.active .form-box.Register .animation,.loginbox.active .info-content.Register .animation{transform:translateY(0)}
   .loginbox.active .form-box.Login .animation,.loginbox.active .info-content.Login .animation{transform:translateY(-40px)}
 }
+
+/* admin FAB on the messages page */
+.admin-fab{position:fixed;top:90px;right:30px;z-index:25}
+.admin-btn{width:42px;height:42px;border-radius:50%;border:1px solid var(--line-strong);background:var(--bg-2);color:var(--text);display:inline-flex;align-items:center;justify-content:center;cursor:pointer;transition:.25s}
+.admin-btn:hover,.admin-btn[aria-expanded="true"]{border-color:var(--accent);color:var(--accent);transform:translateY(-1px)}
+.admin-btn svg{width:18px;height:18px}
+.admin-pop{position:absolute;top:54px;right:0;min-width:220px;background:var(--bg-2);border:1px solid var(--line-strong);border-radius:14px;padding:14px;box-shadow:0 20px 60px -20px rgba(0,0,0,.6);opacity:0;visibility:hidden;transform:translateY(-6px);transition:opacity .25s,transform .25s,visibility .25s;pointer-events:none}
+.admin-pop.open{opacity:1;visibility:visible;transform:none;pointer-events:auto}
+.admin-pop::before{content:"";position:absolute;top:-6px;right:14px;width:11px;height:11px;background:var(--bg-2);border-left:1px solid var(--line-strong);border-top:1px solid var(--line-strong);transform:rotate(45deg)}
+.admin-label{font-family:var(--font-mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-2);margin-bottom:4px}
+.admin-user{font-family:var(--font-display);font-weight:600;font-size:.95rem;margin-bottom:14px;color:var(--text);word-break:break-all}
+.admin-logout{width:100%;border:1px solid var(--line-strong);background:transparent;color:var(--text);font-family:var(--font-body);font-size:.85rem;font-weight:500;padding:9px 14px;border-radius:10px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:.25s}
+.admin-logout:hover{background:#ff4d4d;border-color:#ff4d4d;color:#fff}
+.admin-logout svg{width:14px;height:14px}
+@media(max-width:540px){.admin-fab{top:84px;right:18px}.admin-btn{width:38px;height:38px}}
+
+/* admin / CMS page */
+.admin-page .pp-bar-right{display:flex;gap:10px;align-items:center}
+.admin-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:26px;margin:34px 0 80px}
+.admin-card{background:var(--bg-2);border:1px solid var(--line-strong);border-radius:18px;padding:30px}
+.admin-card-head{margin-bottom:22px}
+.admin-card-head h2{font-family:var(--font-display);font-size:1.55rem;font-weight:500;margin:6px 0 8px;letter-spacing:-.01em}
+.admin-sub{color:var(--muted);font-size:.92rem;margin:0}
+.admin-list{display:flex;flex-direction:column;gap:8px;margin-bottom:22px}
+.admin-empty{display:block;color:var(--muted-2);font-style:italic;font-size:.85rem;padding:18px 14px;text-align:center;border:1px dashed var(--line);border-radius:10px}
+.admin-item{display:flex;align-items:center;gap:14px;padding:12px 14px;background:var(--bg-3);border:1px solid var(--line);border-radius:10px;transition:border-color .25s,transform .25s,opacity .2s;cursor:grab;user-select:none;position:relative}
+.admin-item:hover{border-color:var(--accent);transform:translateY(-1px)}
+.admin-item:active{cursor:grabbing}
+.admin-item.dragging{opacity:.35;cursor:grabbing}
+.admin-item.drag-over-top::before,
+.admin-item.drag-over-bottom::after{content:"";position:absolute;left:6px;right:6px;height:2px;background:var(--accent);border-radius:2px;box-shadow:0 0 8px var(--accent-glow);pointer-events:none}
+.admin-item.drag-over-top::before{top:-5px}
+.admin-item.drag-over-bottom::after{bottom:-5px}
+.admin-grip{flex-shrink:0;color:var(--muted-2);display:inline-flex;align-items:center;font-size:.95rem;line-height:1;letter-spacing:-2px;transition:color .25s}
+.admin-item:hover .admin-grip{color:var(--accent)}
+.admin-item-num{font-family:var(--font-mono);font-size:.7rem;color:var(--accent);font-weight:700;min-width:22px}
+.admin-item-body{flex:1;min-width:0}
+.admin-item-title{font-family:var(--font-display);font-weight:500;font-size:.95rem;color:var(--text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.admin-item-meta{font-family:var(--font-mono);font-size:.62rem;color:var(--muted-2);text-transform:uppercase;letter-spacing:.12em;margin-top:3px}
+.admin-item-remove{flex-shrink:0;width:30px;height:30px;border-radius:50%;border:1px solid var(--line-strong);background:transparent;color:var(--muted);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-size:1.2rem;line-height:1;transition:.25s}
+.admin-item-remove:hover{background:#ff4d4d;border-color:#ff4d4d;color:#fff}
+.admin-add{margin-bottom:16px}
+.admin-add-label{display:block;font-family:var(--font-mono);font-size:.62rem;color:var(--muted-2);text-transform:uppercase;letter-spacing:.12em;margin-bottom:8px}
+.admin-select{width:100%;padding:12px 16px;background:var(--bg-3);border:1px solid var(--line-strong);border-radius:10px;color:var(--text);font-family:var(--font-body);font-size:.9rem;cursor:pointer;transition:.25s;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%239a9a92' stroke-width='2'><path d='M6 9l6 6 6-6'/></svg>");background-repeat:no-repeat;background-position:right 14px center;background-size:14px;padding-right:38px}
+.admin-select:hover,.admin-select:focus{border-color:var(--accent);outline:none}
+.admin-select option{background:var(--bg-2);color:var(--text)}
+.admin-reset{background:transparent;border:1px solid var(--line);color:var(--muted);font-family:var(--font-mono);font-size:.7rem;text-transform:uppercase;letter-spacing:.12em;padding:9px 16px;border-radius:8px;cursor:pointer;transition:.25s}
+.admin-reset:hover{border-color:var(--accent);color:var(--accent)}
+@media(max-width:880px){.admin-grid{grid-template-columns:1fr;gap:18px;margin:24px 0 60px}.admin-card{padding:24px}.admin-page .pp-bar-right{gap:6px}.admin-page .pp-bar #adminPageLogout{padding:10px 14px}}
+@media(max-width:540px){.admin-page .pp-bar .btn-back svg{display:none}.admin-card{padding:20px}}
 
 /* ============== RESPONSIVE ============== */
 @media(max-width:980px){
@@ -1136,13 +1187,14 @@ body.pp-lock{overflow:hidden}
       <span class="eyebrow">Portfolio</span>
       <h1>All <span class="ghost">projects</span></h1>
       <p>A detailed look at the Odoo modules, AI applications and third-party connectors I've designed, built and migrated across versions 14 through 19.</p>
-      <div class="count">12 featured projects</div>
+      <div class="count">34 featured projects</div>
     </section>
     <div class="filters" id="pjFilters">
       <button class="filter-btn active" data-filter="all">All</button>
       <button class="filter-btn" data-filter="odoo">Odoo</button>
       <button class="filter-btn" data-filter="ai">AI Apps</button>
       <button class="filter-btn" data-filter="connector">Connectors</button>
+      <button class="filter-btn" data-filter="webapp">Web Apps</button>
     </div>
     <div class="pgrid" id="pjGrid">
       <article class="pcard" data-cat="odoo">
@@ -1241,15 +1293,184 @@ body.pp-lock{overflow:hidden}
         <div class="pblock"><div class="plabel">Built with</div><div class="ptags"><span class="tag">API</span><span class="tag">JavaScript</span><span class="tag">Python</span><span class="tag">XML</span><span class="tag">OWL JS</span></div></div>
         <div class="pblock"><div class="plabel">My role</div><div class="ptags"><span class="tag role">Project Owner</span><span class="tag role">Backend Developer</span><span class="tag role">Customize</span><span class="tag role">Migration</span></div></div>
       </article>
+      <article class="pcard" data-cat="connector">
+        <div class="ptop"><span class="pcat">Connector &middot; Meeting Integration</span><span class="pidx">13</span></div>
+        <h3>Odoo Microsoft Teams Connector</h3>
+        <div class="pver">Odoo v19, v18, v17</div>
+        <p class="pdesc">Schedule and join Microsoft Teams meetings directly from the Odoo Calendar. Meetings sync both ways with Teams / Office 365 and attendees receive join-links by email &mdash; no second sign-in required.</p>
+        <div class="pblock"><div class="plabel">Built with</div><div class="ptags"><span class="tag">API</span><span class="tag">Python</span><span class="tag">JavaScript</span><span class="tag">XML</span><span class="tag">OAuth</span></div></div>
+        <div class="pblock"><div class="plabel">My role</div><div class="ptags"><span class="tag role">Project Owner</span><span class="tag role">Backend Developer</span></div></div>
+      </article>
+      <article class="pcard" data-cat="connector">
+        <div class="ptop"><span class="pcat">Connector &middot; Meeting Integration</span><span class="pidx">14</span></div>
+        <h3>Odoo Google Meet Connector</h3>
+        <div class="pver">Odoo v19, v18, v17</div>
+        <p class="pdesc">Create and launch Google Meet calls straight from the Odoo Calendar. Meetings sync with Google Calendar and attendees join via a one-click phone-icon redirect.</p>
+        <div class="pblock"><div class="plabel">Built with</div><div class="ptags"><span class="tag">API</span><span class="tag">Python</span><span class="tag">JavaScript</span><span class="tag">XML</span><span class="tag">OAuth</span></div></div>
+        <div class="pblock"><div class="plabel">My role</div><div class="ptags"><span class="tag role">Project Owner</span><span class="tag role">Backend Developer</span></div></div>
+      </article>
+      <article class="pcard" data-cat="connector">
+        <div class="ptop"><span class="pcat">Connector &middot; Meeting Integration</span><span class="pidx">15</span></div>
+        <h3>Odoo Zoom Meet Connector</h3>
+        <div class="pver">Odoo v19, v18, v17</div>
+        <p class="pdesc">Schedule and join Zoom meetings directly from Odoo Calendar. Works with free and paid Zoom accounts &mdash; auto-generated join links are emailed to attendees.</p>
+        <div class="pblock"><div class="plabel">Built with</div><div class="ptags"><span class="tag">API</span><span class="tag">Python</span><span class="tag">JavaScript</span><span class="tag">XML</span></div></div>
+        <div class="pblock"><div class="plabel">My role</div><div class="ptags"><span class="tag role">Project Owner</span><span class="tag role">Backend Developer</span></div></div>
+      </article>
+      <article class="pcard" data-cat="connector">
+        <div class="ptop"><span class="pcat">Connector &middot; Social / Recruitment</span><span class="pidx">16</span></div>
+        <h3>Odoo LinkedIn Connector</h3>
+        <div class="pver">Odoo v18, v17</div>
+        <p class="pdesc">Connects Odoo with LinkedIn so HR can pull candidate profiles, sync recruitment data and import contacts directly into Odoo&rsquo;s CRM and Recruitment modules.</p>
+        <div class="pblock"><div class="plabel">Built with</div><div class="ptags"><span class="tag">API</span><span class="tag">Python</span><span class="tag">JavaScript</span><span class="tag">XML</span><span class="tag">OAuth</span></div></div>
+        <div class="pblock"><div class="plabel">My role</div><div class="ptags"><span class="tag role">Project Owner</span><span class="tag role">Backend Developer</span></div></div>
+      </article>
+      <article class="pcard" data-cat="ai">
+        <div class="ptop"><span class="pcat">AI App &middot; OCR / Document Intelligence</span><span class="pidx">17</span></div>
+        <h3>Image to Text (OCR)</h3>
+        <div class="pver">AI &middot; Python</div>
+        <p class="pdesc">A standalone OCR tool that extracts text from images and scanned documents using Python AI libraries. Supports multiple image formats and produces clean, searchable output.</p>
+        <div class="pblock"><div class="plabel">Built with</div><div class="ptags"><span class="tag">Python</span><span class="tag">AI</span><span class="tag">OCR</span><span class="tag">OpenCV</span><span class="tag">Tesseract</span></div></div>
+        <div class="pblock"><div class="plabel">My role</div><div class="ptags"><span class="tag role">Project Owner</span></div></div>
+      </article>
+      <article class="pcard" data-cat="ai">
+        <div class="ptop"><span class="pcat">AI App &middot; NLP / Text Analysis</span><span class="pidx">18</span></div>
+        <h3>Sentiment Analyser</h3>
+        <div class="pver">AI &middot; Python</div>
+        <p class="pdesc">A Python sentiment-analysis tool that classifies text as positive, negative or neutral using NLP libraries &mdash; useful for reviews, social monitoring and customer-feedback analysis.</p>
+        <div class="pblock"><div class="plabel">Built with</div><div class="ptags"><span class="tag">Python</span><span class="tag">AI</span><span class="tag">NLP</span><span class="tag">NLTK</span><span class="tag">scikit-learn</span></div></div>
+        <div class="pblock"><div class="plabel">My role</div><div class="ptags"><span class="tag role">Project Owner</span></div></div>
+      </article>
+      <article class="pcard" data-cat="connector">
+        <div class="ptop"><span class="pcat">Connector &middot; Accounting Connector</span><span class="pidx">19</span></div>
+        <h3>Xero Odoo Connector</h3>
+        <div class="pver">Odoo v19, v18, v17, v16, v14</div>
+        <p class="pdesc">Bi-directional sync between Xero accounting and Odoo &mdash; invoices, bills, payments, customers and vendors stay aligned across both systems with no manual re-entry.</p>
+        <div class="pblock"><div class="plabel">Built with</div><div class="ptags"><span class="tag">API</span><span class="tag">Python</span><span class="tag">JavaScript</span><span class="tag">XML</span><span class="tag">OAuth</span></div></div>
+        <div class="pblock"><div class="plabel">My role</div><div class="ptags"><span class="tag role">Backend Developer</span><span class="tag role">Customize</span><span class="tag role">Migration</span></div></div>
+      </article>
+      <article class="pcard" data-cat="ai">
+        <div class="ptop"><span class="pcat">AI App &middot; OpenAI Integration</span><span class="pidx">20</span></div>
+        <h3>OdooGPT</h3>
+        <div class="pver">Odoo v16</div>
+        <p class="pdesc">Brings OpenAI&rsquo;s language models into Odoo, letting users interact with the system in natural language &mdash; for automated replies, text analysis and AI-assisted decisions across modules.</p>
+        <div class="pblock"><div class="plabel">Built with</div><div class="ptags"><span class="tag">Python</span><span class="tag">OpenAI API</span><span class="tag">JavaScript</span><span class="tag">XML</span><span class="tag">Automation</span></div></div>
+        <div class="pblock"><div class="plabel">My role</div><div class="ptags"><span class="tag role">Project Owner</span><span class="tag role">API Integration</span><span class="tag role">Developer</span></div></div>
+      </article>
+      <article class="pcard" data-cat="ai">
+        <div class="ptop"><span class="pcat">AI App &middot; Manufacturing AI</span><span class="pidx">21</span></div>
+        <h3>Manufacturing Copilot</h3>
+        <div class="pver">Odoo v16</div>
+        <p class="pdesc">An AI-driven assistant for Odoo Manufacturing that surfaces insights on supply-chain bottlenecks, production efficiency and quality control &mdash; cutting costs and lifting output.</p>
+        <div class="pblock"><div class="plabel">Built with</div><div class="ptags"><span class="tag">Python</span><span class="tag">OpenAI API</span><span class="tag">JavaScript</span><span class="tag">AI</span><span class="tag">Integration</span></div></div>
+        <div class="pblock"><div class="plabel">My role</div><div class="ptags"><span class="tag role">AI Developer</span><span class="tag role">UI Design</span><span class="tag role">Integration</span><span class="tag role">API Connection</span></div></div>
+      </article>
+      <article class="pcard" data-cat="odoo">
+        <div class="ptop"><span class="pcat">Odoo &middot; Service Booking</span><span class="pidx">22</span></div>
+        <h3>Automobile Garage</h3>
+        <div class="pver">Odoo v16, v14</div>
+        <p class="pdesc">Twyllo Internationals &mdash; an online garage platform where vehicle owners book maintenance, repairs and inspections, get live status updates and find certified mechanics.</p>
+        <div class="pblock"><div class="plabel">Built with</div><div class="ptags"><span class="tag">Python</span><span class="tag">JavaScript</span><span class="tag">XML</span><span class="tag">CSS</span><span class="tag">Git</span><span class="tag">GitHub</span></div></div>
+        <div class="pblock"><div class="plabel">My role</div><div class="ptags"><span class="tag role">Project Owner</span><span class="tag role">All-in-all</span></div></div>
+      </article>
+      <article class="pcard" data-cat="webapp">
+        <div class="ptop"><span class="pcat">Web App &middot; FinTech / Digital Wallet</span><span class="pidx">23</span></div>
+        <h3>Digi Era</h3>
+        <div class="pver">Web &middot; Node.js</div>
+        <p class="pdesc">A secure digital-wallet platform for storing, sending and receiving digital currencies &mdash; leveraging encryption and blockchain for fast, transparent transactions.</p>
+        <div class="pblock"><div class="plabel">Built with</div><div class="ptags"><span class="tag">Python</span><span class="tag">Node.js</span><span class="tag">JavaScript</span><span class="tag">REST APIs</span><span class="tag">Bootstrap</span><span class="tag">HTML</span><span class="tag">CSS</span></div></div>
+        <div class="pblock"><div class="plabel">My role</div><div class="ptags"><span class="tag role">Project Owner</span><span class="tag role">All-in-all</span></div></div>
+      </article>
+      <article class="pcard" data-cat="webapp">
+        <div class="ptop"><span class="pcat">Web App &middot; Civic Platform</span><span class="pidx">24</span></div>
+        <h3>News And Complaint System</h3>
+        <div class="pver">Web &middot; Django</div>
+        <p class="pdesc">A two-sided platform connecting residents and local authorities &mdash; citizens get timely news and file complaints, authorities respond and track resolutions transparently.</p>
+        <div class="pblock"><div class="plabel">Built with</div><div class="ptags"><span class="tag">Python</span><span class="tag">Django</span><span class="tag">JavaScript</span><span class="tag">REST APIs</span><span class="tag">Bootstrap</span><span class="tag">HTML</span><span class="tag">CSS</span></div></div>
+        <div class="pblock"><div class="plabel">My role</div><div class="ptags"><span class="tag role">Project Owner</span><span class="tag role">All-in-all</span></div></div>
+      </article>
+      <article class="pcard" data-cat="webapp">
+        <div class="ptop"><span class="pcat">Web App &middot; E-commerce</span><span class="pidx">25</span></div>
+        <h3>Shopping Cs</h3>
+        <div class="pver">Web &middot; Django</div>
+        <p class="pdesc">An online shopping platform with browse-and-buy product listings, secure payments and order management &mdash; bridging buyers and sellers in a fast digital marketplace.</p>
+        <div class="pblock"><div class="plabel">Built with</div><div class="ptags"><span class="tag">Python</span><span class="tag">Django</span><span class="tag">JavaScript</span><span class="tag">Bootstrap</span><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">Git</span></div></div>
+        <div class="pblock"><div class="plabel">My role</div><div class="ptags"><span class="tag role">Frontend &amp; Backend Contributor</span></div></div>
+      </article>
+      <article class="pcard" data-cat="webapp">
+        <div class="ptop"><span class="pcat">Web App &middot; Recruitment</span><span class="pidx">26</span></div>
+        <h3>Job Portal</h3>
+        <div class="pver">Web</div>
+        <p class="pdesc">A job portal that connects seekers and employers &mdash; profile creation, resume uploads, listings, application management and recommendation matching, all in one place.</p>
+        <div class="pblock"><div class="plabel">Built with</div><div class="ptags"><span class="tag">Java</span><span class="tag">JavaScript</span><span class="tag">Bootstrap</span><span class="tag">HTML</span><span class="tag">CSS</span></div></div>
+        <div class="pblock"><div class="plabel">My role</div><div class="ptags"><span class="tag role">Developer</span></div></div>
+      </article>
+      <article class="pcard" data-cat="ai">
+        <div class="ptop"><span class="pcat">AI App &middot; Recruitment</span><span class="pidx">27</span></div>
+        <h3>AI HR Application Tracking System</h3>
+        <div class="pver">Odoo v19, v18, v17</div>
+        <p class="pdesc">An AI-powered Odoo recruitment add-on that screens r&eacute;sum&eacute;s with Google Gemini and OCR, scoring candidates automatically against job descriptions.</p>
+        <div class="pblock"><div class="plabel">Built with</div><div class="ptags"><span class="tag">Python</span><span class="tag">Google Gemini</span><span class="tag">OCR</span><span class="tag">JavaScript</span><span class="tag">XML</span></div></div>
+        <div class="pblock"><div class="plabel">My role</div><div class="ptags"><span class="tag role">Project Owner</span><span class="tag role">Developer</span></div></div>
+      </article>
+      <article class="pcard" data-cat="connector">
+        <div class="ptop"><span class="pcat">Connector &middot; CRM / Marketing</span><span class="pidx">28</span></div>
+        <h3>HubSpot Integration</h3>
+        <div class="pver">Odoo v19, v18</div>
+        <p class="pdesc">Connects HubSpot&rsquo;s Sales and Marketing hubs with Odoo so teams can manage contacts, run inbound campaigns and close deals without switching tools.</p>
+        <div class="pblock"><div class="plabel">Built with</div><div class="ptags"><span class="tag">API</span><span class="tag">Python</span><span class="tag">JavaScript</span><span class="tag">XML</span><span class="tag">OAuth</span></div></div>
+        <div class="pblock"><div class="plabel">My role</div><div class="ptags"><span class="tag role">Backend Developer</span><span class="tag role">Migration</span></div></div>
+      </article>
+      <article class="pcard" data-cat="connector">
+        <div class="ptop"><span class="pcat">Connector &middot; E-commerce</span><span class="pidx">29</span></div>
+        <h3>WooCommerce Connector</h3>
+        <div class="pver">Odoo v19, v18</div>
+        <p class="pdesc">Connects WordPress WooCommerce stores with Odoo for unified product, inventory, order and customer management &mdash; keeping both platforms in sync automatically.</p>
+        <div class="pblock"><div class="plabel">Built with</div><div class="ptags"><span class="tag">API</span><span class="tag">Python</span><span class="tag">JavaScript</span><span class="tag">XML</span><span class="tag">REST</span></div></div>
+        <div class="pblock"><div class="plabel">My role</div><div class="ptags"><span class="tag role">Backend Developer</span><span class="tag role">Migration</span></div></div>
+      </article>
+      <article class="pcard" data-cat="connector">
+        <div class="ptop"><span class="pcat">Connector &middot; CRM</span><span class="pidx">30</span></div>
+        <h3>PipeDrive Connector</h3>
+        <div class="pver">Odoo v19, v18, v17</div>
+        <p class="pdesc">A two-way data bridge between Pipedrive CRM and Odoo so leads, deals and contacts flow seamlessly between platforms &mdash; no manual exports needed.</p>
+        <div class="pblock"><div class="plabel">Built with</div><div class="ptags"><span class="tag">API</span><span class="tag">Python</span><span class="tag">JavaScript</span><span class="tag">XML</span><span class="tag">REST</span></div></div>
+        <div class="pblock"><div class="plabel">My role</div><div class="ptags"><span class="tag role">Backend Developer</span><span class="tag role">Migration</span></div></div>
+      </article>
+      <article class="pcard" data-cat="connector">
+        <div class="ptop"><span class="pcat">Connector &middot; Cloud Storage</span><span class="pidx">31</span></div>
+        <h3>OneDrive Connector</h3>
+        <div class="pver">Odoo v19, v18, v17</div>
+        <p class="pdesc">Sync Odoo documents and attachments with Microsoft OneDrive &mdash; users can store, retrieve and manage files from either system, keeping cloud and ERP cleanly aligned.</p>
+        <div class="pblock"><div class="plabel">Built with</div><div class="ptags"><span class="tag">API</span><span class="tag">Python</span><span class="tag">JavaScript</span><span class="tag">XML</span><span class="tag">OAuth</span></div></div>
+        <div class="pblock"><div class="plabel">My role</div><div class="ptags"><span class="tag role">Backend Developer</span><span class="tag role">Migration</span></div></div>
+      </article>
+      <article class="pcard" data-cat="connector">
+        <div class="ptop"><span class="pcat">Connector &middot; Collaboration</span><span class="pidx">32</span></div>
+        <h3>Slack Integration</h3>
+        <div class="pver">Odoo v16</div>
+        <p class="pdesc">Brings Slack into Odoo with imported users and channels, channel-rename sync, event-handler messages and instant in-app notifications.</p>
+        <div class="pblock"><div class="plabel">Built with</div><div class="ptags"><span class="tag">API</span><span class="tag">Python</span><span class="tag">JavaScript</span><span class="tag">XML</span><span class="tag">Webhooks</span></div></div>
+        <div class="pblock"><div class="plabel">My role</div><div class="ptags"><span class="tag role">Developer</span></div></div>
+      </article>
+      <article class="pcard" data-cat="connector">
+        <div class="ptop"><span class="pcat">Connector &middot; Geo / Maps</span><span class="pidx">33</span></div>
+        <h3>Google Map Integration With Odoo</h3>
+        <div class="pver">Odoo v19, v18, v17</div>
+        <p class="pdesc">Plots customer addresses on Google Maps with autocomplete suggestions and route details from user to partner on sales orders &mdash; visualised geography inside Odoo.</p>
+        <div class="pblock"><div class="plabel">Built with</div><div class="ptags"><span class="tag">Google Maps API</span><span class="tag">JavaScript</span><span class="tag">Python</span><span class="tag">XML</span></div></div>
+        <div class="pblock"><div class="plabel">My role</div><div class="ptags"><span class="tag role">Developer</span><span class="tag role">Migration</span></div></div>
+      </article>
+      <article class="pcard" data-cat="connector">
+        <div class="ptop"><span class="pcat">Connector &middot; ERP Bridge</span><span class="pidx">34</span></div>
+        <h3>SAP Connector</h3>
+        <div class="pver">Odoo v19, v18</div>
+        <p class="pdesc">A connector that bridges SAP ERP with Odoo, syncing master data, transactions and inventory between the two &mdash; letting companies modernise without losing SAP integration.</p>
+        <div class="pblock"><div class="plabel">Built with</div><div class="ptags"><span class="tag">API</span><span class="tag">Python</span><span class="tag">JavaScript</span><span class="tag">XML</span><span class="tag">REST</span></div></div>
+        <div class="pblock"><div class="plabel">My role</div><div class="ptags"><span class="tag role">Project Owner</span><span class="tag role">Developer</span><span class="tag role">Migration</span></div></div>
+      </article>
     </div>
-    <div class="more-note">
-      <h4>And more integrations &amp; connectors</h4>
-      <p>Beyond the projects above, I've also worked on a range of Odoo AI apps and platform connectors:</p>
-      <div class="ptags">
-        <span class="tag">Odoo AI Apps</span><span class="tag">HubSpot</span><span class="tag">WooCommerce</span><span class="tag">PipeDrive</span><span class="tag">OneDrive</span><span class="tag">SAP</span>
-      </div>
-    </div>
-  </div>
+</div>
 </div>
 
 <!-- ============== CERTIFICATIONS OVERLAY (single-file dedicated view) ============== -->
@@ -1577,6 +1798,11 @@ body.pp-lock{overflow:hidden}
       Back to portfolio
     </button>
   </div>
+  <div class="admin-fab">
+    <button class="admin-btn" id="adminBtn" aria-label="Open admin">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a8 8 0 0116 0v1"/></svg>
+    </button>
+  </div>
   <div class="container">
     <section class="pp-hero">
       <span class="eyebrow">Inbox</span>
@@ -1585,6 +1811,62 @@ body.pp-lock{overflow:hidden}
       <div class="count" id="messagesCount">0 messages</div>
     </section>
     <div class="msgs-grid" id="messagesGrid"></div>
+  </div>
+</div>
+
+<!-- ============== ADMIN / CMS OVERLAY ============== -->
+<div class="projects-page admin-page" id="adminPage" role="dialog" aria-modal="true" aria-label="Manage projects">
+  <div class="pp-bar">
+    <span class="brand">Asmar<span>.</span></span>
+    <div class="pp-bar-right">
+      <button class="btn btn-ghost btn-back" id="closeAdmin">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+        Back to portfolio
+      </button>
+      <button class="btn btn-ghost btn-back" id="adminPageLogout">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+        Logout
+      </button>
+    </div>
+  </div>
+  <div class="container">
+    <section class="pp-hero">
+      <span class="eyebrow">Admin / CMS</span>
+      <h1>Manage <span class="ghost">your work</span></h1>
+      <p>Curate which projects appear in <strong>Selected work</strong> and <strong>Recent works</strong> on the homepage. Pick from the All&nbsp;Projects pool, drag rows to reorder, and × to remove. Changes save automatically and reflect immediately.</p>
+    </section>
+    <div class="admin-grid">
+      <div class="admin-card">
+        <div class="admin-card-head">
+          <span class="eyebrow">Section 01</span>
+          <h2>Selected work</h2>
+          <p class="admin-sub">Featured projects at the top of the portfolio.</p>
+        </div>
+        <div class="admin-list" id="adminSelectedList"></div>
+        <div class="admin-add">
+          <label for="adminSelectedAdd" class="admin-add-label">Add a project from All Projects</label>
+          <select id="adminSelectedAdd" class="admin-select">
+            <option value="">Select a project to add&hellip;</option>
+          </select>
+        </div>
+        <button class="admin-reset" id="adminResetSelected" type="button">Reset to default</button>
+      </div>
+      <div class="admin-card">
+        <div class="admin-card-head">
+          <span class="eyebrow">Section 02</span>
+          <h2>Recent works</h2>
+          <p class="admin-sub">Filterable showcase grid. Badge auto-derived from category.</p>
+        </div>
+        <div class="admin-list" id="adminRecentList"></div>
+        <div class="admin-add">
+          <label for="adminRecentAdd" class="admin-add-label">Add a project from All Projects</label>
+          <select id="adminRecentAdd" class="admin-select">
+            <option value="">Select a project to add&hellip;</option>
+          </select>
+        </div>
+        <button class="admin-reset" id="adminResetRecent" type="button">Reset to default</button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -2116,6 +2398,322 @@ body.pp-lock{overflow:hidden}
   else if(location.hash === '#messages'){
     if(isAuthed()) openMessages(false);
     else { history.replaceState(null,'','#login'); openLogin(false); }
+  }
+
+  /* ---- Admin / CMS: pool extraction, dynamic rendering, admin page ---- */
+  function escHtml(s){
+    return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+  function slugify(s){
+    return String(s||'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,70);
+  }
+  function badgeLabel(cat){
+    return ({odoo:'Odoo',ai:'AI App',connector:'Connector',webapp:'Web App',fintech:'Fintech'})[cat] || 'Project';
+  }
+
+  /* Build project pool from #pjGrid */
+  var PROJECT_POOL = Array.prototype.map.call(document.querySelectorAll('#pjGrid .pcard'), function(card){
+    var titleEl = card.querySelector('h3');
+    var pcat = card.querySelector('.pcat');
+    var pver = card.querySelector('.pver');
+    var pdesc = card.querySelector('.pdesc');
+    var blocks = card.querySelectorAll('.pblock .ptags');
+    return {
+      id: slugify(titleEl ? titleEl.textContent : ''),
+      title: titleEl ? titleEl.textContent.trim() : '',
+      cat: card.dataset.cat || 'odoo',
+      subtitle: pcat ? pcat.textContent.trim().replace(/\u00b7/g,'·') : '',
+      versions: pver ? pver.textContent.trim() : '',
+      desc: pdesc ? pdesc.textContent.trim() : '',
+      builtWith: blocks[0] ? Array.prototype.map.call(blocks[0].querySelectorAll('.tag'), function(t){ return t.textContent.trim(); }) : [],
+      roles: blocks[1] ? Array.prototype.map.call(blocks[1].querySelectorAll('.tag.role'), function(t){ return t.textContent.trim(); }) : []
+    };
+  });
+
+  function findIdBySub(needle){
+    var n = (needle||'').toLowerCase();
+    var hit = PROJECT_POOL.filter(function(p){ return p.title.toLowerCase().indexOf(n) !== -1; })[0];
+    return hit ? hit.id : null;
+  }
+  var DEFAULT_SELECTED = ['Delivery Control','Human Resource','Copilot','CRM Advance','QuickBooks Online Connector','Tailoring Management']
+    .map(findIdBySub).filter(Boolean);
+  var DEFAULT_RECENT = ['Talking Avatar','Digi Era','Application Tracking','Tailoring Management','News And Complaint','QuickBooks Online Connector']
+    .map(findIdBySub).filter(Boolean);
+
+  /* Stash existing Recent works images so we can cycle them through any selection */
+  var WORK_IMAGES = Array.prototype.map.call(document.querySelectorAll('#worksGrid .work-img'), function(img){ return img.src; });
+
+  var FEATURED_KEY = 'asmar_portfolio_featured_v1';
+  function loadFeatured(){
+    try{
+      var raw = localStorage.getItem(FEATURED_KEY);
+      if(!raw) return null;
+      var p = JSON.parse(raw);
+      if(!p || !Array.isArray(p.selected) || !Array.isArray(p.recent)) return null;
+      return p;
+    } catch(e){ return null; }
+  }
+  function saveFeatured(data){
+    try { localStorage.setItem(FEATURED_KEY, JSON.stringify(data)); } catch(e){}
+  }
+  function getSelections(){
+    var s = loadFeatured();
+    if(s){
+      var validIds = PROJECT_POOL.map(function(p){ return p.id; });
+      return {
+        selected: s.selected.filter(function(id){ return validIds.indexOf(id) !== -1; }),
+        recent: s.recent.filter(function(id){ return validIds.indexOf(id) !== -1; })
+      };
+    }
+    return { selected: DEFAULT_SELECTED.slice(), recent: DEFAULT_RECENT.slice() };
+  }
+
+  function renderSelectedWork(){
+    var grid = document.querySelector('#projects .proj-grid');
+    if(!grid) return;
+    var ids = getSelections().selected;
+    var html = ids.map(function(id, i){
+      var p = PROJECT_POOL.filter(function(x){ return x.id === id; })[0];
+      if(!p) return '';
+      var num = String(i+1).length < 2 ? '0'+(i+1) : String(i+1);
+      var built = p.builtWith.slice(0,5).map(function(t){ return '<span>'+escHtml(t)+'</span>'; }).join('');
+      if(p.builtWith.length > 5){ built += '<span class="more">+'+(p.builtWith.length-5)+' more</span>'; }
+      var role = p.roles[0] || 'Project Lead';
+      return '<article class="proj-card reveal">'+
+        '<div class="proj-top"><span class="proj-when">'+escHtml(p.subtitle)+'</span><span class="proj-num">'+num+'</span></div>'+
+        '<h3>'+escHtml(p.title)+'</h3>'+
+        '<p>'+escHtml(p.desc)+'</p>'+
+        '<div class="tags">'+built+'</div>'+
+        '<div class="proj-foot"><span class="co">'+escHtml(role)+'</span><span class="rl">'+escHtml(badgeLabel(p.cat))+'</span></div>'+
+      '</article>';
+    }).join('');
+    grid.innerHTML = html || '<p style="grid-column:1/-1;color:var(--muted-2);text-align:center;padding:40px 20px;font-style:italic">No featured projects. Add some from the admin page.</p>';
+  }
+
+  function renderRecentWorks(){
+    var grid = document.getElementById('worksGrid');
+    if(!grid) return;
+    var ids = getSelections().recent;
+    var html = ids.map(function(id, i){
+      var p = PROJECT_POOL.filter(function(x){ return x.id === id; })[0];
+      if(!p) return '';
+      var img = WORK_IMAGES[i % WORK_IMAGES.length] || '';
+      var desc = p.desc;
+      if(desc.length > 140){ desc = desc.slice(0,137).replace(/\s+\S*$/,'') + '…'; }
+      return '<article class="work" data-cat="'+escHtml(p.cat)+'">'+
+        '<div class="work-thumb"><img class="work-img" alt="'+escHtml(p.title)+'" src="'+img+'"><span class="cat">'+escHtml(badgeLabel(p.cat))+'</span></div>'+
+        '<div class="work-body"><h4>'+escHtml(p.title)+'</h4><p>'+escHtml(desc)+'</p></div>'+
+      '</article>';
+    }).join('');
+    grid.innerHTML = html;
+    // Re-apply current filter
+    var activeBtn = document.querySelector('.filter-btn.active');
+    if(activeBtn){
+      var f = activeBtn.dataset.filter;
+      Array.prototype.forEach.call(grid.children, function(card){
+        card.style.display = (f === 'all' || card.dataset.cat === f) ? '' : 'none';
+      });
+    }
+  }
+
+  /* Render admin UI */
+  function renderAdminPanel(){
+    var sel = getSelections();
+    renderAdminList('adminSelectedList', sel.selected, 'selected');
+    renderAdminList('adminRecentList', sel.recent, 'recent');
+    populateAddDropdown('adminSelectedAdd', sel.selected);
+    populateAddDropdown('adminRecentAdd', sel.recent);
+  }
+  function renderAdminList(containerId, ids, kind){
+    var container = document.getElementById(containerId);
+    if(!container) return;
+    container.innerHTML = '';
+    if(ids.length === 0){
+      var empty = document.createElement('div');
+      empty.className = 'admin-empty';
+      empty.textContent = 'No projects in this section yet — add one below.';
+      container.appendChild(empty);
+      return;
+    }
+    ids.forEach(function(id, i){
+      var p = PROJECT_POOL.filter(function(x){ return x.id === id; })[0];
+      if(!p) return;
+      var item = document.createElement('div');
+      item.className = 'admin-item';
+      item.dataset.id = id;
+      var num = String(i+1).length < 2 ? '0'+(i+1) : String(i+1);
+      item.innerHTML = '<span class="admin-grip" aria-hidden="true">⋮⋮</span>'+
+        '<span class="admin-item-num">'+num+'</span>'+
+        '<div class="admin-item-body"><div class="admin-item-title">'+escHtml(p.title)+'</div><div class="admin-item-meta">'+escHtml(badgeLabel(p.cat))+'</div></div>'+
+        '<button class="admin-item-remove" aria-label="Remove" type="button" draggable="false"></button>';
+      var btn = item.querySelector('.admin-item-remove');
+      btn.textContent = '\u00d7';
+      btn.addEventListener('click', function(e){ e.stopPropagation(); removeFromSection(kind, id); });
+      container.appendChild(item);
+    });
+    setupDragSort(container, kind);
+  }
+
+  function setupDragSort(container, kind){
+    var dragSrcId = null;
+    function clearIndicators(){
+      Array.prototype.forEach.call(container.children, function(c){
+        c.classList.remove('drag-over-top','drag-over-bottom');
+      });
+    }
+    Array.prototype.forEach.call(container.children, function(item){
+      if(!item.dataset || !item.dataset.id) return;
+      item.draggable = true;
+      item.addEventListener('dragstart', function(e){
+        dragSrcId = item.dataset.id;
+        item.classList.add('dragging');
+        e.dataTransfer.effectAllowed = 'move';
+        try { e.dataTransfer.setData('text/plain', dragSrcId); } catch(_){}
+      });
+      item.addEventListener('dragend', function(){
+        item.classList.remove('dragging');
+        clearIndicators();
+        dragSrcId = null;
+      });
+      item.addEventListener('dragover', function(e){
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'move';
+        if(!dragSrcId || item.dataset.id === dragSrcId) return;
+        var rect = item.getBoundingClientRect();
+        var dropAfter = e.clientY > rect.top + rect.height/2;
+        clearIndicators();
+        item.classList.add(dropAfter ? 'drag-over-bottom' : 'drag-over-top');
+      });
+      item.addEventListener('dragleave', function(e){
+        // Only clear if leaving the item entirely (not entering a child)
+        if(!item.contains(e.relatedTarget)){
+          item.classList.remove('drag-over-top','drag-over-bottom');
+        }
+      });
+      item.addEventListener('drop', function(e){
+        e.preventDefault();
+        if(!dragSrcId || item.dataset.id === dragSrcId){ clearIndicators(); return; }
+        var targetId = item.dataset.id;
+        var rect = item.getBoundingClientRect();
+        var dropAfter = e.clientY > rect.top + rect.height/2;
+        var data = getSelections();
+        var arr = (kind === 'selected') ? data.selected.slice() : data.recent.slice();
+        var fromIdx = arr.indexOf(dragSrcId);
+        if(fromIdx === -1){ clearIndicators(); return; }
+        arr.splice(fromIdx, 1);
+        var toIdx = arr.indexOf(targetId);
+        if(toIdx === -1){ clearIndicators(); return; }
+        arr.splice(dropAfter ? toIdx + 1 : toIdx, 0, dragSrcId);
+        if(kind === 'selected') data.selected = arr;
+        else data.recent = arr;
+        saveFeatured(data);
+        renderAdminPanel();
+        renderSelectedWork();
+        renderRecentWorks();
+      });
+    });
+  }
+  function populateAddDropdown(selectId, currentIds){
+    var sel = document.getElementById(selectId);
+    if(!sel) return;
+    var hadVal = sel.value;
+    sel.innerHTML = '<option value="">Select a project to add…</option>';
+    // Group by category for nicer browsing
+    var cats = ['odoo','ai','connector','webapp','fintech'];
+    var labels = {odoo:'Odoo',ai:'AI Apps',connector:'Connectors',webapp:'Web Apps',fintech:'Fintech'};
+    cats.forEach(function(cat){
+      var items = PROJECT_POOL.filter(function(p){ return p.cat === cat && currentIds.indexOf(p.id) === -1; });
+      if(items.length === 0) return;
+      var group = document.createElement('optgroup');
+      group.label = labels[cat] || cat;
+      items.forEach(function(p){
+        var opt = document.createElement('option');
+        opt.value = p.id;
+        opt.textContent = p.title;
+        group.appendChild(opt);
+      });
+      sel.appendChild(group);
+    });
+  }
+  function addToSection(kind, id){
+    var data = getSelections();
+    if(kind === 'selected' && data.selected.indexOf(id) === -1) data.selected.push(id);
+    else if(kind === 'recent' && data.recent.indexOf(id) === -1) data.recent.push(id);
+    saveFeatured(data);
+    renderAdminPanel();
+    renderSelectedWork();
+    renderRecentWorks();
+  }
+  function removeFromSection(kind, id){
+    var data = getSelections();
+    if(kind === 'selected') data.selected = data.selected.filter(function(x){ return x !== id; });
+    else if(kind === 'recent') data.recent = data.recent.filter(function(x){ return x !== id; });
+    saveFeatured(data);
+    renderAdminPanel();
+    renderSelectedWork();
+    renderRecentWorks();
+  }
+  function resetSection(kind){
+    var data = getSelections();
+    if(kind === 'selected') data.selected = DEFAULT_SELECTED.slice();
+    else if(kind === 'recent') data.recent = DEFAULT_RECENT.slice();
+    saveFeatured(data);
+    renderAdminPanel();
+    renderSelectedWork();
+    renderRecentWorks();
+  }
+
+  /* Admin overlay open/close */
+  var adminPage = document.getElementById('adminPage');
+  function openAdmin(push){
+    if(!isAuthed()){
+      history.replaceState(null,'','#login');
+      openLogin(false);
+      return;
+    }
+    adminPage.classList.add('open');
+    document.body.classList.add('pp-lock');
+    if(push !== false) history.pushState(null,'','#admin');
+    renderAdminPanel();
+  }
+  function closeAdmin(){
+    adminPage.classList.remove('open');
+    document.body.classList.remove('pp-lock');
+    if(location.hash === '#admin') history.replaceState(null,'',location.pathname + location.search);
+  }
+  document.getElementById('closeAdmin').addEventListener('click', closeAdmin);
+  document.getElementById('adminPageLogout').addEventListener('click', function(){
+    closeAdmin();
+    // Clear auth + close anything open
+    if(typeof setAuthed === 'function') setAuthed(false);
+    closeMessages();
+  });
+  document.getElementById('adminSelectedAdd').addEventListener('change', function(){
+    if(this.value){ addToSection('selected', this.value); this.value = ''; }
+  });
+  document.getElementById('adminRecentAdd').addEventListener('change', function(){
+    if(this.value){ addToSection('recent', this.value); this.value = ''; }
+  });
+  document.getElementById('adminResetSelected').addEventListener('click', function(){ resetSection('selected'); });
+  document.getElementById('adminResetRecent').addEventListener('click', function(){ resetSection('recent'); });
+
+  /* Admin avatar (on messages page) opens admin overlay */
+  var adminBtn = document.getElementById('adminBtn');
+  adminBtn.addEventListener('click', function(e){
+    e.stopPropagation();
+    openAdmin(true);
+  });
+
+  /* Hash routing: open admin if URL has #admin and authed */
+  if(location.hash === '#admin'){
+    if(isAuthed()) openAdmin(false);
+    else { history.replaceState(null,'','#login'); openLogin(false); }
+  }
+
+  /* On load, if user has saved a custom selection, re-render homepage sections */
+  if(loadFeatured()){
+    renderSelectedWork();
+    renderRecentWorks();
   }
 
   /* ---- Hire-me modal ---- */
