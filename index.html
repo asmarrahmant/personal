@@ -728,7 +728,7 @@ body.pp-lock{overflow:hidden}
         <div class="info-list">
           <div class="cell"><div class="k">First Name</div><div class="v">Asmar</div></div>
           <div class="cell"><div class="k">Last Name</div><div class="v">Rahman</div></div>
-          <div class="cell"><div class="k">Age</div><div class="v">25 Years</div></div>
+          <div class="cell"><div class="k">Age</div><div class="v"><span id="ageVal">25</span> Years</div></div>
           <div class="cell"><div class="k">Nationality</div><div class="v">Indian</div></div>
           <div class="cell"><div class="k">Freelance</div><div class="v avail">Available</div></div>
           <div class="cell"><div class="k">Email</div><div class="v">asmarrahmant@gmail.com</div></div>
@@ -2345,6 +2345,17 @@ body.pp-lock{overflow:hidden}
       hero.addEventListener('mouseleave', function(){ hv.style.transform = ''; });
     }
   }
+
+  /* ---- Dynamic age (from DOB) ---- */
+  (function(){
+    var dob = new Date(2000, 6, 1); /* 2000-07-01 — month is 0-indexed */
+    var today = new Date();
+    var age = today.getFullYear() - dob.getFullYear();
+    var monthDiff = today.getMonth() - dob.getMonth();
+    if(monthDiff < 0 || (monthDiff === 0 && today.getDate() < dob.getDate())) age--;
+    var el = document.getElementById('ageVal');
+    if(el) el.textContent = age;
+  })();
 
 })();
 </script>
