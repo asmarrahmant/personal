@@ -24,12 +24,12 @@
         "label": "Years experience"
       },
       {
-        "count": 12,
+        "count": 30,
         "suffix": "+",
         "label": "Projects done"
       },
       {
-        "count": 8,
+        "count": 30,
         "suffix": "+",
         "label": "Certificates"
       }
@@ -108,12 +108,12 @@
         "label": "Years of experience"
       },
       {
-        "count": 12,
+        "count": 30,
         "suffix": "+",
         "label": "Completed projects"
       },
       {
-        "count": 8,
+        "count": 30,
         "suffix": "+",
         "label": "Awards & certificates"
       },
@@ -1421,7 +1421,7 @@
   ],
   "contact": {
     "introHeading": "Don't be shy!",
-    "introText": "Feel free to reach out. I'm always open to discussing new projects, creative ideas or opportunities to be part of your vision.",
+    "introText": "Feel free to reach out. I'm always open to discussing new projects, creative ideas or opportunities to be part of your vision. I usually reply within 24 hours.",
     "address": [
       {
         "text": "Tirur, Malappuram, Kerala, 676102",
@@ -1452,11 +1452,11 @@
       },
       {
         "type": "github",
-        "url": "https://github.com/"
+        "url": "https://github.com/asmarrahmant"
       },
       {
         "type": "linkedin",
-        "url": "https://linkedin.com/"
+        "url": "https://linkedin.com/in/asmar-rahman-t"
       },
       {
         "type": "whatsapp",
