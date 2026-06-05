@@ -1,0 +1,1511 @@
+{
+  "meta": {
+    "siteTitle": "Asmar Rahman",
+    "brand": "Asmar",
+    "copyright": "© 2026 Asmar Rahman. All rights reserved."
+  },
+  "hero": {
+    "eyebrow": "I'm Asmar Rahman",
+    "titleLine1": "Odoo",
+    "titleLine2": "Developer",
+    "lead": "Innovative and detail-oriented Odoo Developer with strong expertise in customizing Odoo modules, integrating third-party applications, and automating business processes to enhance operational efficiency. Skilled across backend and frontend with a solid grasp of ERP workflows.",
+    "ctaPrimary": {
+      "label": "More about me",
+      "href": "#about"
+    },
+    "badges": [
+      "Available for freelance",
+      "Based in India / UAE"
+    ],
+    "stats": [
+      {
+        "count": 3,
+        "suffix": "+",
+        "label": "Years experience"
+      },
+      {
+        "count": 30,
+        "suffix": "+",
+        "label": "Projects done"
+      },
+      {
+        "count": 30,
+        "suffix": "+",
+        "label": "Certificates"
+      }
+    ]
+  },
+  "marquee": [
+    "Odoo",
+    "Python",
+    "JavaScript",
+    "OWL JS",
+    "PostgreSQL",
+    "XML",
+    "API Integration",
+    "Django",
+    "SCSS",
+    "RPC",
+    "AI / OpenAI",
+    "Bootstrap"
+  ],
+  "dob": "2000-07-01",
+  "about": {
+    "info": [
+      {
+        "k": "First Name",
+        "v": "Asmar"
+      },
+      {
+        "k": "Last Name",
+        "v": "Rahman"
+      },
+      {
+        "k": "Age",
+        "v": "25 Years",
+        "age": true
+      },
+      {
+        "k": "Nationality",
+        "v": "Indian"
+      },
+      {
+        "k": "Freelance",
+        "v": "Available",
+        "avail": true
+      },
+      {
+        "k": "Email",
+        "v": "asmarrahmant@gmail.com",
+        "href": "mailto:asmarrahmant@gmail.com"
+      },
+      {
+        "k": "Phone (India)",
+        "v": "+91 8138048803",
+        "href": "tel:+918138048803"
+      },
+      {
+        "k": "Phone (UAE)",
+        "v": "+971 541828991",
+        "href": "tel:+971541828991"
+      }
+    ],
+    "heading": "Building ERP solutions that just work.",
+    "paragraphs": [
+      "I turn complex business requirements into clean, maintainable Odoo modules — from custom workflows and reports to robust third-party integrations. My focus is automation that removes friction and gives teams back their time.",
+      "I'm currently open to freelance and full-time opportunities, and I love collaborating on ambitious ideas."
+    ],
+    "languages": [
+      "English",
+      "Malayalam",
+      "Hindi",
+      "Tamil"
+    ],
+    "stats": [
+      {
+        "count": 3,
+        "suffix": "+",
+        "label": "Years of experience"
+      },
+      {
+        "count": 30,
+        "suffix": "+",
+        "label": "Completed projects"
+      },
+      {
+        "count": 30,
+        "suffix": "+",
+        "label": "Awards & certificates"
+      },
+      {
+        "count": 100,
+        "suffix": "%",
+        "label": "Client satisfaction"
+      }
+    ]
+  },
+  "skillsFeatured": [
+    {
+      "name": "Odoo",
+      "pct": 95
+    },
+    {
+      "name": "Python",
+      "pct": 95
+    },
+    {
+      "name": "JavaScript",
+      "pct": 85
+    },
+    {
+      "name": "XML",
+      "pct": 88
+    },
+    {
+      "name": "PostgreSQL",
+      "pct": 82
+    },
+    {
+      "name": "AI Integration",
+      "pct": 95
+    },
+    {
+      "name": "API Integration",
+      "pct": 92
+    },
+    {
+      "name": "Business Process",
+      "pct": 87
+    }
+  ],
+  "experience": [
+    {
+      "when": "Mar 2026 – Present",
+      "modes": [
+        "On-site",
+        "UAE"
+      ],
+      "role": "Odoo System Administrator",
+      "company": "Hassan Bin AlShaikh Group of Industries",
+      "companyUrl": "https://www.hbas.ae",
+      "type": "Full-time"
+    },
+    {
+      "when": "May 2023 – Mar 2026",
+      "modes": [
+        "On-site",
+        "INDIA"
+      ],
+      "role": "Odoo Developer",
+      "company": "Pragmatic Techsoft Pvt Ltd",
+      "companyUrl": "https://www.pragtech.co.in",
+      "type": "Full-time"
+    },
+    {
+      "when": "Nov 2023 – Feb 2025",
+      "modes": [
+        "Remote"
+      ],
+      "role": "AI Developer",
+      "company": "EduAI Hub",
+      "companyUrl": "https://eduaihub.in",
+      "type": "Full-time"
+    },
+    {
+      "when": "Aug 2022 – Nov 2022",
+      "modes": [
+        "Remote"
+      ],
+      "role": "Frontend Web Developer",
+      "company": "Upwork",
+      "companyUrl": "https://www.upwork.com",
+      "type": "Freelance"
+    },
+    {
+      "when": "Feb 2022 – Jul 2022",
+      "modes": [
+        "On-site",
+        "INDIA"
+      ],
+      "role": "Python Full Stack Developer",
+      "company": "Baabtra.com Pvt Ltd",
+      "companyUrl": "https://baabtra.com",
+      "type": "Intern"
+    },
+    {
+      "when": "Oct 2021 – Jun 2022",
+      "modes": [
+        "Remote"
+      ],
+      "role": "Certified Ethical Hacker",
+      "company": "RedTeam Hacker Academy",
+      "companyUrl": "https://redteamacademy.com",
+      "type": "Internship"
+    },
+    {
+      "when": "May 2021 – Oct 2021",
+      "modes": [
+        "Remote"
+      ],
+      "role": "Penetration Tester",
+      "company": "RedTeam Hacker Academy",
+      "companyUrl": "https://redteamacademy.com",
+      "type": "Apprenticeship"
+    },
+    {
+      "when": "Jan 2021 – Mar 2021",
+      "modes": [
+        "Hybrid",
+        "INDIA"
+      ],
+      "role": "Java Programmer",
+      "company": "Keltron Advanced Studies",
+      "companyUrl": "https://keltron.org",
+      "type": "Apprenticeship"
+    }
+  ],
+  "education": [
+    {
+      "title": "B-Tech (Computer Science)",
+      "org": "Royal College of Engineering & Technology"
+    },
+    {
+      "title": "Diploma (Computer Science)",
+      "org": "Arunachal University of Studies"
+    },
+    {
+      "title": "Python Full Stack Developer",
+      "org": "Baabtra"
+    },
+    {
+      "title": "Certified Penetration Tester (CPT)",
+      "org": "Redteam Hacker Academy"
+    },
+    {
+      "title": "Higher Secondary",
+      "org": "GHSS Niramaruthoor"
+    },
+    {
+      "title": "High School",
+      "org": "KHMHSS Alathiyur"
+    }
+  ],
+  "featuredProjects": [
+    {
+      "when": "Dec 2025 – Feb 2026",
+      "num": "01",
+      "title": "Delivery Control App",
+      "desc": "End-to-end home delivery for Odoo. Accept orders across POS, web and a driver portal, and manage the full fulfillment cycle from placement to doorstep.",
+      "tags": [
+        {
+          "t": "JavaScript"
+        },
+        {
+          "t": "Python"
+        },
+        {
+          "t": "XML"
+        },
+        {
+          "t": "OWL JS"
+        },
+        {
+          "t": "SCSS"
+        }
+      ],
+      "company": "Pragmatic Techsoft",
+      "role": "Backend & POS"
+    },
+    {
+      "when": "Oct – Dec 2025",
+      "num": "02",
+      "title": "AI-Powered Human Resource Management System",
+      "desc": "An A-to-Z HR system on Odoo that automates the full employee lifecycle, layering OpenAI on top of Recruitment for faster, more objective screening and evaluation.",
+      "tags": [
+        {
+          "t": "AI"
+        },
+        {
+          "t": "Python"
+        },
+        {
+          "t": "OpenAI"
+        },
+        {
+          "t": "JavaScript"
+        },
+        {
+          "t": "RPC"
+        },
+        {
+          "t": "API"
+        },
+        {
+          "t": "XML"
+        },
+        {
+          "t": "CSS"
+        }
+      ],
+      "company": "Pragmatic Techsoft",
+      "role": "Project Owner"
+    },
+    {
+      "when": "Feb – Mar 2024",
+      "num": "03",
+      "title": "Odoo Copilot-AI Chatbot for Odoo",
+      "desc": "An OpenAI-powered chatbot built into Odoo's Discuss module. Ask about features, configuration or workflows and get instant, context-aware answers without leaving Odoo.",
+      "tags": [
+        {
+          "t": "API"
+        },
+        {
+          "t": "OpenAI"
+        },
+        {
+          "t": "JavaScript"
+        },
+        {
+          "t": "Ajax"
+        },
+        {
+          "t": "RPC"
+        },
+        {
+          "t": "Python"
+        },
+        {
+          "t": "XML"
+        },
+        {
+          "t": "HTML"
+        },
+        {
+          "t": "CSS"
+        }
+      ],
+      "company": "Pragmatic Techsoft",
+      "role": "Project Owner"
+    },
+    {
+      "when": "Mar – Apr 2025",
+      "num": "04",
+      "title": "CRM Advance-Automated Lead & Meeting Management",
+      "desc": "An Odoo CRM that auto-captures leads, triggers timely follow-up emails and books meetings directly through Google Meet and Zoom. Letting reps focus on closing, not admin.",
+      "tags": [
+        {
+          "t": "Python"
+        },
+        {
+          "t": "JavaScript"
+        },
+        {
+          "t": "XML"
+        },
+        {
+          "t": "SCSS"
+        },
+        {
+          "t": "API"
+        }
+      ],
+      "company": "Pragmatic Techsoft",
+      "role": "Project Owner"
+    },
+    {
+      "when": "Apr – Jun 2024",
+      "num": "05",
+      "title": "QuickBooks Connector",
+      "desc": "Seamless bi-directional sync between QuickBooks Online and Odoo for customers, vendors, products, invoices and payments. Keeping both systems perfectly in step.",
+      "tags": [
+        {
+          "t": "Odoo"
+        },
+        {
+          "t": "Python"
+        },
+        {
+          "t": "API"
+        },
+        {
+          "t": "QuickBooks"
+        },
+        {
+          "t": "+4 more",
+          "more": true
+        }
+      ],
+      "company": "Pragmatic Techsoft",
+      "role": "Odoo Developer"
+    },
+    {
+      "when": "Sep – Oct 2023",
+      "num": "06",
+      "title": "Tailoring Management",
+      "desc": "Complete tailoring-business orchestration from customer interactions all the way to final product delivery delivered as Team Lead.",
+      "tags": [
+        {
+          "t": "CSS"
+        },
+        {
+          "t": "XML"
+        },
+        {
+          "t": "GitHub"
+        },
+        {
+          "t": "RPC"
+        },
+        {
+          "t": "+5 more",
+          "more": true
+        }
+      ],
+      "company": "Pragmatic Techsoft",
+      "role": "Team Lead"
+    }
+  ],
+  "works": [
+    {
+      "cat": "ai",
+      "alt": "Virtual Assistant — Talking Avatar",
+      "image": "images/projects/virtual_assistant.jpg",
+      "catLabel": "AI App",
+      "title": "Virtual Assistant",
+      "desc": "A talking-avatar assistant that mimics human expression, speech and gesture — delivering natural, engaging support across service and more."
+    },
+    {
+      "cat": "fintech",
+      "alt": "Digi Era — digital wallet",
+      "image": "images/projects/digi_era.jpg",
+      "catLabel": "Fintech",
+      "title": "Digi Era",
+      "desc": "A digital-wallet platform using encryption and blockchain to store, send and receive digital assets bridging traditional finance and Web3."
+    },
+    {
+      "cat": "ai",
+      "alt": "AI HR Application Tracking System",
+      "image": "images/projects/ai_hr_application_tracking_system.jpg",
+      "catLabel": "AI App",
+      "title": "AI HR Application Tracking System",
+      "desc": "An AI-powered Odoo recruitment add-on that screens résumés with Google Gemini and OCR auto-scoring candidates against job descriptions."
+    },
+    {
+      "cat": "odoo",
+      "alt": "Tailoring Management",
+      "image": "images/projects/tailoring_management.jpg",
+      "catLabel": "Odoo",
+      "title": "Tailoring Management",
+      "desc": "Orchestrates an entire tailoring business in Odoo client orders, inventory, staff coordination, quality control and delivery in one flow."
+    },
+    {
+      "cat": "webapp",
+      "alt": "News And Complaint System",
+      "image": "images/projects/news_and_complaint_system.jpg",
+      "catLabel": "Web App",
+      "title": "News And Complaint System",
+      "desc": "A civic platform bridging residents and local government sharing news and announcements while letting citizens file and track complaints."
+    },
+    {
+      "cat": "connector",
+      "alt": "QuickBooks Odoo Online Connector",
+      "image": "images/projects/quickbooks_odoo_online_connector.jpg",
+      "catLabel": "Connector",
+      "title": "QuickBooks Odoo Online Connector",
+      "desc": "Two-way sync between QuickBooks Online and Odoo customers, vendors, products, invoices and payments stay aligned automatically."
+    }
+  ],
+  "awards": [
+    {
+      "year": "2024",
+      "title": "Outstanding Performance in Hackathon",
+      "by": "Pragmatic Techsoft",
+      "desc": "Recognized for an innovative solution that streamlined internal workflows and demonstrated exceptional problem-solving under tight time constraints."
+    },
+    {
+      "year": "2023",
+      "title": "Odoo AI Integration Module Developer",
+      "by": "Odoo Platform",
+      "desc": "Awarded for consistently delivering high-quality Odoo modules with clean architecture and thorough documentation that exceeded client expectations."
+    },
+    {
+      "year": "2022",
+      "title": "Full Stack Excellence",
+      "by": "Baabtra.com",
+      "desc": "Completed intensive full-stack Python training with distinction, mastering both frontend and backend technologies through hands-on projects."
+    }
+  ],
+  "certsFeatured": [
+    {
+      "title": "Python Certification Course",
+      "issuer": "Programming Hub",
+      "date": "Issued May 2022"
+    },
+    {
+      "title": "Certified White Hat Hacker",
+      "issuer": "Global Tech Council",
+      "date": "Issued Apr 2021"
+    },
+    {
+      "title": "Google Analytics For Beginners",
+      "issuer": "Google",
+      "date": "Issued Dec 2020"
+    },
+    {
+      "title": "Certified Penetration Tester (CPT)",
+      "issuer": "RedTeam Hacker Academy",
+      "date": "Issued Oct 2021"
+    },
+    {
+      "title": "Python Full Stack Developer",
+      "issuer": "Cyber Square Professional",
+      "date": "Issued Nov 2022"
+    },
+    {
+      "title": "Enterprise Design Thinking Team Essentials For AI",
+      "issuer": "IBM",
+      "date": "Issued Jun 2023"
+    }
+  ],
+  "projects": [
+    {
+      "cat": "odoo",
+      "category": "Odoo · Logistics Module",
+      "idx": "01",
+      "title": "Delivery Control App",
+      "versions": "Odoo v19, v18, v17",
+      "desc": "A home-delivery management system that works through both the standard back office and Point of Sale. Lets businesses dispatch, track and control deliveries end to end, with screens optimized for fast in-store POS operation.",
+      "builtWith": [
+        "JavaScript",
+        "Python",
+        "XML",
+        "OWL JS",
+        "SCSS"
+      ],
+      "roles": [
+        "Backend Developer",
+        "Frontend Developer",
+        "POS Customize",
+        "Migration"
+      ]
+    },
+    {
+      "cat": "odoo",
+      "category": "Odoo · Booking System",
+      "idx": "02",
+      "title": "Tour & Travel",
+      "versions": "Odoo v19, v18",
+      "desc": "A complete tour-booking platform covering itineraries, packages and flight ticketing in a single Odoo workflow, from enquiry to confirmed booking and invoicing.",
+      "builtWith": [
+        "API",
+        "JavaScript",
+        "Python",
+        "XML",
+        "OWL JS",
+        "CSS"
+      ],
+      "roles": [
+        "Backend Developer",
+        "Migration"
+      ]
+    },
+    {
+      "cat": "odoo",
+      "category": "Odoo · Sales / CRM",
+      "idx": "03",
+      "title": "CRM Advance",
+      "versions": "Odoo v19, v18",
+      "desc": "An advanced CRM that auto-fetches leads, triggers automated follow-up emails and creates meetings on the fly. Integrated directly with Google Meet and Zoom so reps can schedule and launch calls without leaving Odoo.",
+      "builtWith": [
+        "Python",
+        "JavaScript",
+        "XML",
+        "SCSS",
+        "API"
+      ],
+      "roles": [
+        "Project Owner",
+        "Developer",
+        "Google Meet & Zoom Integration"
+      ]
+    },
+    {
+      "cat": "ai",
+      "category": "AI App · AI Assistant",
+      "idx": "04",
+      "title": "Talking Avatar",
+      "versions": "AI · Odoo v16",
+      "desc": "A virtual AI assistant that interacts with users in real time and answers customer queries through a talking, animated avatar. Combines OpenAI and D-ID with speech recognition for natural, voice-driven conversations.",
+      "builtWith": [
+        "OpenAI",
+        "D-ID",
+        "Speech Recognition",
+        "JavaScript",
+        "Python",
+        "XML",
+        "HTML",
+        "CSS",
+        "API"
+      ],
+      "roles": [
+        "Project Owner",
+        "AI Development",
+        "API Connection",
+        "UI Design",
+        "Integration"
+      ]
+    },
+    {
+      "cat": "ai",
+      "category": "AI App · AI HR System",
+      "idx": "05",
+      "title": "HRMS — Human Resource Management",
+      "versions": "Odoo v19, v18",
+      "desc": "An end-to-end, A–Z hiring system covering the full recruitment lifecycle. OpenAI is woven through the flow to screen, assist and accelerate hiring decisions, from application intake to onboarding.",
+      "builtWith": [
+        "AI",
+        "OpenAI",
+        "Python",
+        "JavaScript",
+        "RPC",
+        "API",
+        "XML",
+        "CSS"
+      ],
+      "roles": [
+        "Project Owner",
+        "Developer",
+        "API Integration"
+      ]
+    },
+    {
+      "cat": "ai",
+      "category": "AI App · AI Chatbot",
+      "idx": "06",
+      "title": "Odoo Copilot",
+      "versions": "Odoo v17, v16",
+      "desc": "An AI chatbot that answers Odoo-related questions and is integrated into Discuss so teams can query modules conversationally. Acts as an in-app assistant for users and developers alike.",
+      "builtWith": [
+        "OpenAI",
+        "API",
+        "JavaScript",
+        "Ajax",
+        "RPC",
+        "Python",
+        "XML",
+        "HTML",
+        "CSS"
+      ],
+      "roles": [
+        "Project Owner",
+        "Developer",
+        "API Integration"
+      ]
+    },
+    {
+      "cat": "odoo",
+      "category": "Odoo · Hospitality Module",
+      "idx": "07",
+      "title": "Hotel Management",
+      "versions": "Odoo v17, v16, v15, v14",
+      "desc": "A web-based, multi-company module that runs an entire hotel operation online — rooms, bookings and front-desk activity — with an interactive GUI and flexible booking and room management.",
+      "builtWith": [
+        "Python",
+        "JavaScript",
+        "OWL JS",
+        "XML",
+        "CSS",
+        "SCSS",
+        "RPC",
+        "Ajax"
+      ],
+      "roles": [
+        "Website Customization",
+        "Backend Development"
+      ]
+    },
+    {
+      "cat": "odoo",
+      "category": "Odoo · Operations Module",
+      "idx": "08",
+      "title": "Tailoring Management",
+      "versions": "Odoo v17, v16",
+      "desc": "A full tailoring-business management module orchestrating everything from customer interactions to final product delivery, including measurements, orders and production tracking — with voice input via speech recognition.",
+      "builtWith": [
+        "Python",
+        "JavaScript",
+        "Speech Recognition",
+        "XML",
+        "CSS",
+        "SCSS",
+        "Ajax",
+        "RPC"
+      ],
+      "roles": [
+        "Team Lead",
+        "Backend Development",
+        "Website Design"
+      ]
+    },
+    {
+      "cat": "connector",
+      "category": "Connector · E-commerce Connector",
+      "idx": "09",
+      "title": "Shopify Connector",
+      "versions": "Odoo v19, v18, v17",
+      "desc": "A two-way connector linking Odoo and Shopify, handling imports and exports of catalog, orders and related data so the store and the ERP stay continuously in sync.",
+      "builtWith": [
+        "Python",
+        "XML",
+        "JavaScript",
+        "API",
+        "OWL JS"
+      ],
+      "roles": [
+        "Project Alternate",
+        "Developer",
+        "Migration"
+      ]
+    },
+    {
+      "cat": "odoo",
+      "category": "Odoo · Education Module",
+      "idx": "10",
+      "title": "College Management",
+      "versions": "Odoo v16, v14",
+      "desc": "A complete college-management module covering the institution's core academic and administrative workflows, with a custom website front end for public-facing pages.",
+      "builtWith": [
+        "Python",
+        "Ajax",
+        "JavaScript",
+        "RPC",
+        "XML",
+        "CSS"
+      ],
+      "roles": [
+        "Website Design",
+        "Backend Development"
+      ]
+    },
+    {
+      "cat": "odoo",
+      "category": "Odoo · Operations Module",
+      "idx": "11",
+      "title": "Laundry Management",
+      "versions": "Odoo v19, v18, v17, v16",
+      "desc": "A complete laundry-management system handling order intake, processing stages, delivery and billing within Odoo, built and migrated across several major versions.",
+      "builtWith": [
+        "Python",
+        "JavaScript",
+        "XML",
+        "CSS",
+        "SCSS",
+        "RPC"
+      ],
+      "roles": [
+        "Project Alternate",
+        "Backend Developer",
+        "Migration"
+      ]
+    },
+    {
+      "cat": "connector",
+      "category": "Connector · Accounting Connector",
+      "idx": "12",
+      "title": "QuickBooks Online Connector",
+      "versions": "Odoo v19, v18, v17, v14",
+      "desc": "A connector that syncs QuickBooks Online with Odoo — customers, vendors, products, invoices and payments move bi-directionally so accounting stays consistent across both systems.",
+      "builtWith": [
+        "API",
+        "JavaScript",
+        "Python",
+        "XML",
+        "OWL JS"
+      ],
+      "roles": [
+        "Project Owner",
+        "Backend Developer",
+        "Customize",
+        "Migration"
+      ]
+    },
+    {
+      "cat": "connector",
+      "category": "Connector · Meeting Integration",
+      "idx": "13",
+      "title": "Odoo Microsoft Teams Connector",
+      "versions": "Odoo v19, v18, v17",
+      "desc": "Schedule and join Microsoft Teams meetings directly from the Odoo Calendar. Meetings sync both ways with Teams / Office 365 and attendees receive join-links by email — no second sign-in required.",
+      "builtWith": [
+        "API",
+        "Python",
+        "JavaScript",
+        "XML",
+        "OAuth"
+      ],
+      "roles": [
+        "Project Owner",
+        "Backend Developer"
+      ]
+    },
+    {
+      "cat": "connector",
+      "category": "Connector · Meeting Integration",
+      "idx": "14",
+      "title": "Odoo Google Meet Connector",
+      "versions": "Odoo v19, v18, v17",
+      "desc": "Create and launch Google Meet calls straight from the Odoo Calendar. Meetings sync with Google Calendar and attendees join via a one-click phone-icon redirect.",
+      "builtWith": [
+        "API",
+        "Python",
+        "JavaScript",
+        "XML",
+        "OAuth"
+      ],
+      "roles": [
+        "Project Owner",
+        "Backend Developer"
+      ]
+    },
+    {
+      "cat": "connector",
+      "category": "Connector · Meeting Integration",
+      "idx": "15",
+      "title": "Odoo Zoom Meet Connector",
+      "versions": "Odoo v19, v18, v17",
+      "desc": "Schedule and join Zoom meetings directly from Odoo Calendar. Works with free and paid Zoom accounts — auto-generated join links are emailed to attendees.",
+      "builtWith": [
+        "API",
+        "Python",
+        "JavaScript",
+        "XML"
+      ],
+      "roles": [
+        "Project Owner",
+        "Backend Developer"
+      ]
+    },
+    {
+      "cat": "connector",
+      "category": "Connector · Social / Recruitment",
+      "idx": "16",
+      "title": "Odoo LinkedIn Connector",
+      "versions": "Odoo v18, v17",
+      "desc": "Connects Odoo with LinkedIn so HR can pull candidate profiles, sync recruitment data and import contacts directly into Odoo’s CRM and Recruitment modules.",
+      "builtWith": [
+        "API",
+        "Python",
+        "JavaScript",
+        "XML",
+        "OAuth"
+      ],
+      "roles": [
+        "Project Owner",
+        "Backend Developer"
+      ]
+    },
+    {
+      "cat": "ai",
+      "category": "AI App · OCR / Document Intelligence",
+      "idx": "17",
+      "title": "Image to Text (OCR)",
+      "versions": "AI · Python",
+      "desc": "A standalone OCR tool that extracts text from images and scanned documents using Python AI libraries. Supports multiple image formats and produces clean, searchable output.",
+      "builtWith": [
+        "Python",
+        "AI",
+        "OCR",
+        "OpenCV",
+        "Tesseract"
+      ],
+      "roles": [
+        "Project Owner"
+      ]
+    },
+    {
+      "cat": "ai",
+      "category": "AI App · NLP / Text Analysis",
+      "idx": "18",
+      "title": "Sentiment Analyser",
+      "versions": "AI · Python",
+      "desc": "A Python sentiment-analysis tool that classifies text as positive, negative or neutral using NLP libraries — useful for reviews, social monitoring and customer-feedback analysis.",
+      "builtWith": [
+        "Python",
+        "AI",
+        "NLP",
+        "NLTK",
+        "scikit-learn"
+      ],
+      "roles": [
+        "Project Owner"
+      ]
+    },
+    {
+      "cat": "connector",
+      "category": "Connector · Accounting Connector",
+      "idx": "19",
+      "title": "Xero Odoo Connector",
+      "versions": "Odoo v19, v18, v17, v16, v14",
+      "desc": "Bi-directional sync between Xero accounting and Odoo — invoices, bills, payments, customers and vendors stay aligned across both systems with no manual re-entry.",
+      "builtWith": [
+        "API",
+        "Python",
+        "JavaScript",
+        "XML",
+        "OAuth"
+      ],
+      "roles": [
+        "Backend Developer",
+        "Customize",
+        "Migration"
+      ]
+    },
+    {
+      "cat": "ai",
+      "category": "AI App · OpenAI Integration",
+      "idx": "20",
+      "title": "OdooGPT",
+      "versions": "Odoo v16",
+      "desc": "Brings OpenAI’s language models into Odoo, letting users interact with the system in natural language — for automated replies, text analysis and AI-assisted decisions across modules.",
+      "builtWith": [
+        "Python",
+        "OpenAI API",
+        "JavaScript",
+        "XML",
+        "Automation"
+      ],
+      "roles": [
+        "Project Owner",
+        "API Integration",
+        "Developer"
+      ]
+    },
+    {
+      "cat": "ai",
+      "category": "AI App · Manufacturing AI",
+      "idx": "21",
+      "title": "Manufacturing Copilot",
+      "versions": "Odoo v16",
+      "desc": "An AI-driven assistant for Odoo Manufacturing that surfaces insights on supply-chain bottlenecks, production efficiency and quality control — cutting costs and lifting output.",
+      "builtWith": [
+        "Python",
+        "OpenAI API",
+        "JavaScript",
+        "AI",
+        "Integration"
+      ],
+      "roles": [
+        "AI Developer",
+        "UI Design",
+        "Integration",
+        "API Connection"
+      ]
+    },
+    {
+      "cat": "odoo",
+      "category": "Odoo · Service Booking",
+      "idx": "22",
+      "title": "Automobile Garage",
+      "versions": "Odoo v16, v14",
+      "desc": "Twyllo Internationals — an online garage platform where vehicle owners book maintenance, repairs and inspections, get live status updates and find certified mechanics.",
+      "builtWith": [
+        "Python",
+        "JavaScript",
+        "XML",
+        "CSS",
+        "Git",
+        "GitHub"
+      ],
+      "roles": [
+        "Project Owner",
+        "All-in-all"
+      ]
+    },
+    {
+      "cat": "webapp",
+      "category": "Web App · FinTech / Digital Wallet",
+      "idx": "23",
+      "title": "Digi Era",
+      "versions": "Web · Node.js",
+      "desc": "A secure digital-wallet platform for storing, sending and receiving digital currencies — leveraging encryption and blockchain for fast, transparent transactions.",
+      "builtWith": [
+        "Python",
+        "Node.js",
+        "JavaScript",
+        "REST APIs",
+        "Bootstrap",
+        "HTML",
+        "CSS"
+      ],
+      "roles": [
+        "Project Owner",
+        "All-in-all"
+      ]
+    },
+    {
+      "cat": "webapp",
+      "category": "Web App · Civic Platform",
+      "idx": "24",
+      "title": "News And Complaint System",
+      "versions": "Web · Django",
+      "desc": "A two-sided platform connecting residents and local authorities — citizens get timely news and file complaints, authorities respond and track resolutions transparently.",
+      "builtWith": [
+        "Python",
+        "Django",
+        "JavaScript",
+        "REST APIs",
+        "Bootstrap",
+        "HTML",
+        "CSS"
+      ],
+      "roles": [
+        "Project Owner",
+        "All-in-all"
+      ]
+    },
+    {
+      "cat": "webapp",
+      "category": "Web App · E-commerce",
+      "idx": "25",
+      "title": "Shopping Cs",
+      "versions": "Web · Django",
+      "desc": "An online shopping platform with browse-and-buy product listings, secure payments and order management — bridging buyers and sellers in a fast digital marketplace.",
+      "builtWith": [
+        "Python",
+        "Django",
+        "JavaScript",
+        "Bootstrap",
+        "HTML",
+        "CSS",
+        "Git"
+      ],
+      "roles": [
+        "Frontend & Backend Contributor"
+      ]
+    },
+    {
+      "cat": "webapp",
+      "category": "Web App · Recruitment",
+      "idx": "26",
+      "title": "Job Portal",
+      "versions": "Web",
+      "desc": "A job portal that connects seekers and employers — profile creation, resume uploads, listings, application management and recommendation matching, all in one place.",
+      "builtWith": [
+        "Java",
+        "JavaScript",
+        "Bootstrap",
+        "HTML",
+        "CSS"
+      ],
+      "roles": [
+        "Developer"
+      ]
+    },
+    {
+      "cat": "ai",
+      "category": "AI App · Recruitment",
+      "idx": "27",
+      "title": "AI HR Application Tracking System",
+      "versions": "Odoo v19, v18, v17",
+      "desc": "An AI-powered Odoo recruitment add-on that screens résumés with Google Gemini and OCR, scoring candidates automatically against job descriptions.",
+      "builtWith": [
+        "Python",
+        "Google Gemini",
+        "OCR",
+        "JavaScript",
+        "XML"
+      ],
+      "roles": [
+        "Project Owner",
+        "Developer"
+      ]
+    },
+    {
+      "cat": "connector",
+      "category": "Connector · CRM / Marketing",
+      "idx": "28",
+      "title": "HubSpot Integration",
+      "versions": "Odoo v19, v18",
+      "desc": "Connects HubSpot’s Sales and Marketing hubs with Odoo so teams can manage contacts, run inbound campaigns and close deals without switching tools.",
+      "builtWith": [
+        "API",
+        "Python",
+        "JavaScript",
+        "XML",
+        "OAuth"
+      ],
+      "roles": [
+        "Backend Developer",
+        "Migration"
+      ]
+    },
+    {
+      "cat": "connector",
+      "category": "Connector · E-commerce",
+      "idx": "29",
+      "title": "WooCommerce Connector",
+      "versions": "Odoo v19, v18",
+      "desc": "Connects WordPress WooCommerce stores with Odoo for unified product, inventory, order and customer management — keeping both platforms in sync automatically.",
+      "builtWith": [
+        "API",
+        "Python",
+        "JavaScript",
+        "XML",
+        "REST"
+      ],
+      "roles": [
+        "Backend Developer",
+        "Migration"
+      ]
+    },
+    {
+      "cat": "connector",
+      "category": "Connector · CRM",
+      "idx": "30",
+      "title": "PipeDrive Connector",
+      "versions": "Odoo v19, v18, v17",
+      "desc": "A two-way data bridge between Pipedrive CRM and Odoo so leads, deals and contacts flow seamlessly between platforms — no manual exports needed.",
+      "builtWith": [
+        "API",
+        "Python",
+        "JavaScript",
+        "XML",
+        "REST"
+      ],
+      "roles": [
+        "Backend Developer",
+        "Migration"
+      ]
+    },
+    {
+      "cat": "connector",
+      "category": "Connector · Cloud Storage",
+      "idx": "31",
+      "title": "OneDrive Connector",
+      "versions": "Odoo v19, v18, v17",
+      "desc": "Sync Odoo documents and attachments with Microsoft OneDrive — users can store, retrieve and manage files from either system, keeping cloud and ERP cleanly aligned.",
+      "builtWith": [
+        "API",
+        "Python",
+        "JavaScript",
+        "XML",
+        "OAuth"
+      ],
+      "roles": [
+        "Backend Developer",
+        "Migration"
+      ]
+    },
+    {
+      "cat": "connector",
+      "category": "Connector · Collaboration",
+      "idx": "32",
+      "title": "Slack Integration",
+      "versions": "Odoo v16",
+      "desc": "Brings Slack into Odoo with imported users and channels, channel-rename sync, event-handler messages and instant in-app notifications.",
+      "builtWith": [
+        "API",
+        "Python",
+        "JavaScript",
+        "XML",
+        "Webhooks"
+      ],
+      "roles": [
+        "Developer"
+      ]
+    },
+    {
+      "cat": "connector",
+      "category": "Connector · Geo / Maps",
+      "idx": "33",
+      "title": "Google Map Integration With Odoo",
+      "versions": "Odoo v19, v18, v17",
+      "desc": "Plots customer addresses on Google Maps with autocomplete suggestions and route details from user to partner on sales orders — visualised geography inside Odoo.",
+      "builtWith": [
+        "Google Maps API",
+        "JavaScript",
+        "Python",
+        "XML"
+      ],
+      "roles": [
+        "Developer",
+        "Migration"
+      ]
+    },
+    {
+      "cat": "connector",
+      "category": "Connector · ERP Bridge",
+      "idx": "34",
+      "title": "SAP Connector",
+      "versions": "Odoo v19, v18",
+      "desc": "A connector that bridges SAP ERP with Odoo, syncing master data, transactions and inventory between the two — letting companies modernise without losing SAP integration.",
+      "builtWith": [
+        "API",
+        "Python",
+        "JavaScript",
+        "XML",
+        "REST"
+      ],
+      "roles": [
+        "Project Owner",
+        "Developer",
+        "Migration"
+      ]
+    }
+  ],
+  "certs": [
+    {
+      "title": "Search Engine Optimization (SEO)",
+      "issuer": "SERP-HUB",
+      "date": "Issued Apr 2024"
+    },
+    {
+      "title": "Data Analytics and Visualization",
+      "issuer": "Accenture",
+      "date": "Issued Mar 2024"
+    },
+    {
+      "title": "Get Started with Figma",
+      "issuer": "Coursera",
+      "date": "Issued Aug 2023"
+    },
+    {
+      "title": "HTML Course",
+      "issuer": "Skillhub",
+      "date": "Issued Jun 2023"
+    },
+    {
+      "title": "CSS Course",
+      "issuer": "WildLearn",
+      "date": "Issued Jun 2023"
+    },
+    {
+      "title": "Node.js Advanced Course",
+      "issuer": "Skillhub",
+      "date": "Issued Jun 2023"
+    },
+    {
+      "title": "ChatGPT For Beginners",
+      "issuer": "Great Learning",
+      "date": "Issued Jun 2023"
+    },
+    {
+      "title": "Face Detection with OpenCV in Python",
+      "issuer": "Great Learning",
+      "date": "Issued Jun 2023"
+    },
+    {
+      "title": "Python Course",
+      "issuer": "Skillhub",
+      "date": "Issued Jun 2023"
+    },
+    {
+      "title": "Introduction to Artificial Intelligence",
+      "issuer": "Simplilearn",
+      "date": "Issued Jun 2023"
+    },
+    {
+      "title": "Enterprise Design Thinking Co-Creator",
+      "issuer": "IBM",
+      "date": "Issued Jun 2023"
+    },
+    {
+      "title": "Enterprise Design Thinking Team Essentials For AI",
+      "issuer": "IBM",
+      "date": "Issued Jun 2023"
+    },
+    {
+      "title": "Python Full Stack Developer",
+      "issuer": "Cyber Square Professional",
+      "date": "Issued Nov 2022"
+    },
+    {
+      "title": "Python Certification Course",
+      "issuer": "Programming Hub",
+      "date": "Issued May 2022"
+    },
+    {
+      "title": "Cyber Security",
+      "issuer": "Programming Hub",
+      "date": "Issued May 2022"
+    },
+    {
+      "title": "Django Certification Course",
+      "issuer": "Programming Hub",
+      "date": "Issued Apr 2022"
+    },
+    {
+      "title": "HTML Certification Course",
+      "issuer": "Programming Hub",
+      "date": "Issued Apr 2022"
+    },
+    {
+      "title": "Git Certification Course",
+      "issuer": "Programming Hub",
+      "date": "Issued Apr 2022"
+    },
+    {
+      "title": "CSS Certification Course",
+      "issuer": "Programming Hub",
+      "date": "Issued Apr 2022"
+    },
+    {
+      "title": "Bootstrap Framework",
+      "issuer": "Programming Hub",
+      "date": "Issued Apr 2022"
+    },
+    {
+      "title": "Python Basics Course",
+      "issuer": "Programiz",
+      "date": "Issued Mar 2022"
+    },
+    {
+      "title": "Certified Penetration Tester (CPT)",
+      "issuer": "RedTeam Hacker Academy",
+      "date": "Issued Oct 2021"
+    },
+    {
+      "title": "Cracking The Creativity Code: Discovering Ideas",
+      "issuer": "Technion - Israel Institute of Technology",
+      "date": "Issued May 2021"
+    },
+    {
+      "title": "Certified White Hat Hacker",
+      "issuer": "Global Tech Council",
+      "date": "Issued Apr 2021"
+    },
+    {
+      "title": "Build a Modern Computer From First Principles",
+      "issuer": "The Hebrew University of Jerusalem",
+      "date": "Issued Mar 2021"
+    },
+    {
+      "title": "Introduction To Windows Server",
+      "issuer": "Microsoft",
+      "date": "Issued Dec 2020"
+    },
+    {
+      "title": "Google Analytics For Beginners",
+      "issuer": "Google",
+      "date": "Issued Dec 2020"
+    },
+    {
+      "title": "The Online Marketing Fundamentals",
+      "issuer": "Google Digital Garage",
+      "date": "Issued Oct 2020"
+    },
+    {
+      "title": "Journey as a Scientist of ISRO (Webinar)",
+      "issuer": "Team 2020 Helpers",
+      "date": "Issued Oct 2020"
+    },
+    {
+      "title": "Micro Gravity (Webinar)",
+      "issuer": "Team 2020 Helpers",
+      "date": "Issued Sep 2020"
+    },
+    {
+      "title": "Professional Data Engineer Intermediate",
+      "issuer": "Google Cloud Community India",
+      "date": "Credential available",
+      "na": true
+    }
+  ],
+  "skills": [
+    "Odoo",
+    "Python",
+    "JavaScript",
+    "XML",
+    "RPC",
+    "Ubuntu",
+    "Django",
+    "API Integration",
+    "Ajax",
+    "Git",
+    "jQuery",
+    "HTML 5",
+    "CSS",
+    "SCSS",
+    "OWL JS",
+    "Bootstrap",
+    "SQL",
+    "Kali Linux",
+    "Problem Solving",
+    "AI",
+    "AI Integration",
+    "PostgreSQL",
+    "Designing",
+    "Debugging",
+    "Business Process",
+    "Odoo Administrator"
+  ],
+  "contact": {
+    "introHeading": "Don't be shy!",
+    "introText": "Feel free to reach out. I'm always open to discussing new projects, creative ideas or opportunities to be part of your vision. I usually reply within 24 hours.",
+    "address": [
+      {
+        "text": "Tirur, Malappuram, Kerala, 676102",
+        "flag": "INDIA"
+      },
+      {
+        "text": "Airport Road, Al Garhoud, Dubai",
+        "flag": "UAE"
+      }
+    ],
+    "email": "asmarrahmant@gmail.com",
+    "phones": [
+      {
+        "number": "+91 8138048803",
+        "tel": "+918138048803",
+        "flag": "INDIA"
+      },
+      {
+        "number": "+971 541828991",
+        "tel": "+971541828991",
+        "flag": "UAE"
+      }
+    ],
+    "socials": [
+      {
+        "type": "email",
+        "url": "mailto:asmarrahmant@gmail.com"
+      },
+      {
+        "type": "github",
+        "url": "https://github.com/asmarrahmant"
+      },
+      {
+        "type": "linkedin",
+        "url": "https://linkedin.com/in/asmar-rahman-t"
+      },
+      {
+        "type": "whatsapp",
+        "url": "https://wa.me/918138048803"
+      },
+      {
+        "type": "instagram",
+        "url": "https://www.instagram.com/from.azmar"
+      }
+    ],
+    "formEndpoint": "https://formspree.io/f/xykayany"
+  },
+  "sections": {
+    "about": {
+      "eyebrow": "About me",
+      "title": "Who I",
+      "ghost": "am"
+    },
+    "skills": {
+      "eyebrow": "My skills",
+      "title": "Tech",
+      "ghost": "expertise"
+    },
+    "featured": {
+      "eyebrow": "Featured projects",
+      "title": "Selected",
+      "ghost": "work"
+    },
+    "works": {
+      "eyebrow": "My portfolio",
+      "title": "Recent",
+      "ghost": "works"
+    },
+    "awards": {
+      "eyebrow": "Achievements",
+      "title": "Awards &",
+      "ghost": "honors"
+    },
+    "certs": {
+      "eyebrow": "Credentials",
+      "title": "Licenses &",
+      "ghost": "certifications"
+    },
+    "contact": {
+      "eyebrow": "Get in touch",
+      "title": "Contact",
+      "ghost": "me"
+    },
+    "experienceLabel": "Experience",
+    "educationLabel": "Education"
+  }
+}
