@@ -955,6 +955,9 @@ html.intro-lock,html.intro-lock body{overflow:hidden}
 .chat-foot a{color:var(--accent-text);text-decoration:none}
 @media(max-width:480px){.chat-fab span{display:none}.chat-fab{padding:14px}}
 
+.an-x-float{position:absolute;top:16px;right:22px;z-index:6;background:none;border:0;color:var(--muted);font-size:2rem;line-height:1;cursor:pointer}
+.an-x-float:hover{color:var(--text)}
+
 @media(prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
   .reveal{opacity:1;transform:none}
@@ -2196,16 +2199,57 @@ html.intro-lock,html.intro-lock body{overflow:hidden}
 
 <!-- ============== ADMIN · ANALYTICS ============== -->
 <div class="an-gate" id="anGate" role="dialog" aria-modal="true" aria-label="Admin sign in" hidden>
-  <div class="an-gate-card">
-    <button class="an-x" id="anGateClose" type="button" aria-label="Close">&times;</button>
-    <div class="an-lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
-    <h3>Analytics access</h3>
-    <p>Enter your passphrase to view site analytics.</p>
-    <form id="anGateForm" autocomplete="off">
-      <input type="password" id="anPass" placeholder="Passphrase" aria-label="Passphrase" autocomplete="current-password">
-      <button type="submit" class="btn btn-primary" id="anUnlock">Unlock</button>
+  <button class="an-x-float" id="anGateClose" type="button" aria-label="Close">&times;</button>
+  <div class="loginbox" id="anLoginbox">
+    <div class="lb-diagonal"></div>
+    <div class="lb-diagonal-edge"></div>
+
+    <!-- LOGIN · analytics access -->
+    <form class="form-box Login" id="anGateForm" autocomplete="off">
+      <h2 class="animation" style="--i:0">Access</h2>
+      <div class="input-box animation" style="--i:1">
+        <input type="password" id="anPass" required autocomplete="current-password">
+        <label>Passphrase</label>
+        <svg class="icon" viewBox="0 0 24 24"><path d="M17 9V7a5 5 0 0 0-10 0v2H5v12h14V9Zm-8 0V7a3 3 0 0 1 6 0v2Z"/></svg>
+      </div>
+      <div class="input-box btn-box animation" style="--i:2">
+        <button class="lb-btn" type="submit" id="anUnlock">Unlock</button>
+      </div>
+      <div class="regi-link animation" style="--i:3">
+        <p>Forgot Passphrase? <a href="#" class="an-to-reset">Reset</a></p>
+      </div>
     </form>
-    <div class="an-note" id="anGateNote" role="alert"></div>
+    <div class="info-content Login">
+      <h2 class="animation" style="--i:0">ANALYTICS<br>ACCESS</h2>
+      <p class="animation" style="--i:1">Enter your passphrase to view your site's private analytics.</p>
+    </div>
+
+    <!-- REGISTER · reset passphrase -->
+    <form class="form-box Register" id="anResetForm" autocomplete="off">
+      <h2 class="animation" style="--i:0">Reset</h2>
+      <div class="input-box animation" style="--i:1">
+        <input type="password" id="anNewPass" required>
+        <label>New Passphrase</label>
+        <svg class="icon" viewBox="0 0 24 24"><path d="M17 9V7a5 5 0 0 0-10 0v2H5v12h14V9Zm-8 0V7a3 3 0 0 1 6 0v2Z"/></svg>
+      </div>
+      <div class="input-box animation" style="--i:2">
+        <input type="email" id="anResetEmail" required>
+        <label>Email</label>
+        <svg class="icon" viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4-8 5-8-5V6l8 5 8-5Z"/></svg>
+      </div>
+      <div class="input-box btn-box animation" style="--i:3">
+        <button class="lb-btn" type="submit">Reset passphrase</button>
+      </div>
+      <div class="regi-link animation" style="--i:4">
+        <p>Remembered it? <a href="#" class="an-to-login">Sign In</a></p>
+      </div>
+    </form>
+    <div class="info-content Register">
+      <h2 class="animation" style="--i:0">RESET</h2>
+      <p class="animation" style="--i:1">Enter a new passphrase and confirm with the owner email (asmarrahmant@gmail.com) to authorize the change.</p>
+    </div>
+
+    <div class="lb-note" id="anGateNote"></div>
   </div>
 </div>
 
@@ -3034,6 +3078,10 @@ html.intro-lock,html.intro-lock body{overflow:hidden}
     var form = document.getElementById('anGateForm');
     var passInput = document.getElementById('anPass');
     var gateNote = document.getElementById('anGateNote');
+    var box = document.getElementById('anLoginbox');
+    var newPassInput = document.getElementById('anNewPass');
+    var resetEmail = document.getElementById('anResetEmail');
+    var resetForm = document.getElementById('anResetForm');
     var body = document.getElementById('anBody');
     var rangeWrap = document.getElementById('anRange');
     var ENDPOINT = '/.netlify/functions/analytics';
@@ -3043,8 +3091,12 @@ html.intro-lock,html.intro-lock body{overflow:hidden}
     function setPass(p){ try{ sessionStorage.setItem('an_pass', p); }catch(_){} }
     function clearPass(){ try{ sessionStorage.removeItem('an_pass'); }catch(_){} }
 
-    function openGate(){ gate.hidden = false; document.body.classList.add('pp-lock'); setTimeout(function(){ if(passInput) passInput.focus(); }, 60); }
-    function closeGate(){ gate.hidden = true; if(gateNote) gateNote.textContent=''; if(passInput) passInput.value=''; if(panel.hidden) document.body.classList.remove('pp-lock'); }
+    function gateMsg(msg, isErr){ if(!gateNote) return; gateNote.textContent = msg || ''; gateNote.style.color = (isErr === false) ? 'var(--accent)' : '#ff8a8a'; }
+    function fitBox(){ if(!box) return; if(window.innerWidth <= 720){ box.style.transform = 'none'; return; } var s = Math.min(1, (window.innerWidth - 40) / 760, (window.innerHeight - 40) / 500); box.style.transform = 'scale(' + s + ')'; }
+    function toReset(){ if(box){ box.classList.remove('reverse'); box.classList.add('active'); } gateMsg(''); setTimeout(function(){ if(newPassInput) newPassInput.focus(); }, 400); }
+    function toLogin(){ if(box){ box.classList.remove('active'); box.classList.add('reverse'); } setTimeout(function(){ if(passInput) passInput.focus(); }, 400); }
+    function openGate(){ gate.hidden = false; document.body.classList.add('pp-lock'); if(box) box.classList.remove('active', 'reverse'); fitBox(); gateMsg(''); setTimeout(function(){ if(passInput) passInput.focus(); }, 90); }
+    function closeGate(){ gate.hidden = true; gateMsg(''); if(passInput) passInput.value=''; if(newPassInput) newPassInput.value=''; if(resetEmail) resetEmail.value=''; if(panel.hidden) document.body.classList.remove('pp-lock'); }
     function openPanel(){ panel.hidden = false; document.body.classList.add('pp-lock'); }
     function closePanel(){ panel.hidden = true; document.body.classList.remove('pp-lock'); if(location.hash === '#admin'){ history.replaceState(null, '', location.pathname + location.search); } }
 
@@ -3122,6 +3174,24 @@ html.intro-lock,html.intro-lock body{overflow:hidden}
         }, function(){
           if(gateNote) gateNote.textContent = 'Couldn\'t reach the function (works only on the deployed site).';
         });
+      });
+    }
+
+    /* flip-card: reset-passphrase flow (email must be the owner's to authorize) */
+    $all('.an-to-reset').forEach(function(a){ a.addEventListener('click', function(ev){ ev.preventDefault(); toReset(); }); });
+    $all('.an-to-login').forEach(function(a){ a.addEventListener('click', function(ev){ ev.preventDefault(); toLogin(); }); });
+    window.addEventListener('resize', fitBox);
+    if(resetForm){
+      resetForm.addEventListener('submit', function(ev){
+        ev.preventDefault();
+        var np = ((newPassInput && newPassInput.value) || '').trim();
+        var em = ((resetEmail && resetEmail.value) || '').trim().toLowerCase();
+        if(!np || !em) return;
+        if(em !== 'asmarrahmant@gmail.com'){ gateMsg('This email isn’t authorized — passphrase not changed.', true); return; }
+        try{ localStorage.setItem('an_newpass', np); }catch(_){}
+        if(passInput) passInput.value = np;
+        toLogin();
+        gateMsg('✓ Verified — now set this as DASHBOARD_PASSWORD in Netlify.', false);
       });
     }
 
