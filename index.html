@@ -930,7 +930,7 @@ body.pp-lock{overflow:hidden}
         <a href="#about" class="btn btn-primary">More about me
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
         </a>
-        <a href="#" class="btn btn-ghost js-download-cv">
+        <a href="files/cv.pdf" download="Asmar_Rahman.pdf" target="_blank" rel="noopener" class="btn btn-ghost js-download-cv">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2"/></svg>
           Download CV
         </a>
@@ -1001,7 +1001,7 @@ body.pp-lock{overflow:hidden}
           <span>English</span><span>Malayalam</span><span>Hindi</span><span>Tamil</span>
         </div>
         <div style="margin-top:30px">
-          <a href="#" class="btn btn-primary js-download-cv">Download CV
+          <a href="files/cv.pdf" download="Asmar_Rahman.pdf" target="_blank" rel="noopener" class="btn btn-primary js-download-cv">Download CV
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2"/></svg>
           </a>
           <a class="cv-view" href="files/cv.pdf" target="_blank" rel="noopener">or view resume in browser →</a>
@@ -2659,13 +2659,11 @@ body.pp-lock{overflow:hidden}
     }
 
     /* ---- Download CV ---- */
-    function downloadCV(ev){
-      if(ev) ev.preventDefault();
+    function downloadCV(){
+      // Buttons are real <a href="files/cv.pdf" download> links now, so the browser
+      // downloads (desktop) or opens the PDF (iOS) natively — far more reliable than a
+      // synthetic anchor click. This handler only records the analytics event.
       track('cv-download', 'CV downloaded');
-      var a = document.createElement('a');
-      a.href = 'files/cv.pdf';
-      a.download = 'Asmar_Rahman.pdf';
-      document.body.appendChild(a); a.click(); a.remove();
     }
     $all('.js-download-cv').forEach(function(btn){ btn.addEventListener('click', downloadCV); });
     $all('.cv-view').forEach(function(a){ a.addEventListener('click', function(){ track('cv-view', 'Résumé viewed in browser'); }); });
