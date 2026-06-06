@@ -44,8 +44,8 @@ function safeEqual(a, b) {
 }
 
 exports.handler = async function (event) {
-  var code = process.env.GOATCOUNTER_CODE;
-  var token = process.env.GOATCOUNTER_API_TOKEN;
+  var code = (process.env.GOATCOUNTER_CODE || '').trim();
+  var token = (process.env.GOATCOUNTER_API_TOKEN || '').trim();
   var password = process.env.DASHBOARD_PASSWORD;
 
   if (!code || !token || !password) {
@@ -70,14 +70,24 @@ exports.handler = async function (event) {
   }
   var end = new Date();
   var start = new Date(Date.now() - days * 24 * 3600 * 1000);
-  var fmt = function (x) { return x.toISOString().slice(0, 10); };
-  var qs = 'start=' + fmt(start) + '&end=' + fmt(end) + '&daily=true';
+  // GoatCounter needs RFC3339 datetimes rounded to the hour; it 400s on date-only
+  // and on a daily= param for /stats/total.
+  var fmtDay = function (x) { return x.toISOString().slice(0, 10); };          // for display
+  var fmtTs = function (x) { return x.toISOString().slice(0, 13) + ':00:00Z'; }; // for the API
+  var qs = 'start=' + fmtTs(start) + '&end=' + fmtTs(end);
 
   var base = 'https://' + code + '.goatcounter.com/api/v0';
   var gcHeaders = { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' };
   var get = async function (path) {
     var r = await fetch(base + path, { headers: gcHeaders });
-    if (!r.ok) throw new Error('GoatCounter ' + path.split('?')[0] + ' returned HTTP ' + r.status);
+    if (!r.ok) {
+      var detail = '';
+      try { detail = (await r.text()).slice(0, 200); } catch (_) {}
+      var hint = r.status === 401
+        ? ' — GoatCounter rejected the API token. Verify GOATCOUNTER_API_TOKEN (no quotes/spaces) and that GOATCOUNTER_CODE is the exact site the token was created on.'
+        : (r.status === 403 ? ' — the token lacks permission; recreate it in GoatCounter with "Read: Get statistics" enabled.' : '');
+      throw new Error('GoatCounter ' + path.split('?')[0] + ' returned HTTP ' + r.status + (detail ? ' (' + detail + ')' : '') + hint);
+    }
     return r.json();
   };
 
@@ -116,7 +126,7 @@ exports.handler = async function (event) {
     });
 
     return json(200, {
-      range: { start: fmt(start), end: fmt(end), days: days },
+      range: { start: fmtDay(start), end: fmtDay(end), days: days },
       totalPageviews: total.total || 0,
       totalEvents: (typeof total.total_events === 'number')
         ? total.total_events
