@@ -63,6 +63,7 @@
 
 <link rel="icon" type="image/png" sizes="64x64" href="images/favicon.png">
 <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.json">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2994,5 +2995,6 @@ body.pp-lock{overflow:hidden}
      goatcounter.count() and appear in your dashboard (filter: "events") once set. -->
 <script data-goatcounter="https://asmar.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
+<script>if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('/sw.js').catch(function(){});});}</script>
 </body>
 </html>
