@@ -2,29 +2,41 @@ import { getStore } from '@netlify/blobs';
 
 /*
  * Global background-music on/off, stored in Netlify Blobs.
- *
- *   GET   ->  { mode: "play" | "off" | null }     (public; null = not set -> use data.json default)
+ *   GET   ->  { mode, v, ctx }     (v = version marker, ctx = is Blobs configured)
  *   POST  ->  set mode; requires header  x-admin-pass == DASHBOARD_PASSWORD
  *
- * Uses a STATIC import of @netlify/blobs so Netlify detects Blobs usage at build time and
- * auto-configures the store (siteID/token) — no extra env vars needed. Degrades gracefully:
- * if Blobs is unavailable, GET returns mode:null and the site falls back to data.json.
+ * Auto-configures via the static import (Netlify injects the context). If that isn't
+ * available on the site, set env vars BLOBS_SITE_ID + BLOBS_TOKEN and it uses those.
+ * Degrades gracefully (GET returns mode:null -> site uses data.json default).
  */
 
 function json(status, obj) {
   return { statusCode: status, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' }, body: JSON.stringify(obj) };
 }
 
+function configured() {
+  return !!(process.env.NETLIFY_BLOBS_CONTEXT || (process.env.BLOBS_SITE_ID && process.env.BLOBS_TOKEN));
+}
+
+function store() {
+  const opts = { name: 'site-config' };
+  if (process.env.BLOBS_SITE_ID && process.env.BLOBS_TOKEN) {
+    opts.siteID = process.env.BLOBS_SITE_ID;
+    opts.token = process.env.BLOBS_TOKEN;
+  }
+  return getStore(opts);
+}
+
 export const handler = async (event) => {
   const method = event.httpMethod;
 
   if (method === 'GET') {
+    const ctx = configured();
     try {
-      const store = getStore('site-config');
-      const mode = await store.get('music_mode');
-      return json(200, { mode: (mode === 'off' || mode === 'play') ? mode : null });
+      const mode = await store().get('music_mode');
+      return json(200, { mode: (mode === 'off' || mode === 'play') ? mode : null, v: 'mjs', ctx });
     } catch (e) {
-      return json(200, { mode: null });   // graceful fallback to data.json default
+      return json(200, { mode: null, v: 'mjs', ctx, err: String((e && e.message) || e).slice(0, 140) });
     }
   }
 
@@ -37,8 +49,7 @@ export const handler = async (event) => {
     try { body = JSON.parse(event.body || '{}'); } catch (e) {}
     const mode = (body.mode === 'off') ? 'off' : 'play';
     try {
-      const store = getStore('site-config');
-      await store.set('music_mode', mode);
+      await store().set('music_mode', mode);
       return json(200, { mode });
     } catch (e) {
       return json(500, { error: 'blobs', message: String((e && e.message) || e) });
