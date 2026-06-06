@@ -2735,6 +2735,12 @@ html.intro-lock,html.intro-lock body{overflow:hidden}
           : 'Contact form isn’t configured yet — set contact.formEndpoint in data.json.';
         return;
       }
+      var form = (note.closest && note.closest('form')) || null;
+      var btn = form ? form.querySelector('button[type="submit"]') : null;
+      var orig = btn ? btn.innerHTML : '';
+      if(btn){ btn.disabled = true; btn.innerHTML = 'Sending…'; }
+      function restore(){ if(btn){ btn.disabled = false; btn.innerHTML = orig; } }
+      note.style.color = ''; note.textContent = '';
       var fd = new FormData();
       var source = fields.source || 'Contact Form';
       fd.append('name', fields.name);
@@ -2745,10 +2751,11 @@ html.intro-lock,html.intro-lock body{overflow:hidden}
       fd.append('_subject', '[' + source + '] ' + (fields.subject || ('New message from ' + fields.name)));
       fetch(ep, { method: 'POST', body: fd, headers: { 'Accept': 'application/json' } })
         .then(function(r){
+          restore();
           if(r.ok){ onDone(); }
-          else { note.style.color = '#ff6b6b'; note.textContent = 'Something went wrong. Please email me directly.'; }
+          else { note.style.color = '#ff6b6b'; note.textContent = (r.status === 429) ? 'Too many messages right now — please try again in a minute, or email me directly.' : 'Something went wrong. Please email me directly.'; }
         })
-        .catch(function(){ note.style.color = '#ff6b6b'; note.textContent = 'Network error. Please email me directly.'; });
+        .catch(function(){ restore(); note.style.color = '#ff6b6b'; note.textContent = 'Network error — please try again shortly, or email me directly.'; });
     }
     function validate(name, email, message, note){
       if(!name || !email || !message){
