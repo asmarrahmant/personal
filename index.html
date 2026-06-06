@@ -920,6 +920,41 @@ html.intro-lock,html.intro-lock body{overflow:hidden}
 .pd-cta{margin-top:38px}
 @media(max-width:680px){.pd-cols{grid-template-columns:1fr}}
 
+/* ===== Phase 4: Ask-my-portfolio chat ===== */
+.chat-fab{position:fixed;right:20px;bottom:20px;z-index:350;display:inline-flex;align-items:center;gap:9px;background:var(--accent);color:#0b0b0e;border:none;border-radius:999px;padding:13px 18px;font-family:var(--font-body);font-weight:700;font-size:.9rem;cursor:pointer;box-shadow:0 12px 30px -8px var(--accent-glow);transition:transform .2s,box-shadow .25s}
+.chat-fab:hover{transform:translateY(-2px);box-shadow:0 16px 42px -8px var(--accent-glow)}
+.chat-fab svg{width:18px;height:18px}
+.chat-fab.hide{display:none}
+.chat-panel{position:fixed;right:20px;bottom:20px;z-index:351;width:min(390px,calc(100vw - 32px));height:min(580px,calc(100vh - 40px));display:flex;flex-direction:column;background:var(--bg-2);border:1px solid var(--line-strong);border-radius:20px;overflow:hidden;box-shadow:0 30px 70px -20px #000}
+.chat-panel[hidden]{display:none}
+.chat-head{display:flex;align-items:center;justify-content:space-between;padding:15px 18px;border-bottom:1px solid var(--line);background:var(--bg-3)}
+.chat-id{display:flex;align-items:center;gap:10px}
+.chat-id strong{display:block;font-size:.95rem;color:var(--text)}
+.chat-id span{font-family:var(--font-mono);font-size:.66rem;color:var(--muted)}
+.chat-dot{width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 10px var(--accent-glow);flex-shrink:0}
+.chat-x{background:none;border:0;color:var(--muted);font-size:1.5rem;line-height:1;cursor:pointer}
+.chat-x:hover{color:var(--text)}
+.chat-body{flex:1;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:11px}
+.chat-msg{max-width:86%;padding:11px 14px;border-radius:14px;font-size:.9rem;line-height:1.55;white-space:pre-wrap;word-wrap:break-word}
+.chat-msg.bot{align-self:flex-start;background:var(--bg-3);border:1px solid var(--line);color:var(--text);border-bottom-left-radius:5px}
+.chat-msg.me{align-self:flex-end;background:var(--accent);color:#0b0b0e;font-weight:500;border-bottom-right-radius:5px}
+.chat-typing{align-self:flex-start;display:inline-flex;gap:4px;padding:13px 14px;background:var(--bg-3);border:1px solid var(--line);border-radius:14px}
+.chat-typing i{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:chatdot 1.2s infinite}
+.chat-typing i:nth-child(2){animation-delay:.15s}.chat-typing i:nth-child(3){animation-delay:.3s}
+@keyframes chatdot{0%,60%,100%{opacity:.3;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}
+.chat-suggest{display:flex;flex-wrap:wrap;gap:7px;padding:0 18px 10px}
+.chat-suggest button{background:transparent;border:1px solid var(--line-strong);color:var(--accent-text);border-radius:999px;padding:7px 12px;font-size:.73rem;font-family:var(--font-mono);cursor:pointer;transition:.2s;text-align:left}
+.chat-suggest button:hover{background:var(--accent-dim);border-color:var(--accent-text)}
+.chat-input{display:flex;gap:8px;padding:13px 16px;border-top:1px solid var(--line)}
+.chat-input input{flex:1;background:var(--bg-3);border:1px solid var(--line-strong);border-radius:11px;color:var(--text);padding:0 14px;height:42px;font-family:var(--font-body);font-size:.9rem}
+.chat-input input:focus{outline:none;border-color:var(--accent-text)}
+.chat-input button{width:42px;height:42px;flex-shrink:0;border:0;border-radius:11px;background:var(--accent);color:#0b0b0e;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.chat-input button:disabled{opacity:.5;cursor:default}
+.chat-input button svg{width:18px;height:18px}
+.chat-foot{padding:0 16px 12px;font-size:.65rem;color:var(--muted-2);text-align:center}
+.chat-foot a{color:var(--accent-text);text-decoration:none}
+@media(max-width:480px){.chat-fab span{display:none}.chat-fab{padding:14px}}
+
 @media(prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
   .reveal{opacity:1;transform:none}
@@ -2193,6 +2228,25 @@ html.intro-lock,html.intro-lock body{overflow:hidden}
   <div class="an-body" id="anBody"></div>
 </div>
 
+<!-- ============== ASK MY PORTFOLIO (AI CHAT) ============== -->
+<button class="chat-fab" id="chatFab" type="button" aria-label="Ask my portfolio — AI chat">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8z"/></svg>
+  <span>Ask my portfolio</span>
+</button>
+<div class="chat-panel" id="chatPanel" role="dialog" aria-modal="false" aria-label="Ask my portfolio AI chat" hidden>
+  <div class="chat-head">
+    <div class="chat-id"><span class="chat-dot"></span><div><strong>Ask my portfolio</strong><span>AI trained on Asmar's work</span></div></div>
+    <button class="chat-x" id="chatClose" type="button" aria-label="Close chat">&times;</button>
+  </div>
+  <div class="chat-body" id="chatBody"></div>
+  <div class="chat-suggest" id="chatSuggest"></div>
+  <form class="chat-input" id="chatForm" autocomplete="off">
+    <input id="chatText" type="text" placeholder="Ask about his projects, skills, experience…" aria-label="Your question" maxlength="400">
+    <button type="submit" id="chatSend" aria-label="Send"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+  </form>
+  <div class="chat-foot">AI can make mistakes. For anything important, <a href="#contact" class="js-chat-hire">get in touch</a>.</div>
+</div>
+
 <footer>
   <div class="container foot-inner">
     <div>
@@ -2636,6 +2690,7 @@ html.intro-lock,html.intro-lock body{overflow:hidden}
     setupAdmin();
     setupTheme();
     setupIntro();
+    setupChat();
 
     /* ---- Nav: scroll bg + active link + progress ---- */
     var nav = document.getElementById('nav');
@@ -3136,6 +3191,59 @@ html.intro-lock,html.intro-lock body{overflow:hidden}
       }, 260);
     }
     typeLine();
+  }
+
+  /* ---- "Ask my portfolio" AI chat ---- */
+  function setupChat(){
+    var fab = document.getElementById('chatFab');
+    var panel = document.getElementById('chatPanel');
+    if(!fab || !panel) return;
+    var bodyEl = document.getElementById('chatBody');
+    var form = document.getElementById('chatForm');
+    var input = document.getElementById('chatText');
+    var sendBtn = document.getElementById('chatSend');
+    var suggest = document.getElementById('chatSuggest');
+    var ENDPOINT = '/.netlify/functions/chat';
+    var history = [];
+    var greeted = false, busy = false;
+    var SUGGESTIONS = ["What's his experience with Odoo?", "Has he built AI / OpenAI features?", "Show me his connector projects", "Is he available to hire?"];
+
+    function fmt(t){ return e(t).replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>'); }
+    function addMsg(role, text){
+      var d = document.createElement('div');
+      d.className = 'chat-msg ' + (role === 'user' ? 'me' : 'bot');
+      d.innerHTML = fmt(text);
+      bodyEl.appendChild(d); bodyEl.scrollTop = bodyEl.scrollHeight;
+    }
+    function typing(on){
+      var ex = document.getElementById('chatTyping');
+      if(on && !ex){ var t = document.createElement('div'); t.className = 'chat-typing'; t.id = 'chatTyping'; t.innerHTML = '<i></i><i></i><i></i>'; bodyEl.appendChild(t); bodyEl.scrollTop = bodyEl.scrollHeight; }
+      else if(!on && ex){ ex.parentNode.removeChild(ex); }
+    }
+    function showSuggest(){ suggest.innerHTML = SUGGESTIONS.map(function(s){ return '<button type="button">' + e(s) + '</button>'; }).join(''); }
+    function greet(){ if(greeted) return; greeted = true; addMsg('assistant', "Hi! I'm Asmar's portfolio assistant. Ask me about his Odoo / ERP work, AI integrations, projects, or how to get in touch."); showSuggest(); }
+    function openChat(){ panel.hidden = false; fab.classList.add('hide'); greet(); setTimeout(function(){ if(input) input.focus(); }, 60); track('chat-open', 'Chat opened'); }
+    function closeChat(){ panel.hidden = true; fab.classList.remove('hide'); }
+    function send(text){
+      text = (text || '').trim(); if(!text || busy) return;
+      suggest.innerHTML = '';
+      addMsg('user', text); history.push({ role: 'user', content: text });
+      busy = true; if(sendBtn) sendBtn.disabled = true; input.value = ''; typing(true);
+      fetch(ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ messages: history.slice(-8) }) })
+        .then(function(r){ return r.json().then(function(j){ return { status: r.status, j: j }; }, function(){ return { status: r.status, j: {} }; }); })
+        .then(function(res){
+          typing(false); busy = false; if(sendBtn) sendBtn.disabled = false;
+          if(res.status === 200 && res.j.reply){ addMsg('assistant', res.j.reply); history.push({ role: 'assistant', content: res.j.reply }); }
+          else { addMsg('assistant', (res.j && res.j.message) || 'Sorry, something went wrong. You can email Asmar at asmarrahmant@gmail.com.'); }
+        })
+        .catch(function(){ typing(false); busy = false; if(sendBtn) sendBtn.disabled = false; addMsg('assistant', "I can't reach the chat service right now — it runs on the live site. Meanwhile, email asmarrahmant@gmail.com."); });
+    }
+    fab.addEventListener('click', openChat);
+    var cx = document.getElementById('chatClose'); if(cx) cx.addEventListener('click', closeChat);
+    form.addEventListener('submit', function(ev){ ev.preventDefault(); send(input.value); });
+    suggest.addEventListener('click', function(ev){ var b = ev.target.closest('button'); if(b) send(b.textContent); });
+    var hire = panel.querySelector('.js-chat-hire'); if(hire) hire.addEventListener('click', function(ev){ ev.preventDefault(); closeChat(); var n = document.querySelector('.nav-cta .js-open-hire'); if(n) n.click(); });
+    document.addEventListener('keydown', function(ev){ if(ev.key === 'Escape' && !panel.hidden){ closeChat(); } });
   }
 
   function boot(){
