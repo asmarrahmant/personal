@@ -958,6 +958,9 @@ html.intro-lock,html.intro-lock body{overflow:hidden}
 .an-x-float{position:absolute;top:16px;right:22px;z-index:6;background:none;border:0;color:var(--muted);font-size:2rem;line-height:1;cursor:pointer}
 .an-x-float:hover{color:var(--text)}
 
+/* hide the chat widget while any full-screen overlay / modal / menu is open */
+body.pp-lock .chat-fab,body.pp-lock .chat-panel{display:none}
+
 @media(prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
   .reveal{opacity:1;transform:none}
@@ -2763,7 +2766,7 @@ html.intro-lock,html.intro-lock body{overflow:hidden}
       if(burger) burger.classList.toggle('open', open);
       if(menu) menu.classList.toggle('open', open);
       if(overlay) overlay.classList.toggle('show', open);
-      document.body.style.overflow = open ? 'hidden' : '';
+      document.body.classList.toggle('pp-lock', open);
     }
     if(burger) burger.addEventListener('click', function(){ toggleMenu(!menu.classList.contains('open')); });
     if(overlay) overlay.addEventListener('click', function(){ toggleMenu(false); });
@@ -3197,6 +3200,7 @@ html.intro-lock,html.intro-lock body{overflow:hidden}
 
     var gc = document.getElementById('anGateClose'); if(gc) gc.addEventListener('click', closeGate);
     var pc = document.getElementById('anClose'); if(pc) pc.addEventListener('click', closePanel);
+    document.addEventListener('keydown', function(ev){ if(ev.key !== 'Escape') return; if(gate && !gate.hidden){ closeGate(); } else if(panel && !panel.hidden){ closePanel(); } });
     var rf = document.getElementById('anRefresh'); if(rf) rf.addEventListener('click', function(){ load(curDays); });
     if(rangeWrap){
       rangeWrap.addEventListener('click', function(ev){
