@@ -961,6 +961,7 @@ html.intro-lock,html.intro-lock body{overflow:hidden}
 /* hide the chat widget while any full-screen overlay / modal / menu is open */
 body.pp-lock .chat-fab,body.pp-lock .chat-panel{display:none}
 
+#anMusicToggle.an-toggle-off{opacity:.6;text-decoration:line-through}
 .sound-toggle .ic-muted{display:none}
 .sound-toggle.muted .ic-sound{display:none}
 .sound-toggle.muted .ic-muted{display:block}
@@ -2277,6 +2278,7 @@ body.pp-lock .chat-fab,body.pp-lock .chat-panel{display:none}
         <button type="button" data-days="30" class="active">30d</button>
         <button type="button" data-days="90">90d</button>
       </div>
+      <button class="btn btn-ghost" type="button" id="anMusicToggle" hidden>♪ Music: on</button>
       <button class="btn btn-ghost" type="button" id="anRefresh">Refresh</button>
       <button class="btn btn-ghost" type="button" id="anClose">Close</button>
     </div>
@@ -3330,46 +3332,54 @@ body.pp-lock .chat-fab,body.pp-lock .chat-panel{display:none}
     document.addEventListener('keydown', function(ev){ if(ev.key === 'Escape' && !panel.hidden){ closeChat(); } });
   }
 
-  /* ---- Background music (gated by data.json music.mode === "play"; pauses on tab-hide) ---- */
+  /* ---- Background music (gated by data.json music.mode === "play"; pauses on tab-hide).
+         On/off is driven by BOTH the nav speaker and the admin-panel toggle, kept in sync
+         via the 'music_pref' device setting. ---- */
   function setupMusic(){
     var cfg = DATA && DATA.music;
-    var btn = document.getElementById('soundToggle');
-    if(!cfg || String(cfg.mode || '').toLowerCase() !== 'play' || !cfg.file){ if(btn) btn.hidden = true; return; }
+    var navBtn = document.getElementById('soundToggle');
+    var adminBtn = document.getElementById('anMusicToggle');
+    if(!cfg || String(cfg.mode || '').toLowerCase() !== 'play' || !cfg.file){
+      if(navBtn) navBtn.hidden = true; if(adminBtn) adminBtn.hidden = true; return;
+    }
     var target = (typeof cfg.volume === 'number') ? Math.max(0, Math.min(1, cfg.volume)) : 0.35;
     var audio = new Audio(cfg.file);
     audio.loop = cfg.loop !== false;
     audio.preload = 'auto';
     audio.volume = 0;
-    var started = false, muted = false, fadeId = null;
-    try{ muted = localStorage.getItem('bgmuted') === '1'; }catch(e){}
+    var started = false, off = false, fadeId = null;
+    try{ off = localStorage.getItem('music_pref') === 'off'; }catch(e){}
 
     function fadeIn(){ if(fadeId) clearInterval(fadeId); var steps = 36, i = 0; fadeId = setInterval(function(){ i++; audio.volume = Math.min(target, target * i / steps); if(i >= steps){ clearInterval(fadeId); fadeId = null; } }, 40); }
     function start(){
-      if(muted) return;
+      if(off) return;
       var p = audio.play();
       if(p && p.then){ p.then(function(){ started = true; if(audio.volume < target) fadeIn(); }).catch(function(){ arm(); }); }
       else { started = true; fadeIn(); }
     }
-    function resume(){ if(muted) return; audio.volume = target; var p = audio.play(); if(p && p.catch) p.catch(function(){}); }
+    function resume(){ if(off) return; audio.volume = target; var p = audio.play(); if(p && p.catch) p.catch(function(){}); }
     function arm(){
       function go(){ ['pointerdown','keydown','touchstart','scroll'].forEach(function(ev){ window.removeEventListener(ev, go, true); }); start(); }
       ['pointerdown','keydown','touchstart','scroll'].forEach(function(ev){ window.addEventListener(ev, go, { capture: true, passive: true }); });
     }
-    function paint(){ if(!btn) return; btn.classList.toggle('muted', muted); btn.setAttribute('aria-pressed', muted ? 'true' : 'false'); btn.setAttribute('aria-label', muted ? 'Play background music' : 'Mute background music'); }
-
-    if(btn){
-      btn.hidden = false; paint();
-      btn.addEventListener('click', function(){
-        muted = !muted; try{ localStorage.setItem('bgmuted', muted ? '1' : '0'); }catch(e){}
-        paint();
-        if(muted){ audio.pause(); } else if(started){ resume(); } else { start(); }
-      });
+    function paint(){
+      if(navBtn){ navBtn.classList.toggle('muted', off); navBtn.setAttribute('aria-pressed', off ? 'true' : 'false'); navBtn.setAttribute('aria-label', off ? 'Play background music' : 'Mute background music'); }
+      if(adminBtn){ adminBtn.textContent = off ? '♪ Music: off' : '♪ Music: on'; adminBtn.classList.toggle('an-toggle-off', off); }
     }
+    function setOff(o){
+      off = o; try{ localStorage.setItem('music_pref', o ? 'off' : 'play'); }catch(e){}
+      paint();
+      if(o){ audio.pause(); } else if(started){ resume(); } else { start(); }
+    }
+
+    if(navBtn){ navBtn.hidden = false; navBtn.addEventListener('click', function(){ setOff(!off); }); }
+    if(adminBtn){ adminBtn.hidden = false; adminBtn.addEventListener('click', function(){ setOff(!off); }); }
+    paint();
     document.addEventListener('visibilitychange', function(){
       if(document.hidden){ if(!audio.paused) audio.pause(); }
-      else if(!muted && started && audio.paused){ resume(); }
+      else if(!off && started && audio.paused){ resume(); }
     });
-    if(!muted) start();
+    if(!off) start();
   }
 
   function boot(){
