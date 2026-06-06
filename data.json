@@ -567,7 +567,11 @@
         "Frontend Developer",
         "POS Customize",
         "Migration"
-      ]
+      ],
+      "metric": "POS · web · driver portal",
+      "problem": "Retail and F&B businesses needed to dispatch, track and control home deliveries end-to-end — without juggling separate tools for the back office and the in-store point of sale.",
+      "approach": "I built a single Odoo module that drives the full fulfillment cycle from both the back office and POS, with screens tuned for fast in-store use and a dedicated driver portal, then migrated it across Odoo v17–v19.",
+      "result": "Orders placed on POS, web or the driver portal now flow through one controlled fulfillment pipeline from placement to doorstep."
     },
     {
       "cat": "odoo",
@@ -587,7 +591,11 @@
       "roles": [
         "Backend Developer",
         "Migration"
-      ]
+      ],
+      "metric": "Enquiry → booking → invoice",
+      "problem": "Travel operators were stitching itineraries, package pricing and flight ticketing together across disconnected spreadsheets and tools.",
+      "approach": "I built a complete tour-booking platform inside one Odoo workflow covering itineraries, packages and flight ticketing, with API integration for ticketing data.",
+      "result": "The whole journey — enquiry, package selection, confirmed booking and invoicing — now happens in a single Odoo flow."
     },
     {
       "cat": "odoo",
@@ -607,7 +615,11 @@
         "Project Owner",
         "Developer",
         "Google Meet & Zoom Integration"
-      ]
+      ],
+      "metric": "Auto-books Meet & Zoom calls",
+      "problem": "Sales reps were losing time on manual lead entry, follow-up emails and switching between Odoo and video tools to schedule meetings.",
+      "approach": "I extended Odoo CRM to auto-capture leads, trigger timely follow-up emails and create meetings on the fly, integrating Google Meet and Zoom so reps schedule and launch calls without leaving Odoo.",
+      "result": "Reps stay focused on closing while lead capture, follow-ups and call scheduling happen automatically inside the CRM."
     },
     {
       "cat": "ai",
@@ -633,7 +645,11 @@
         "API Connection",
         "UI Design",
         "Integration"
-      ]
+      ],
+      "metric": "Voice-driven talking avatar",
+      "problem": "Customer support needed to feel human and immediate, beyond a plain text chatbot.",
+      "approach": "I combined OpenAI and D-ID with speech recognition to build a real-time assistant that answers queries through a talking, animated avatar with natural voice conversation.",
+      "result": "Users get natural, voice-driven support from an avatar that responds in real time with human-like expression."
     },
     {
       "cat": "ai",
@@ -656,7 +672,11 @@
         "Project Owner",
         "Developer",
         "API Integration"
-      ]
+      ],
+      "metric": "OpenAI-assisted hiring, end to end",
+      "problem": "Recruitment teams needed to move faster and more objectively across the whole hiring lifecycle, not just one step of it.",
+      "approach": "As project owner I built an A-to-Z hiring system on Odoo and wove OpenAI through the flow — from application intake to screening, evaluation and onboarding.",
+      "result": "The full recruitment lifecycle runs in one system, with AI accelerating screening and decisions while keeping the process consistent."
     },
     {
       "cat": "ai",
@@ -680,7 +700,11 @@
         "Project Owner",
         "Developer",
         "API Integration"
-      ]
+      ],
+      "metric": "AI assistant inside Discuss",
+      "problem": "Users and developers kept leaving Odoo to look up how modules, configuration and workflows worked.",
+      "approach": "I built an OpenAI-powered chatbot directly into Odoo's Discuss module so teams can ask module questions conversationally and get context-aware answers in-app.",
+      "result": "Odoo questions get instant, in-context answers without anyone leaving the system."
     },
     {
       "cat": "odoo",
@@ -702,7 +726,11 @@
       "roles": [
         "Website Customization",
         "Backend Development"
-      ]
+      ],
+      "metric": "Multi-company, fully web-based",
+      "problem": "Hotels needed to run rooms, bookings and front-desk activity online across multiple properties from one system.",
+      "approach": "I built a web-based, multi-company Odoo module with an interactive GUI and flexible booking and room management, customizing both backend and website.",
+      "result": "An entire hotel operation — rooms, bookings and front desk — runs online from a single multi-company module."
     },
     {
       "cat": "odoo",
@@ -725,7 +753,11 @@
         "Team Lead",
         "Backend Development",
         "Website Design"
-      ]
+      ],
+      "metric": "Voice-input measurements",
+      "problem": "Tailoring businesses needed to manage everything from customer measurements to production and final delivery in one place.",
+      "approach": "Leading the build, I created a full tailoring-management module covering measurements, orders and production tracking, adding speech recognition for hands-free voice input.",
+      "result": "The whole business — customer interaction to delivery — is orchestrated in one module, with measurements captured by voice."
     },
     {
       "cat": "connector",
@@ -745,7 +777,11 @@
         "Project Alternate",
         "Developer",
         "Migration"
-      ]
+      ],
+      "metric": "Two-way Shopify ↔ Odoo sync",
+      "problem": "Stores running Shopify and Odoo had to keep catalog, orders and customer data manually aligned across both.",
+      "approach": "I built a two-way connector that imports and exports catalog, orders and related data, and migrated it across Odoo v17–v19.",
+      "result": "The Shopify store and Odoo ERP stay continuously in sync with no manual re-entry."
     },
     {
       "cat": "odoo",
@@ -765,7 +801,11 @@
       "roles": [
         "Website Design",
         "Backend Development"
-      ]
+      ],
+      "metric": "Backend + public website",
+      "problem": "An institution needed its core academic and administrative workflows plus public-facing pages in one system.",
+      "approach": "I built a complete college-management module covering academic and administrative workflows, with a custom website front end for public pages.",
+      "result": "Academics, administration and the public site all run from one Odoo module."
     },
     {
       "cat": "odoo",
@@ -786,7 +826,11 @@
         "Project Alternate",
         "Backend Developer",
         "Migration"
-      ]
+      ],
+      "metric": "Built across Odoo v16–v19",
+      "problem": "Laundry businesses needed order intake, processing stages, delivery and billing handled in one flow.",
+      "approach": "I built a complete laundry-management system handling intake through billing, and migrated it across several major Odoo versions.",
+      "result": "The full laundry cycle — intake, processing, delivery and billing — runs inside Odoo across versions."
     },
     {
       "cat": "connector",
@@ -807,7 +851,11 @@
         "Backend Developer",
         "Customize",
         "Migration"
-      ]
+      ],
+      "metric": "Bi-directional accounting sync",
+      "problem": "Finance teams were re-entering customers, vendors, products, invoices and payments between QuickBooks Online and Odoo.",
+      "approach": "As project owner I built a connector that syncs all of those records bi-directionally and migrated it across Odoo v14–v19.",
+      "result": "Accounting data moves both ways automatically, so the two systems stay consistent with no re-entry."
     },
     {
       "cat": "connector",
@@ -826,7 +874,11 @@
       "roles": [
         "Project Owner",
         "Backend Developer"
-      ]
+      ],
+      "metric": "OAuth, two-way calendar sync",
+      "problem": "Teams wanted to schedule and join Microsoft Teams meetings without leaving the Odoo Calendar or signing in twice.",
+      "approach": "I built an OAuth-based connector that schedules and joins Teams meetings from the Odoo Calendar, syncing both ways with Teams/Office 365 and emailing join links.",
+      "result": "Meetings schedule and launch straight from Odoo, sync with Office 365, and attendees join by email link — no second sign-in."
     },
     {
       "cat": "connector",
@@ -845,7 +897,11 @@
       "roles": [
         "Project Owner",
         "Backend Developer"
-      ]
+      ],
+      "metric": "One-click Meet from Calendar",
+      "problem": "Users needed to create and launch Google Meet calls directly from the Odoo Calendar.",
+      "approach": "I built an OAuth connector that creates and launches Meet calls from the Odoo Calendar and syncs with Google Calendar.",
+      "result": "Meet calls are created and joined from Odoo with a one-click redirect, kept in sync with Google Calendar."
     },
     {
       "cat": "connector",
@@ -863,7 +919,11 @@
       "roles": [
         "Project Owner",
         "Backend Developer"
-      ]
+      ],
+      "metric": "Works with free & paid Zoom",
+      "problem": "Teams needed to schedule and join Zoom meetings directly from the Odoo Calendar on any Zoom plan.",
+      "approach": "I built a connector that schedules and joins Zoom meetings from Odoo Calendar, working with free and paid accounts and emailing auto-generated join links.",
+      "result": "Zoom meetings schedule and launch from Odoo, with join links emailed to attendees automatically."
     },
     {
       "cat": "connector",
@@ -882,7 +942,11 @@
       "roles": [
         "Project Owner",
         "Backend Developer"
-      ]
+      ],
+      "metric": "Pulls candidates into Recruitment",
+      "problem": "HR needed candidate profiles and recruitment data from LinkedIn inside Odoo instead of copying them by hand.",
+      "approach": "I built an OAuth connector that pulls candidate profiles and imports contacts directly into Odoo's CRM and Recruitment modules.",
+      "result": "Recruiters pull LinkedIn profiles and sync recruitment data straight into Odoo."
     },
     {
       "cat": "ai",
@@ -900,7 +964,11 @@
       ],
       "roles": [
         "Project Owner"
-      ]
+      ],
+      "metric": "Multi-format OCR extraction",
+      "problem": "Text trapped in images and scanned documents needed to become clean, searchable output.",
+      "approach": "I built a standalone Python OCR tool using OpenCV and Tesseract that extracts text from multiple image formats.",
+      "result": "Images and scans convert into clean, searchable text across formats."
     },
     {
       "cat": "ai",
@@ -918,7 +986,11 @@
       ],
       "roles": [
         "Project Owner"
-      ]
+      ],
+      "metric": "Positive / negative / neutral NLP",
+      "problem": "Reviews, social posts and customer feedback needed fast, consistent sentiment classification.",
+      "approach": "I built a Python NLP tool using NLTK and scikit-learn that classifies text as positive, negative or neutral.",
+      "result": "Text streams are classified by sentiment for reviews, social monitoring and feedback analysis."
     },
     {
       "cat": "connector",
@@ -938,7 +1010,11 @@
         "Backend Developer",
         "Customize",
         "Migration"
-      ]
+      ],
+      "metric": "Built across Odoo v14–v19",
+      "problem": "Teams were re-keying invoices, bills, payments, customers and vendors between Xero and Odoo.",
+      "approach": "I built a bi-directional connector syncing all those records and customized and migrated it across Odoo v14–v19.",
+      "result": "Xero and Odoo stay aligned both ways with no manual re-entry."
     },
     {
       "cat": "ai",
@@ -958,7 +1034,11 @@
         "Project Owner",
         "API Integration",
         "Developer"
-      ]
+      ],
+      "metric": "Natural language across modules",
+      "problem": "Users wanted to interact with Odoo in plain language for replies, analysis and decisions.",
+      "approach": "I integrated OpenAI's language models into Odoo for automated replies, text analysis and AI-assisted decisions across modules.",
+      "result": "Users work with Odoo in natural language, with AI assisting across modules."
     },
     {
       "cat": "ai",
@@ -979,7 +1059,11 @@
         "UI Design",
         "Integration",
         "API Connection"
-      ]
+      ],
+      "metric": "Surfaces supply-chain insights",
+      "problem": "Manufacturing teams needed visibility into bottlenecks, efficiency and quality to cut cost and lift output.",
+      "approach": "I built an AI-driven assistant for Odoo Manufacturing that surfaces insights on supply-chain bottlenecks, production efficiency and quality control.",
+      "result": "Teams get AI-surfaced insights that help cut costs and improve output."
     },
     {
       "cat": "odoo",
@@ -999,7 +1083,11 @@
       "roles": [
         "Project Owner",
         "All-in-all"
-      ]
+      ],
+      "metric": "Live booking & status updates",
+      "problem": "Vehicle owners needed to book maintenance, repairs and inspections online and track progress with certified mechanics.",
+      "approach": "As all-in-all owner I built an online garage platform where owners book services, get live status updates and find certified mechanics.",
+      "result": "Owners book and track vehicle services online with real-time status."
     },
     {
       "cat": "webapp",
@@ -1020,7 +1108,11 @@
       "roles": [
         "Project Owner",
         "All-in-all"
-      ]
+      ],
+      "metric": "Encryption + blockchain wallet",
+      "problem": "People needed a secure way to store, send and receive digital currencies.",
+      "approach": "As owner I built a digital-wallet platform leveraging encryption and blockchain for fast, transparent transactions.",
+      "result": "Users store, send and receive digital assets securely, bridging traditional finance and Web3."
     },
     {
       "cat": "webapp",
@@ -1041,7 +1133,11 @@
       "roles": [
         "Project Owner",
         "All-in-all"
-      ]
+      ],
+      "metric": "Two-sided civic platform",
+      "problem": "Residents and local authorities lacked a shared channel for news and for filing and tracking complaints.",
+      "approach": "I built a Django platform connecting residents and authorities — news and announcements one way, complaint filing and tracking the other.",
+      "result": "Citizens get timely news and file complaints; authorities respond and track resolutions transparently."
     },
     {
       "cat": "webapp",
@@ -1061,7 +1157,11 @@
       ],
       "roles": [
         "Frontend & Backend Contributor"
-      ]
+      ],
+      "metric": "Browse, buy, manage orders",
+      "problem": "Buyers and sellers needed a fast online marketplace with secure payments and order management.",
+      "approach": "I contributed front and back end to a Django shopping platform with product listings, secure payments and order management.",
+      "result": "Buyers browse and purchase while orders and payments are managed end to end."
     },
     {
       "cat": "webapp",
@@ -1079,7 +1179,11 @@
       ],
       "roles": [
         "Developer"
-      ]
+      ],
+      "metric": "Matching + application management",
+      "problem": "Job seekers and employers needed one place for profiles, listings and applications.",
+      "approach": "I developed a job portal with profile creation, resume uploads, listings, application management and recommendation matching.",
+      "result": "Seekers and employers connect, apply and match in one platform."
     },
     {
       "cat": "ai",
@@ -1098,7 +1202,11 @@
       "roles": [
         "Project Owner",
         "Developer"
-      ]
+      ],
+      "metric": "Gemini + OCR résumé scoring",
+      "problem": "Recruiters needed to screen résumés objectively and at speed against each job description.",
+      "approach": "I built an Odoo recruitment add-on that screens résumés with Google Gemini and OCR, scoring candidates automatically against the job description.",
+      "result": "Candidates are auto-scored against the role, making shortlisting faster and more consistent."
     },
     {
       "cat": "connector",
@@ -1117,7 +1225,11 @@
       "roles": [
         "Backend Developer",
         "Migration"
-      ]
+      ],
+      "metric": "Sales + Marketing hub sync",
+      "problem": "Teams were switching between HubSpot and Odoo to manage contacts, campaigns and deals.",
+      "approach": "I connected HubSpot's Sales and Marketing hubs with Odoo over OAuth and migrated it across versions.",
+      "result": "Contacts, inbound campaigns and deals are managed without switching tools."
     },
     {
       "cat": "connector",
@@ -1136,7 +1248,11 @@
       "roles": [
         "Backend Developer",
         "Migration"
-      ]
+      ],
+      "metric": "WooCommerce ↔ Odoo sync",
+      "problem": "WordPress WooCommerce stores and Odoo needed unified product, inventory, order and customer data.",
+      "approach": "I built a connector keeping WooCommerce and Odoo in sync and migrated it across versions.",
+      "result": "Products, inventory, orders and customers stay synced across both platforms automatically."
     },
     {
       "cat": "connector",
@@ -1155,7 +1271,11 @@
       "roles": [
         "Backend Developer",
         "Migration"
-      ]
+      ],
+      "metric": "Two-way CRM bridge",
+      "problem": "Leads, deals and contacts had to be exported by hand between Pipedrive and Odoo.",
+      "approach": "I built a two-way data bridge between Pipedrive CRM and Odoo and migrated it across versions.",
+      "result": "Leads, deals and contacts flow between Pipedrive and Odoo with no manual exports."
     },
     {
       "cat": "connector",
@@ -1174,7 +1294,11 @@
       "roles": [
         "Backend Developer",
         "Migration"
-      ]
+      ],
+      "metric": "OAuth document sync",
+      "problem": "Users needed Odoo documents and attachments synced with Microsoft OneDrive.",
+      "approach": "I built an OAuth connector to store, retrieve and manage files across Odoo and OneDrive and migrated it across versions.",
+      "result": "Documents and attachments stay cleanly aligned between Odoo and OneDrive."
     },
     {
       "cat": "connector",
@@ -1192,7 +1316,11 @@
       ],
       "roles": [
         "Developer"
-      ]
+      ],
+      "metric": "Channel sync + live notifications",
+      "problem": "Teams wanted Slack users, channels and events reflected inside Odoo with instant notifications.",
+      "approach": "I built a Slack integration importing users and channels, syncing channel renames, handling events and pushing in-app notifications via webhooks.",
+      "result": "Slack and Odoo stay connected with synced channels and instant in-app notifications."
     },
     {
       "cat": "connector",
@@ -1210,7 +1338,11 @@
       "roles": [
         "Developer",
         "Migration"
-      ]
+      ],
+      "metric": "Address mapping + routing",
+      "problem": "Sales teams needed to see customer geography and routes inside Odoo.",
+      "approach": "I plotted customer addresses on Google Maps with autocomplete and added route details from user to partner on sales orders.",
+      "result": "Customer locations and routes are visualised directly inside Odoo."
     },
     {
       "cat": "connector",
@@ -1230,7 +1362,11 @@
         "Project Owner",
         "Developer",
         "Migration"
-      ]
+      ],
+      "metric": "SAP ↔ Odoo data bridge",
+      "problem": "Companies wanted to modernise on Odoo without losing their SAP integration.",
+      "approach": "As project owner I built a connector bridging SAP ERP and Odoo, syncing master data, transactions and inventory.",
+      "result": "Master data, transactions and inventory stay in sync between SAP and Odoo, enabling a gradual move to Odoo."
     }
   ],
   "certs": [
