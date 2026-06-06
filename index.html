@@ -3212,7 +3212,6 @@ body.pp-lock .chat-fab,body.pp-lock .chat-panel{display:none}
 
     var gc = document.getElementById('anGateClose'); if(gc) gc.addEventListener('click', closeGate);
     var pc = document.getElementById('anClose'); if(pc) pc.addEventListener('click', closePanel);
-    document.addEventListener('keydown', function(ev){ if(ev.key !== 'Escape') return; if(gate && !gate.hidden){ closeGate(); } else if(panel && !panel.hidden){ closePanel(); } });
     var rf = document.getElementById('anRefresh'); if(rf) rf.addEventListener('click', function(){ load(curDays); });
     if(rangeWrap){
       rangeWrap.addEventListener('click', function(ev){
@@ -3332,54 +3331,51 @@ body.pp-lock .chat-fab,body.pp-lock .chat-panel{display:none}
     document.addEventListener('keydown', function(ev){ if(ev.key === 'Escape' && !panel.hidden){ closeChat(); } });
   }
 
-  /* ---- Background music (gated by data.json music.mode === "play"; pauses on tab-hide).
-         On/off is driven by BOTH the nav speaker and the admin-panel toggle, kept in sync
-         via the 'music_pref' device setting. ---- */
+  /* ---- Background music. GLOBAL on/off (every visitor) is stored server-side via
+         /.netlify/functions/music (Netlify Blobs) and set from the admin panel; each
+         visitor can also mute on their own device with the nav speaker. data.json
+         music.mode is the default until the server has been set. ---- */
   function setupMusic(){
     var cfg = DATA && DATA.music;
     var navBtn = document.getElementById('soundToggle');
     var adminBtn = document.getElementById('anMusicToggle');
-    if(!cfg || String(cfg.mode || '').toLowerCase() !== 'play' || !cfg.file){
-      if(navBtn) navBtn.hidden = true; if(adminBtn) adminBtn.hidden = true; return;
-    }
+    if(!cfg || !cfg.file){ if(navBtn) navBtn.hidden = true; if(adminBtn) adminBtn.hidden = true; return; }
+    var EP = '/.netlify/functions/music';
     var target = (typeof cfg.volume === 'number') ? Math.max(0, Math.min(1, cfg.volume)) : 0.35;
     var audio = new Audio(cfg.file);
-    audio.loop = cfg.loop !== false;
-    audio.preload = 'auto';
-    audio.volume = 0;
-    var started = false, off = false, fadeId = null;
-    try{ off = localStorage.getItem('music_pref') === 'off'; }catch(e){}
+    audio.loop = cfg.loop !== false; audio.preload = 'auto'; audio.volume = 0;
+    var started = false, armed = false, resolved = false, fadeId = null;
+    var globalOff = String(cfg.mode || '').toLowerCase() !== 'play';   // data.json default
+    var deviceMute = false; try{ deviceMute = localStorage.getItem('bgmute') === '1'; }catch(e){}
 
+    function playable(){ return !globalOff && !deviceMute; }
     function fadeIn(){ if(fadeId) clearInterval(fadeId); var steps = 36, i = 0; fadeId = setInterval(function(){ i++; audio.volume = Math.min(target, target * i / steps); if(i >= steps){ clearInterval(fadeId); fadeId = null; } }, 40); }
-    function start(){
-      if(off) return;
-      var p = audio.play();
-      if(p && p.then){ p.then(function(){ started = true; if(audio.volume < target) fadeIn(); }).catch(function(){ arm(); }); }
-      else { started = true; fadeIn(); }
-    }
-    function resume(){ if(off) return; audio.volume = target; var p = audio.play(); if(p && p.catch) p.catch(function(){}); }
-    function arm(){
-      function go(){ ['pointerdown','keydown','touchstart','scroll'].forEach(function(ev){ window.removeEventListener(ev, go, true); }); start(); }
-      ['pointerdown','keydown','touchstart','scroll'].forEach(function(ev){ window.addEventListener(ev, go, { capture: true, passive: true }); });
-    }
+    function start(){ if(!playable()) return; var p = audio.play(); if(p && p.then){ p.then(function(){ started = true; if(audio.volume < target) fadeIn(); }).catch(function(){ arm(); }); } else { started = true; fadeIn(); } }
+    function resume(){ if(!playable()) return; audio.volume = target; var p = audio.play(); if(p && p.catch) p.catch(function(){}); }
+    function arm(){ if(armed) return; armed = true; function go(){ ['pointerdown','keydown','touchstart','scroll'].forEach(function(ev){ window.removeEventListener(ev, go, true); }); armed = false; start(); } ['pointerdown','keydown','touchstart','scroll'].forEach(function(ev){ window.addEventListener(ev, go, { capture: true, passive: true }); }); }
     function paint(){
-      if(navBtn){ navBtn.classList.toggle('muted', off); navBtn.setAttribute('aria-pressed', off ? 'true' : 'false'); navBtn.setAttribute('aria-label', off ? 'Play background music' : 'Mute background music'); }
-      if(adminBtn){ adminBtn.textContent = off ? '♪ Music: off' : '♪ Music: on'; adminBtn.classList.toggle('an-toggle-off', off); }
+      if(navBtn){ navBtn.hidden = globalOff; navBtn.classList.toggle('muted', deviceMute); navBtn.setAttribute('aria-pressed', deviceMute ? 'true' : 'false'); navBtn.setAttribute('aria-label', deviceMute ? 'Play background music' : 'Mute background music'); }
+      if(adminBtn){ adminBtn.hidden = false; adminBtn.textContent = '♪ Music: ' + (globalOff ? 'off' : 'on'); adminBtn.classList.toggle('an-toggle-off', globalOff); }
     }
-    function setOff(o){
-      off = o; try{ localStorage.setItem('music_pref', o ? 'off' : 'play'); }catch(e){}
-      paint();
-      if(o){ audio.pause(); } else if(started){ resume(); } else { start(); }
-    }
+    function apply(){ paint(); if(!playable()){ audio.pause(); } else if(started){ resume(); } else { start(); } }
 
-    if(navBtn){ navBtn.hidden = false; navBtn.addEventListener('click', function(){ setOff(!off); }); }
-    if(adminBtn){ adminBtn.hidden = false; adminBtn.addEventListener('click', function(){ setOff(!off); }); }
-    paint();
-    document.addEventListener('visibilitychange', function(){
-      if(document.hidden){ if(!audio.paused) audio.pause(); }
-      else if(!off && started && audio.paused){ resume(); }
-    });
-    if(!off) start();
+    if(navBtn){ navBtn.addEventListener('click', function(){ deviceMute = !deviceMute; try{ localStorage.setItem('bgmute', deviceMute ? '1' : '0'); }catch(e){} apply(); }); }
+    if(adminBtn){
+      adminBtn.addEventListener('click', function(){
+        var next = globalOff ? 'play' : 'off';
+        var pass = ''; try{ pass = sessionStorage.getItem('an_pass') || ''; }catch(e){}
+        adminBtn.disabled = true; adminBtn.textContent = '♪ saving…';
+        fetch(EP, { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-admin-pass': pass }, body: JSON.stringify({ mode: next }) })
+          .then(function(r){ return r.json().then(function(j){ return { s: r.status, j: j }; }, function(){ return { s: r.status, j: {} }; }); })
+          .then(function(res){ adminBtn.disabled = false; if(res.s === 200){ globalOff = (res.j.mode === 'off'); apply(); } else { paint(); adminBtn.textContent = (res.s === 401) ? '♪ unlock first' : '♪ save failed'; } })
+          .catch(function(){ adminBtn.disabled = false; paint(); adminBtn.textContent = '♪ offline'; });
+      });
+    }
+    document.addEventListener('visibilitychange', function(){ if(document.hidden){ if(!audio.paused) audio.pause(); } else if(playable() && started && audio.paused){ resume(); } });
+
+    function kickoff(){ if(resolved) return; resolved = true; paint(); if(playable()) start(); }
+    fetch(EP).then(function(r){ return r.json(); }).then(function(j){ if(j && (j.mode === 'off' || j.mode === 'play')){ var ng = (j.mode === 'off'); if(ng !== globalOff){ globalOff = ng; if(resolved) apply(); } } }).catch(function(){}).then(kickoff);
+    setTimeout(kickoff, 1800);
   }
 
   function boot(){

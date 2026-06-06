@@ -1,0 +1,9 @@
+{
+  "name": "asmar-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Serverless functions for the portfolio (analytics, AI chat, music config).",
+  "dependencies": {
+    "@netlify/blobs": "^10.0.0"
+  }
+}
