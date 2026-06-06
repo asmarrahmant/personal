@@ -971,7 +971,10 @@ body.pp-lock{overflow:hidden}
     </div>
     <div class="hero-visual reveal" data-rv="scale" id="heroVisual">
       <div class="avatar-card">
-        <img class="avatar-photo" width="600" height="672" fetchpriority="high" decoding="async" alt="Asmar Rahman — Odoo Developer" src="images/profile.jpg">
+        <picture>
+          <source srcset="images/profile.webp" type="image/webp">
+          <img class="avatar-photo" width="600" height="672" fetchpriority="high" decoding="async" alt="Asmar Rahman — Odoo Developer" src="images/profile.jpg">
+        </picture>
         <div class="avatar-overlay"></div>
       </div>
       <div class="badge-float b1"><span class="dot"></span>Available for freelance</div>
@@ -2319,7 +2322,7 @@ body.pp-lock{overflow:hidden}
     if(!d.works) return;
     setHTML('#worksGrid', d.works.map(function(w){
       return '<article class="work" data-cat="' + e(w.cat) + '">' +
-        '<div class="work-thumb"><img class="work-img" loading="lazy" decoding="async" width="760" height="473" alt="' + e(w.alt) + '" src="' + e(w.image) + '"><span class="cat">' + e(w.catLabel) + '</span></div>' +
+        '<div class="work-thumb"><picture><source srcset="' + e((w.image || '').replace(/\.jpe?g$/i, '.webp')) + '" type="image/webp"><img class="work-img" loading="lazy" decoding="async" width="760" height="473" alt="' + e(w.alt) + '" src="' + e(w.image) + '"></picture><span class="cat">' + e(w.catLabel) + '</span></div>' +
         '<div class="work-body"><h4>' + e(w.title) + '</h4><p>' + e(w.desc) + '</p></div>' +
       '</article>';
     }).join(''));
