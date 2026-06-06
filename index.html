@@ -898,6 +898,28 @@ body.pp-lock{overflow:hidden}
 [data-skipintro] .intro{display:none}
 html.intro-lock,html.intro-lock body{overflow:hidden}
 
+/* ===== Phase 2: project search + case-study detail ===== */
+.pj-search{position:relative;max-width:480px;margin:0 0 18px}
+.pj-search-ic{position:absolute;left:14px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:var(--muted);pointer-events:none}
+.pj-search input{width:100%;height:46px;background:var(--bg-2);border:1px solid var(--line-strong);border-radius:12px;color:var(--text);padding:0 16px 0 40px;font-family:var(--font-body);font-size:.95rem}
+.pj-search input:focus{outline:none;border-color:var(--accent-text)}
+.pj-search input::placeholder{color:var(--muted-2)}
+.pcard{cursor:pointer}
+.pcard-cta{display:inline-flex;align-items:center;gap:6px;margin-top:18px;font-family:var(--font-mono);font-size:.76rem;color:var(--accent-text);opacity:0;transform:translateX(-4px);transition:opacity .25s,transform .25s}
+.pcard:hover .pcard-cta,.pcard:focus-visible .pcard-cta{opacity:1;transform:none}
+.pcard:focus-visible{outline:2px solid var(--accent-text);outline-offset:3px}
+.pdetail{z-index:320}
+.pd-hero{padding-top:48px}
+.pd-metrics{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.pd-metric{font-family:var(--font-mono);font-size:.74rem;color:var(--accent-text);background:var(--accent-dim);border:1px solid var(--line-strong);border-radius:999px;padding:7px 14px;letter-spacing:.02em}
+.pd-lead{color:var(--muted);font-size:clamp(1.05rem,1.5vw,1.2rem);line-height:1.6;max-width:62ch;margin:24px 0 8px}
+.pd-sec{margin-top:28px;max-width:64ch}
+.pd-h{font-family:var(--font-mono);font-size:.76rem;text-transform:uppercase;letter-spacing:.1em;color:var(--accent-text);margin-bottom:8px}
+.pd-sec p{color:var(--text);line-height:1.7;font-size:1rem}
+.pd-cols{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:34px}
+.pd-cta{margin-top:38px}
+@media(max-width:680px){.pd-cols{grid-template-columns:1fr}}
+
 @media(prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
   .reveal{opacity:1;transform:none}
@@ -1453,6 +1475,10 @@ html.intro-lock,html.intro-lock body{overflow:hidden}
       <p>A detailed look at the Odoo modules, AI applications and third-party connectors I've designed, built and migrated across versions 14 through 19.</p>
       <div class="count" id="pjCount">34 featured projects</div>
     </section>
+    <div class="pj-search">
+      <svg class="pj-search-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <input type="search" id="pjSearch" placeholder="Search projects — Shopify, OpenAI, OAuth, migration…" aria-label="Search projects">
+    </div>
     <div class="filters" id="pjFilters">
       <button class="filter-btn active" data-filter="all">All</button>
       <button class="filter-btn" data-filter="odoo">Odoo</button>
@@ -1735,6 +1761,18 @@ html.intro-lock,html.intro-lock body{overflow:hidden}
       </article>
     </div>
 </div>
+</div>
+
+<!-- ============== PROJECT CASE-STUDY DETAIL ============== -->
+<div class="projects-page pdetail" id="projectDetail" role="dialog" aria-modal="true" aria-label="Project case study">
+  <div class="pp-bar">
+    <span class="brand">Asmar<span>.</span></span>
+    <button class="btn btn-ghost btn-back" id="closeDetail">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 12H5M11 18l-6-6 6-6"/></svg>
+      Back to projects
+    </button>
+  </div>
+  <div class="container"><div id="pdBody"></div></div>
 </div>
 
 <!-- ============== CERTIFICATIONS OVERLAY (single-file dedicated view) ============== -->
@@ -2365,19 +2403,23 @@ html.intro-lock,html.intro-lock body{overflow:hidden}
     setHTML('#certs .certs-grid', d.certsFeatured.map(function(c){ return certCard(c, true); }).join(''));
   }
 
+  var ALL_PROJECTS = [];
   function renderAllProjects(d){
     if(!d.projects) return;
-    setHTML('#pjGrid', d.projects.map(function(p){
-      return '<article class="pcard" data-cat="' + e(p.cat) + '">' +
+    ALL_PROJECTS = d.projects;
+    setHTML('#pjGrid', d.projects.map(function(p, i){
+      var search = [p.title, p.category, (p.builtWith || []).join(' '), (p.roles || []).join(' '), p.versions].join(' ').toLowerCase();
+      return '<article class="pcard" data-cat="' + e(p.cat) + '" data-idx="' + i + '" data-search="' + e(search) + '" role="button" tabindex="0" aria-label="' + e(p.title) + ' — open case study">' +
         '<div class="ptop"><span class="pcat">' + e(p.category) + '</span><span class="pidx">' + e(p.idx) + '</span></div>' +
         '<h3>' + e(p.title) + '</h3>' +
         '<div class="pver">' + e(p.versions) + '</div>' +
         '<p class="pdesc">' + e(p.desc) + '</p>' +
         '<div class="pblock"><div class="plabel">Built with</div><div class="ptags">' + (p.builtWith||[]).map(function(t){ return '<span class="tag">' + e(t) + '</span>'; }).join('') + '</div></div>' +
         '<div class="pblock"><div class="plabel">My role</div><div class="ptags">' + (p.roles||[]).map(function(t){ return '<span class="tag role">' + e(t) + '</span>'; }).join('') + '</div></div>' +
+        '<span class="pcard-cta">View case study <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>' +
       '</article>';
     }).join(''));
-    var c = $('#pjCount'); if(c) c.textContent = d.projects.length + ' featured projects';
+    var c = $('#pjCount'); if(c) c.textContent = d.projects.length + ' projects';
   }
 
   function renderAllCerts(d){
@@ -2473,7 +2515,7 @@ html.intro-lock,html.intro-lock body{overflow:hidden}
     }
 
     /* ---- generic overlay helper ---- */
-    function setupOverlay(pageId, gridSel, itemSel, hash, openBtnSel, closeBtnId, filtersId, maxDelay, base, step){
+    function setupOverlay(pageId, gridSel, itemSel, hash, openBtnSel, closeBtnId, filtersId, maxDelay, base, step, searchId, countId){
       var page = document.getElementById(pageId);
       if(!page) return null;
       var grid = gridSel ? page.querySelector(gridSel) : null;
@@ -2499,6 +2541,19 @@ html.intro-lock,html.intro-lock body{overflow:hidden}
       if(cb) cb.addEventListener('click', function(e){ e.preventDefault(); close(); });
       window.addEventListener('popstate', function(){ if(location.hash === hash){ open(false); } else { close(false); } });
       document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && page.classList.contains('open')){ close(); } });
+      var curFilter = 'all', curQuery = '';
+      function applyFilters(){
+        if(!grid) return;
+        var items = grid.querySelectorAll(itemSel), shown = 0;
+        items.forEach(function(c){
+          var okCat = (curFilter === 'all' || c.dataset.cat === curFilter);
+          var okQ = (!curQuery || (c.dataset.search || '').indexOf(curQuery) >= 0);
+          var vis = okCat && okQ;
+          c.classList.toggle('hide', !vis);
+          if(vis) shown++;
+        });
+        if(countId){ var cc = document.getElementById(countId); if(cc) cc.textContent = (curQuery || curFilter !== 'all') ? (shown + ' of ' + items.length + ' projects') : (items.length + ' projects'); }
+      }
       if(filtersId){
         var fl = document.getElementById(filtersId);
         if(fl && grid){
@@ -2506,18 +2561,75 @@ html.intro-lock,html.intro-lock body{overflow:hidden}
             var btn = e.target.closest('.filter-btn'); if(!btn) return;
             this.querySelectorAll('.filter-btn').forEach(function(b){ b.classList.remove('active'); });
             btn.classList.add('active');
-            var f = btn.dataset.filter;
-            grid.querySelectorAll(itemSel).forEach(function(c){ c.classList.toggle('hide', !(f === 'all' || c.dataset.cat === f)); });
+            curFilter = btn.dataset.filter;
+            applyFilters();
           });
         }
+      }
+      if(searchId){
+        var si = document.getElementById(searchId);
+        if(si && grid){ si.addEventListener('input', function(){ curQuery = (si.value || '').trim().toLowerCase(); applyFilters(); }); }
       }
       if(location.hash === hash){ open(false); }
       return { open: open, close: close };
     }
 
-    setupOverlay('projectsPage', '#pjGrid', '.pcard', '#projects', '.js-open-projects', 'closeProjects', 'pjFilters', 9, 70, 55);
+    setupOverlay('projectsPage', '#pjGrid', '.pcard', '#projects', '.js-open-projects', 'closeProjects', 'pjFilters', 9, 70, 55, 'pjSearch', 'pjCount');
     setupOverlay('certsPage', '#certGrid', '.cert', '#certifications', '.js-open-certs', 'closeCerts', null, 12, 60, 38);
     setupOverlay('skillsPage', '#allSkillsGrid', '.skill-card', '#allskills', '.js-open-skills', 'closeSkills', null, 18, 40, 28);
+
+    /* ---- Project case-study detail (stacked overlay) ---- */
+    (function(){
+      var overlay = document.getElementById('projectDetail');
+      var body = document.getElementById('pdBody');
+      var pgrid = document.getElementById('pjGrid');
+      if(!overlay || !body || !pgrid) return;
+      var isOpen = false;
+      function tags(arr, cls){ return (arr||[]).map(function(t){ return '<span class="tag' + (cls ? ' ' + cls : '') + '">' + e(t) + '</span>'; }).join(''); }
+      function metrics(p){
+        var out = [];
+        if(p.metric) out.push(p.metric);
+        var v = (p.versions || '').match(/v\d+/g);
+        if(v && v.length > 1) out.push(v.length + ' Odoo versions');
+        if((p.builtWith||[]).length) out.push(p.builtWith.length + ' technologies');
+        if((p.roles||[]).length) out.push(p.roles.length > 1 ? (p.roles.length + ' roles') : p.roles[0]);
+        return out.map(function(m){ return '<span class="pd-metric">' + e(m) + '</span>'; }).join('');
+      }
+      function render(p){
+        var c = '';
+        if(p.problem) c += '<div class="pd-sec"><div class="pd-h">The challenge</div><p>' + e(p.problem) + '</p></div>';
+        if(p.approach) c += '<div class="pd-sec"><div class="pd-h">My approach</div><p>' + e(p.approach) + '</p></div>';
+        if(p.result) c += '<div class="pd-sec"><div class="pd-h">The result</div><p>' + e(p.result) + '</p></div>';
+        body.innerHTML =
+          '<section class="pp-hero pd-hero"><span class="eyebrow">' + e(p.category) + '</span><h2>' + e(p.title) + '</h2>' +
+            '<div class="pver">' + e(p.versions) + '</div><div class="pd-metrics">' + metrics(p) + '</div></section>' +
+          '<p class="pd-lead">' + e(p.desc) + '</p>' + c +
+          '<div class="pd-cols"><div class="pblock"><div class="plabel">Built with</div><div class="ptags">' + tags(p.builtWith) + '</div></div>' +
+            '<div class="pblock"><div class="plabel">My role</div><div class="ptags">' + tags(p.roles, 'role') + '</div></div></div>' +
+          '<div class="pd-cta"><button class="btn btn-primary" type="button" id="pdHire">Discuss a similar build ' +
+            '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>';
+        var hb = document.getElementById('pdHire');
+        if(hb) hb.addEventListener('click', function(){ closeIt(true); var nav = document.querySelector('.nav-cta .js-open-hire'); if(nav) nav.click(); });
+      }
+      function openIt(idx){
+        var p = ALL_PROJECTS[idx]; if(!p) return;
+        render(p);
+        overlay.classList.add('open'); document.body.classList.add('pp-lock'); overlay.scrollTop = 0; isOpen = true;
+        try{ history.pushState({ pd: 1 }, ''); }catch(err){}
+      }
+      function closeIt(back){
+        if(!isOpen) return;
+        overlay.classList.remove('open'); isOpen = false;
+        var pp = document.getElementById('projectsPage');
+        if(!pp || !pp.classList.contains('open')) document.body.classList.remove('pp-lock');
+        if(back){ try{ history.back(); }catch(err){} }
+      }
+      pgrid.addEventListener('click', function(ev){ var card = ev.target.closest('.pcard'); if(card && card.dataset.idx != null) openIt(parseInt(card.dataset.idx, 10)); });
+      pgrid.addEventListener('keydown', function(ev){ if(ev.key !== 'Enter' && ev.key !== ' ') return; var card = ev.target.closest('.pcard'); if(card && card.dataset.idx != null){ ev.preventDefault(); openIt(parseInt(card.dataset.idx, 10)); } });
+      var cb = document.getElementById('closeDetail'); if(cb) cb.addEventListener('click', function(){ closeIt(true); });
+      window.addEventListener('popstate', function(){ if(isOpen) closeIt(false); });
+      document.addEventListener('keydown', function(ev){ if(ev.key === 'Escape' && isOpen){ ev.stopImmediatePropagation(); closeIt(true); } }, true);
+    })();
 
     /* ---- Testimonials viewer (read-only, from testimonials.json) ---- */
     setupTestimonials();
