@@ -2280,7 +2280,7 @@ body.pp-lock .chat-fab,body.pp-lock .chat-panel{display:none}
       </div>
       <button class="btn btn-ghost" type="button" id="anMusicToggle" hidden>♪ Music: on</button>
       <button class="btn btn-ghost" type="button" id="anRefresh">Refresh</button>
-      <button class="btn btn-ghost" type="button" id="anClose">Close</button>
+      <button class="btn btn-ghost" type="button" id="anClose">Logout</button>
     </div>
   </div>
   <div class="an-body" id="anBody"></div>
@@ -3211,7 +3211,7 @@ body.pp-lock .chat-fab,body.pp-lock .chat-panel{display:none}
     }
 
     var gc = document.getElementById('anGateClose'); if(gc) gc.addEventListener('click', closeGate);
-    var pc = document.getElementById('anClose'); if(pc) pc.addEventListener('click', closePanel);
+    var pc = document.getElementById('anClose'); if(pc) pc.addEventListener('click', function(){ clearPass(); closePanel(); });
     var rf = document.getElementById('anRefresh'); if(rf) rf.addEventListener('click', function(){ load(curDays); });
     if(rangeWrap){
       rangeWrap.addEventListener('click', function(ev){
