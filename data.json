@@ -50,6 +50,12 @@
     "Bootstrap"
   ],
   "dob": "2000-07-01",
+  "music": {
+    "mode": "play",
+    "file": "audio/background.mp3",
+    "volume": 0.35,
+    "loop": true
+  },
   "about": {
     "info": [
       {

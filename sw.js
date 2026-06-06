@@ -42,6 +42,8 @@ self.addEventListener('fetch', function (e) {
   var url = new URL(req.url);
   if (url.origin !== self.location.origin) return;            // cross-origin → browser handles
   if (url.pathname.indexOf('/.netlify/') === 0) return;       // never cache serverless functions
+  if (req.headers.has('range')) return;                       // audio/video range requests — let them stream
+  if (/\.(mp3|ogg|wav|m4a|aac|flac)$/i.test(url.pathname)) return; // don't cache audio files
 
   // network-first for page navigations + JSON data (always try fresh, fall back to cache offline)
   if (req.mode === 'navigate' || url.pathname.endsWith('.json')) {
