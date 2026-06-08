@@ -1,7 +1,7 @@
 'use strict';
 
 /*
- * "Ask my portfolio" — AI chatbot, serverless OpenAI proxy.
+ * "Twyllo" — AI chatbot, serverless OpenAI proxy.
  *
  * The OpenAI key lives ONLY here (Netlify env var), never in the browser.
  * The bot is grounded on Asmar's real data (pulled from the deployed
@@ -75,7 +75,7 @@ exports.handler = async function (event) {
   var corpus = '';
   try { corpus = await buildCorpus(host); } catch (e) {}
 
-  var system = 'You are "Ask my portfolio", a concise, friendly AI assistant that answers questions about Asmar Rahman for recruiters and prospective clients. ' +
+  var system = 'You are "Twyllo", a concise, friendly AI assistant that answers questions about Asmar Rahman for recruiters and prospective clients. ' +
     'Answer ONLY using the PROFILE below. If a question is not covered by the PROFILE, say you can only answer questions about Asmar\'s work and point them to the "Hire me" form or asmarrahmant@gmail.com. ' +
     'Keep answers to 2-4 sentences. Refer to him as "Asmar" in the third person. Cite specific project names when relevant. ' +
     'Never invent facts, numbers, employers, or projects that are not in the PROFILE. ' +
