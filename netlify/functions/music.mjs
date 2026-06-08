@@ -1,13 +1,17 @@
 import { getStore } from '@netlify/blobs';
 
 /*
- * Global background-music on/off, stored in Netlify Blobs.
- *   GET   ->  { mode, v, ctx }     (v = version marker, ctx = is Blobs configured)
- *   POST  ->  set mode; requires header  x-admin-pass == DASHBOARD_PASSWORD
+ * Global site config, stored in Netlify Blobs (every visitor sees the same value).
+ *   GET   ->  { music, theme, sound, v, ctx }
+ *               music: "play"|"off"|null   theme/sound: "on"|"off"|null   (null = unset -> client default)
+ *   POST  ->  set one key; requires header  x-admin-pass == DASHBOARD_PASSWORD
+ *               body { mode }                 -> music   (back-compat)
+ *               body { set:"music", value }   -> music ("play"/"off")
+ *               body { set:"theme", value }   -> theme button visibility ("on"/"off")
+ *               body { set:"sound", value }   -> sound button visibility ("on"/"off")
  *
- * Auto-configures via the static import (Netlify injects the context). If that isn't
- * available on the site, set env vars BLOBS_SITE_ID + BLOBS_TOKEN and it uses those.
- * Degrades gracefully (GET returns mode:null -> site uses data.json default).
+ * Auto-configures via the static import; if that isn't available on the site, set env vars
+ * BLOBS_SITE_ID + BLOBS_TOKEN and it uses those. Degrades gracefully (client falls back to defaults).
  */
 
 function json(status, obj) {
@@ -32,12 +36,17 @@ export const handler = async (event) => {
 
   if (method === 'GET') {
     const ctx = configured();
+    const out = { music: null, theme: null, sound: null, v: 'mjs', ctx };
     try {
-      const mode = await store().get('music_mode');
-      return json(200, { mode: (mode === 'off' || mode === 'play') ? mode : null, v: 'mjs', ctx });
+      const s = store();
+      const r = await Promise.all([s.get('music_mode'), s.get('theme_ui'), s.get('sound_ui')]);
+      if (r[0] === 'off' || r[0] === 'play') out.music = r[0];
+      if (r[1] === 'off' || r[1] === 'on') out.theme = r[1];
+      if (r[2] === 'off' || r[2] === 'on') out.sound = r[2];
     } catch (e) {
-      return json(200, { mode: null, v: 'mjs', ctx, err: String((e && e.message) || e).slice(0, 140) });
+      out.err = String((e && e.message) || e).slice(0, 140);
     }
+    return json(200, out);
   }
 
   if (method === 'POST') {
@@ -47,10 +56,23 @@ export const handler = async (event) => {
     }
     let body = {};
     try { body = JSON.parse(event.body || '{}'); } catch (e) {}
-    const mode = (body.mode === 'off') ? 'off' : 'play';
+
+    let key, value, resp;
+    if (body.mode !== undefined) {                                  // back-compat: music
+      key = 'music_mode'; value = (body.mode === 'off') ? 'off' : 'play'; resp = { mode: value };
+    } else if (body.set === 'music') {
+      key = 'music_mode'; value = (body.value === 'off') ? 'off' : 'play'; resp = { mode: value };
+    } else if (body.set === 'theme') {
+      key = 'theme_ui'; value = (body.value === 'off') ? 'off' : 'on'; resp = { theme: value };
+    } else if (body.set === 'sound') {
+      key = 'sound_ui'; value = (body.value === 'off') ? 'off' : 'on'; resp = { sound: value };
+    } else {
+      return json(400, { error: 'bad_key' });
+    }
+
     try {
-      await store().set('music_mode', mode);
-      return json(200, { mode });
+      await store().set(key, value);
+      return json(200, resp);
     } catch (e) {
       return json(500, { error: 'blobs', message: String((e && e.message) || e) });
     }

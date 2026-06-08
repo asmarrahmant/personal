@@ -961,7 +961,8 @@ html.intro-lock,html.intro-lock body{overflow:hidden}
 /* hide the chat widget while any full-screen overlay / modal / menu is open */
 body.pp-lock .chat-fab,body.pp-lock .chat-panel{display:none}
 
-#anMusicToggle.an-toggle-off{opacity:.6;text-decoration:line-through}
+.an-toggle-off{opacity:.6;text-decoration:line-through}
+.force-hide{display:none!important}
 .sound-toggle .ic-muted{display:none}
 .sound-toggle.muted .ic-sound{display:none}
 .sound-toggle.muted .ic-muted{display:block}
@@ -1470,7 +1471,7 @@ body.pp-lock .chat-fab,body.pp-lock .chat-panel{display:none}
         <div class="contact-info">
           <div class="ci">
             <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
-            <div><div class="k">Address</div><div class="v">Tirur, Malappuram, Kerala, 676102 <span class="flag">INDIA</span><br>Airport Road, Al Garhoud, Dubai <span class="flag">UAE</span></div></div>
+            <div><div class="k">Address</div><div class="v">Tirur, Malappuram, Kerala <span class="flag">INDIA</span><br>Airport Road, Al Garhoud, Dubai <span class="flag">UAE</span></div></div>
           </div>
           <div class="ci">
             <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/></svg></div>
@@ -2279,6 +2280,8 @@ body.pp-lock .chat-fab,body.pp-lock .chat-panel{display:none}
         <button type="button" data-days="90">90d</button>
       </div>
       <button class="btn btn-ghost" type="button" id="anMusicToggle" hidden>♪ Music: on</button>
+      <button class="btn btn-ghost" type="button" id="anThemeToggle" hidden>Theme btn: on</button>
+      <button class="btn btn-ghost" type="button" id="anSoundToggle" hidden>Sound btn: on</button>
       <button class="btn btn-ghost" type="button" id="anRefresh">Refresh</button>
       <button class="btn btn-ghost" type="button" id="anClose">Logout</button>
     </div>
@@ -2750,6 +2753,7 @@ body.pp-lock .chat-fab,body.pp-lock .chat-panel{display:none}
     setupIntro();
     setupChat();
     setupMusic();
+    setupUiConfig();
 
     /* ---- Nav: scroll bg + active link + progress ---- */
     var nav = document.getElementById('nav');
@@ -3253,7 +3257,7 @@ body.pp-lock .chat-fab,body.pp-lock .chat-panel{display:none}
     }
     try{ sessionStorage.setItem('introSeen', '1'); }catch(e){}
     var inner = document.getElementById('introInner');
-    var lines = ['> initializing asmar.dev', '> loading 30+ projects · 30+ certs', '> Odoo · Python · AI — ready ●'];
+    var lines = ['> Hey! Asmar Here!', '> Thanks for visiting!'];
     document.documentElement.classList.add('intro-lock');
     var li = 0;
     function typeLine(){
@@ -3374,8 +3378,39 @@ body.pp-lock .chat-fab,body.pp-lock .chat-panel{display:none}
     document.addEventListener('visibilitychange', function(){ if(document.hidden){ if(!audio.paused) audio.pause(); } else if(playable() && started && audio.paused){ resume(); } });
 
     function kickoff(){ if(resolved) return; resolved = true; paint(); if(playable()) start(); }
-    fetch(EP).then(function(r){ return r.json(); }).then(function(j){ if(j && (j.mode === 'off' || j.mode === 'play')){ var ng = (j.mode === 'off'); if(ng !== globalOff){ globalOff = ng; if(resolved) apply(); } } }).catch(function(){}).then(kickoff);
+    fetch(EP).then(function(r){ return r.json(); }).then(function(j){ if(j && (j.music === 'off' || j.music === 'play')){ var ng = (j.music === 'off'); if(ng !== globalOff){ globalOff = ng; if(resolved) apply(); } } }).catch(function(){}).then(kickoff);
     setTimeout(kickoff, 1800);
+  }
+
+  /* ---- Global UI toggles: show/hide the nav theme + sound buttons for every visitor
+         (stored server-side in the same /.netlify/functions/music config). ---- */
+  function setupUiConfig(){
+    var EP = '/.netlify/functions/music';
+    var navTheme = document.getElementById('themeToggle');
+    var navSound = document.getElementById('soundToggle');
+    var adTheme = document.getElementById('anThemeToggle');
+    var adSound = document.getElementById('anSoundToggle');
+    var themeOff = false, soundOff = false;
+
+    function paintTheme(){ if(navTheme) navTheme.classList.toggle('force-hide', themeOff); if(adTheme){ adTheme.hidden = false; adTheme.textContent = 'Theme btn: ' + (themeOff ? 'off' : 'on'); adTheme.classList.toggle('an-toggle-off', themeOff); } }
+    function paintSound(){ if(navSound) navSound.classList.toggle('force-hide', soundOff); if(adSound){ adSound.hidden = false; adSound.textContent = 'Sound btn: ' + (soundOff ? 'off' : 'on'); adSound.classList.toggle('an-toggle-off', soundOff); } }
+
+    function flip(setKey, isOff, applyNew, btn){
+      var nv = !isOff;
+      var pass = ''; try{ pass = sessionStorage.getItem('an_pass') || ''; }catch(e){}
+      btn.disabled = true;
+      fetch(EP, { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-admin-pass': pass }, body: JSON.stringify({ set: setKey, value: nv ? 'off' : 'on' }) })
+        .then(function(r){ return r.json().then(function(j){ return { s: r.status, j: j }; }, function(){ return { s: r.status, j: {} }; }); })
+        .then(function(res){ btn.disabled = false; if(res.s === 200){ applyNew(nv); } else { btn.textContent = (res.s === 401) ? 'unlock first' : 'save failed'; } })
+        .catch(function(){ btn.disabled = false; btn.textContent = 'offline'; });
+    }
+
+    if(adTheme){ adTheme.hidden = false; adTheme.addEventListener('click', function(){ flip('theme', themeOff, function(nv){ themeOff = nv; paintTheme(); }, adTheme); }); }
+    if(adSound){ adSound.hidden = false; adSound.addEventListener('click', function(){ flip('sound', soundOff, function(nv){ soundOff = nv; paintSound(); }, adSound); }); }
+
+    fetch(EP).then(function(r){ return r.json(); }).then(function(j){
+      if(j){ if(j.theme === 'off' || j.theme === 'on') themeOff = (j.theme === 'off'); if(j.sound === 'off' || j.sound === 'on') soundOff = (j.sound === 'off'); }
+    }).catch(function(){}).then(function(){ paintTheme(); paintSound(); });
   }
 
   function boot(){
