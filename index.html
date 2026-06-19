@@ -198,7 +198,12 @@ section{position:relative;z-index:1}
 .about-chip img{width:62%;height:62%;object-fit:contain;display:block;pointer-events:none}
 .about-copy:hover .about-icon{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(var(--rot,0deg))}
 @keyframes aboutFloat{0%,100%{transform:translate(0,0) rotate(0deg)}50%{transform:translate(var(--fx,0px),var(--fy,-9px)) rotate(var(--frot,0deg))}}
-@media(hover:none){.about-fx{display:none}}
+/* mobile (no hover): the .tfx class — added on scroll-into-view by JS — fires the same effects as hover */
+.about-copy.tfx .about-icon{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(var(--rot,0deg))}
+.btn.tfx .btn-arrow svg{animation:arrow-send .55s cubic-bezier(.55,.06,.3,1)}
+.btn-shine.tfx::after{animation:btnShine .85s ease}
+.dl-btn.tfx .dl-cv{transform:translateY(-160%);opacity:0}
+.dl-btn.tfx .dl-ic{transform:translateX(var(--dl-dx,0))}
 
 @media(prefers-reduced-motion:reduce){
   .cursor-ring{display:none!important}
@@ -324,6 +329,11 @@ header.nav.scrolled{
 .fx-ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.45);transform:translate(-50%,-50%) scale(0);pointer-events:none;animation:fxRipple .6s ease-out forwards}
 @keyframes fxRipple{to{transform:translate(-50%,-50%) scale(1);opacity:0}}
 .fx-burst-canvas{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:9998}
+/* "View all skills" — press + ripple + spark-dash pop on click */
+.spark-layer{position:fixed;inset:0;pointer-events:none;z-index:9998}
+.spark{position:absolute;width:3px;height:13px;border-radius:2px;background:var(--accent);opacity:0;transform:translate(-50%,-50%) rotate(var(--a,0deg)) translateY(-4px);animation:sparkOut .5s cubic-bezier(.25,.7,.3,1) forwards}
+@keyframes sparkOut{0%{opacity:0;transform:translate(-50%,-50%) rotate(var(--a,0deg)) translateY(-4px) scaleY(.4)}25%{opacity:1}100%{opacity:0;transform:translate(-50%,-50%) rotate(var(--a,0deg)) translateY(calc(-4px - var(--d,20px))) scaleY(1.1)}}
+@media(prefers-reduced-motion:reduce){.spark{display:none}}
 @media(prefers-reduced-motion:reduce){.fx-ripple{display:none}.fx-burst-canvas{display:none}}
 /* nav "Hire me" — hover wipes a dark fill up + letters scatter & cascade back */
 .hm-toggle{position:relative;overflow:hidden}
@@ -509,6 +519,18 @@ header.nav.scrolled{
 /* ============== CONTACT ============== */
 .contact-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(40px,6vw,80px)}
 .contact-intro h2{font-family:var(--font-display);font-size:clamp(2rem,5vw,3.4rem);font-weight:800;line-height:1;letter-spacing:-.02em;margin-bottom:20px}
+/* "Don't be shy!" rise-in with motion-blur trail (built by setupShyText) */
+.shy{display:inline-block;white-space:nowrap}
+.shy-char{position:relative;display:inline-block}
+.shy-space{display:inline-block;width:.32em}
+.shy-sizer{visibility:hidden}
+.shy-layer{position:absolute;left:0;top:0;transform-origin:50% 62%;opacity:0;backface-visibility:hidden;will-change:transform,opacity}
+.shy.go .shy-layer.shy-lead{animation:shyRise var(--shy-spin,320ms) cubic-bezier(.16,1.1,.3,1) var(--d) both,shyAppear var(--shy-spin,320ms) linear var(--d) both}
+.shy.go .shy-layer.shy-ghost{animation:shyRise var(--shy-spin,320ms) cubic-bezier(.16,1.1,.3,1) var(--d) both,shyGhost var(--shy-spin,320ms) linear var(--d) both}
+@keyframes shyRise{from{transform:translateY(.95em) rotate(-30deg) scale(.55)}to{transform:translateY(0) rotate(0) scale(1)}}
+@keyframes shyAppear{0%{opacity:0}12%{opacity:1}100%{opacity:1}}
+@keyframes shyGhost{0%{opacity:0}16%{opacity:var(--o)}100%{opacity:0}}
+@media(prefers-reduced-motion:reduce){.shy.go .shy-layer.shy-lead,.shy.go .shy-layer.shy-ghost{animation:none}.shy .shy-layer.shy-lead{opacity:1;transform:none}}
 .contact-intro p{color:var(--muted);max-width:42ch;margin-bottom:36px}
 .contact-info{display:flex;flex-direction:column;gap:22px}
 .ci{display:flex;gap:16px;align-items:flex-start}
@@ -1035,7 +1057,10 @@ body.pp-lock{overflow:hidden}
 html.intro-lock,html.intro-lock body{overflow:hidden}
 
 /* ===== Phase 2: project search + case-study detail ===== */
-.pj-search{position:relative;max-width:480px;margin:0 0 18px}
+/* search bar: compact by default, expands when focused or holding a query */
+.pj-search{position:relative;width:250px;max-width:100%;margin:0 0 18px;transition:width .45s cubic-bezier(.16,1,.3,1)}
+.pj-search:focus-within,.pj-search.pj-active{width:480px}
+@media(prefers-reduced-motion:reduce){.pj-search{transition:none}}
 .pj-search-ic{position:absolute;left:14px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:var(--muted);pointer-events:none}
 .pj-search input{width:100%;height:46px;background:var(--bg-2);border:1px solid var(--line-strong);border-radius:12px;color:var(--text);padding:0 16px 0 40px;font-family:var(--font-body);font-size:.95rem}
 .pj-search input:focus{outline:none;border-color:var(--accent-text)}
@@ -1106,7 +1131,7 @@ html.intro-lock,html.intro-lock body{overflow:hidden}
 .chat-input button svg{width:18px;height:18px}
 .chat-foot{padding:0 16px 12px;font-size:.65rem;color:var(--muted-2);text-align:center}
 .chat-foot a{color:var(--accent-text);text-decoration:none}
-@media(max-width:480px){.chat-fab span{display:none}.chat-fab{padding:14px}}
+@media(max-width:480px){.chat-fab .cf-label,.chat-fab>span:not(.cf-hand){display:none}.chat-fab{padding:14px}}
 
 .an-x-float{position:absolute;top:16px;right:22px;z-index:6;background:none;border:0;color:var(--muted);font-size:2rem;line-height:1;cursor:pointer}
 .an-x-float:hover{color:var(--text)}
@@ -1692,7 +1717,7 @@ body.pp-lock .chat-fab,body.pp-lock .chat-panel{display:none}
     </div>
     <div class="pj-search">
       <svg class="pj-search-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-      <input type="search" id="pjSearch" placeholder="Search projects — Shopify, OpenAI, OAuth, migration…" aria-label="Search projects">
+      <input type="search" id="pjSearch" placeholder="Search projects" data-ph-full="Search projects — Shopify, OpenAI, OAuth, migration…" aria-label="Search projects">
     </div>
     <div class="filters" id="pjFilters">
       <button class="filter-btn active" data-filter="all">All</button>
@@ -2877,7 +2902,16 @@ body.pp-lock .chat-fab,body.pp-lock .chat-panel{display:none}
       }
       if(searchId){
         var si = document.getElementById(searchId);
-        if(si && grid){ si.addEventListener('input', function(){ curQuery = (si.value || '').trim().toLowerCase(); applyFilters(); }); }
+        if(si && grid){
+          var wrap = si.closest('.pj-search');
+          var phShort = si.getAttribute('placeholder') || '';
+          var phFull = si.getAttribute('data-ph-full') || phShort;
+          var syncActive = function(){ if(wrap) wrap.classList.toggle('pj-active', !!si.value); };
+          si.addEventListener('input', function(){ curQuery = (si.value || '').trim().toLowerCase(); syncActive(); applyFilters(); });
+          /* compact by default; on focus expand + reveal the full example placeholder */
+          si.addEventListener('focus', function(){ si.setAttribute('placeholder', phFull); });
+          si.addEventListener('blur', function(){ if(!si.value) si.setAttribute('placeholder', phShort); });
+        }
       }
       if(location.hash === hash){ open(false); }
       return { open: open, close: close };
@@ -3264,6 +3298,9 @@ body.pp-lock .chat-fab,body.pp-lock .chat-panel{display:none}
     setupClickFx(reduceMo);
     setupHireToggle(reduceMo);
     setupDownloadFx(reduceMo);
+    setupAskHover(reduceMo);
+    setupSkillsClick(reduceMo);
+    setupShyText(reduceMo);
 
     /* ---- Dynamic age (from DOB in data.json, fallback 2000-07-01) ---- */
     (function(){
@@ -3631,6 +3668,63 @@ body.pp-lock .chat-fab,body.pp-lock .chat-panel{display:none}
   /* ---- "View all" buttons: press + ripple + colorful particle burst on click ---- */
   /* ---- nav "Hire me": on hover a dark fill wipes up + the letters scatter and cascade back ---- */
   /* ---- "Download CV" buttons: hover swipes the label up and slides the icon to centre ---- */
+  /* ---- "Ask Twyllo" FAB hover: label swipes down, "Hi There !" bounces in, hand slides right ---- */
+  /* ---- "View all skills" button: press + ripple + spark-dash pop on click ---- */
+  function setupSkillsClick(reduceMo){
+    var btn = document.querySelector('.js-open-skills');
+    if(!btn || reduceMo) return;
+    btn.classList.add('fx-click');
+    var layer = document.getElementById('sparkLayer');
+    if(!layer){ layer = document.createElement('div'); layer.id = 'sparkLayer'; layer.className = 'spark-layer'; layer.setAttribute('aria-hidden', 'true'); document.body.appendChild(layer); }
+    btn.addEventListener('click', function(e){
+      var r = btn.getBoundingClientRect();
+      var cx = e.clientX || (r.left + r.width / 2), cy = e.clientY || (r.top + r.height / 2);
+      btn.style.transform = 'scale(.95)';
+      setTimeout(function(){ btn.style.transform = ''; }, 130);                /* press */
+      var d = Math.max(r.width, r.height) * 1.4;                              /* ripple */
+      var rip = document.createElement('span'); rip.className = 'fx-ripple';
+      rip.style.width = rip.style.height = d + 'px';
+      rip.style.left = (cx - r.left) + 'px'; rip.style.top = (cy - r.top) + 'px';
+      btn.appendChild(rip); setTimeout(function(){ if(rip.parentNode) rip.remove(); }, 600);
+      var n = 7, ox = r.right, oy = r.bottom;                                 /* spark dashes — from the bottom-right corner, fanning out */
+      for(var i = 0; i < n; i++){
+        var a = 75 + (120 / (n - 1)) * i + (Math.random() * 14 - 7), dist = 16 + Math.random() * 16;
+        var s = document.createElement('span'); s.className = 'spark';
+        s.style.left = ox + 'px'; s.style.top = oy + 'px';
+        s.style.setProperty('--a', a.toFixed(1) + 'deg');
+        s.style.setProperty('--d', dist.toFixed(1) + 'px');
+        layer.appendChild(s);
+        s.addEventListener('animationend', function(){ if(this.parentNode) this.remove(); });
+      }
+    });
+  }
+
+  function setupAskHover(reduceMo){
+    var fab = document.getElementById('chatFab');
+    if(!fab || reduceMo || fab.classList.contains('cf-anim')) return;
+    var hand = fab.querySelector('.wave-hand'); if(!hand) return;
+    var labelSpan = fab.querySelector('span');
+    var askText = (labelSpan && labelSpan.textContent.trim()) || 'Ask Twyllo';
+    var cfHand = document.createElement('span'); cfHand.className = 'cf-hand';
+    cfHand.appendChild(hand);                                   /* move the existing hand in */
+    var label = document.createElement('span'); label.className = 'cf-label';
+    var ask = document.createElement('span'); ask.className = 'cf-ask'; ask.textContent = askText;
+    var hi = document.createElement('span'); hi.className = 'cf-hi'; hi.textContent = 'Hi There !'; hi.setAttribute('aria-hidden', 'true');
+    label.appendChild(ask); label.appendChild(hi);
+    fab.innerHTML = '';
+    fab.appendChild(cfHand); fab.appendChild(label);
+    fab.classList.add('cf-anim');
+    function measure(){
+      var wh = cfHand.getBoundingClientRect().width, wl = label.getBoundingClientRect().width, g = 9;
+      if(!wh || !wl) return;
+      fab.style.setProperty('--hand-dx', (wl + g).toFixed(1) + 'px');     /* hand slides right past the label */
+      fab.style.setProperty('--label-dx', (-(wh + g)).toFixed(1) + 'px'); /* label slides left past the hand */
+    }
+    measure();
+    if(document.fonts && document.fonts.ready){ document.fonts.ready.then(measure); }
+    window.addEventListener('resize', measure);
+  }
+
   function setupDownloadFx(reduceMo){
     var btns = $all('.js-download-cv');
     if(!btns.length || reduceMo) return;
@@ -3747,9 +3841,103 @@ body.pp-lock .chat-fab,body.pp-lock .chat-panel{display:none}
     });
   }
 
+  /* "Don't be shy!" — each letter springs up from below the baseline with a stack of
+     fading echo copies behind it (a motion-blur trail), staggered left-to-right.
+     Plays when the Contact section scrolls into view, and replays on each re-entry. */
+  function setupShyText(reduceMo){
+    var intro = $('.contact-intro'); if(!intro) return;
+    var h2 = intro.querySelector('h2'); if(!h2) return;
+    var text = (h2.textContent || '').replace(/\s+/g, ' ').trim();
+    if(!text || h2.querySelector('.shy')) return;            // nothing to do / already built
+
+    var STAGGER = 90, ECHO = 14, SPIN = 320;
+    var GHOSTS = [0.5, 0.4, 0.3, 0.2, 0.12];                 // trailing echo opacities
+
+    var word = document.createElement('span');
+    word.className = 'shy';
+    word.setAttribute('aria-hidden', 'true');               // the heading carries the label
+    h2.setAttribute('aria-label', text);
+
+    var li = 0;
+    for(var i = 0; i < text.length; i++){
+      var ch = text.charAt(i);
+      if(ch === ' '){
+        var sp = document.createElement('span'); sp.className = 'shy-space'; word.appendChild(sp);
+        continue;
+      }
+      var box = document.createElement('span'); box.className = 'shy-char';
+      var sizer = document.createElement('span'); sizer.className = 'shy-sizer'; sizer.textContent = ch;
+      box.appendChild(sizer);                               // gives the box its real width/height
+
+      var base = li * STAGGER;
+      if(!reduceMo){
+        for(var j = 0; j < GHOSTS.length; j++){
+          var g = document.createElement('span'); g.className = 'shy-layer shy-ghost'; g.textContent = ch;
+          g.style.setProperty('--d', (base + (j + 1) * ECHO) + 'ms');
+          g.style.setProperty('--o', GHOSTS[j]);
+          box.appendChild(g);
+        }
+      }
+      var lead = document.createElement('span'); lead.className = 'shy-layer shy-lead'; lead.textContent = ch;
+      lead.style.setProperty('--d', base + 'ms');
+      if(reduceMo) lead.style.opacity = '1';                // static: just show it
+      box.appendChild(lead);
+
+      word.appendChild(box); li++;
+    }
+
+    word.style.setProperty('--shy-spin', SPIN + 'ms');
+    while(h2.firstChild) h2.removeChild(h2.firstChild);
+    h2.appendChild(word);
+
+    if(reduceMo || !('IntersectionObserver' in window)){ word.classList.add('go'); return; }
+
+    var shown = false;
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(en.isIntersecting && en.intersectionRatio >= 0.5 && !shown){
+          shown = true;
+          word.classList.remove('go'); void word.offsetWidth; word.classList.add('go');   // restart
+        } else if(!en.isIntersecting && shown){
+          shown = false; word.classList.remove('go');       // re-arm after it fully leaves
+        }
+      });
+    }, { threshold: [0, 0.5] });
+    io.observe(h2);
+  }
+
+  /* Mobile (no-hover): replay the hover-only micro-interactions as elements scroll
+     into view. JS toggles a `.tfx` class (mirrored in CSS) so the About floating
+     icons, the "More about me" arrow, the shine-sweep buttons and the Download-CV
+     swap all animate on touch — where there's no pointer to hover with. */
+  function setupTouchFx(touch, reduceMo){
+    if(!touch || reduceMo || !('IntersectionObserver' in window)) return;
+    var targets = [];
+    $all('.about-copy, .btn-shine, .dl-btn').forEach(function(el){ targets.push(el); });
+    $all('.btn-arrow').forEach(function(a){ var b = a.closest('.btn'); if(b && targets.indexOf(b) < 0) targets.push(b); });
+    if(!targets.length) return;
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        var el = en.target;
+        if(en.isIntersecting){
+          el.classList.add('tfx');
+          /* one-shot animations revert so they replay on the next scroll-in;
+             the About icons stay revealed while the section is on screen */
+          if(!el.classList.contains('about-copy')){
+            setTimeout(function(){ el.classList.remove('tfx'); }, 1700);
+          }
+        } else {
+          el.classList.remove('tfx');
+        }
+      });
+    }, { threshold: 0.6 });
+    targets.forEach(function(el){ io.observe(el); });
+  }
+
   function setupMotion(reduceMo){
     var touch = window.matchMedia && window.matchMedia('(hover:none)').matches;
     setupAboutIcons(reduceMo);
+    setupTouchFx(touch, reduceMo);
 
     /* timeline: accent line draws + dots light as you scroll through it */
     $all('.tl').forEach(function(tl){
@@ -3790,6 +3978,9 @@ body.pp-lock .chat-fab,body.pp-lock .chat-panel{display:none}
       setTimeout(function(){ scrambleText(sp); }, 200 + i * 130);
     });
 
+    /* hero constellation — drifts on every device (cursor-repel just needs a mouse) */
+    setupConstellation();
+
     if(touch) return;
 
     /* custom cursor follower */
@@ -3803,9 +3994,6 @@ body.pp-lock .chat-fab,body.pp-lock .chat-panel{display:none}
     document.addEventListener('mouseover', function(e){ if(e.target.closest && e.target.closest('a,button,.btn,input,textarea,select,[role="button"]')) ring.classList.add('hot'); });
     document.addEventListener('mouseout', function(e){ if(e.target.closest && e.target.closest('a,button,.btn,input,textarea,select,[role="button"]')) ring.classList.remove('hot'); });
     (function follow(){ rx += (tx - rx) * 0.2; ry += (ty - ry) * 0.2; ring.style.transform = 'translate(' + rx + 'px,' + ry + 'px) translate(-50%,-50%)'; requestAnimationFrame(follow); })();
-
-    /* hero constellation */
-    setupConstellation();
   }
 
   /* ---- Intro: the "Asmar." logo animates once and settles as a static wordmark,
