@@ -1,0 +1,24 @@
+# Netlify config for the portfolio (static site + serverless analytics function)
+
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+[functions]
+  node_bundler = "esbuild"
+
+# Clean admin URL: serve the single-page app at /admin without changing the URL
+# (status 200 = rewrite, not a redirect). The page's JS opens the admin gate when
+# it detects the /admin path. Functions and static assets are unaffected.
+[[redirects]]
+  from = "/admin"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/admin/"
+  to = "/index.html"
+  status = 200
