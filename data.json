@@ -1561,6 +1561,49 @@
     "Business Process",
     "Odoo Administrator"
   ],
+  "services": {
+    "intro": {
+      "heading": "Solutions tailored to how your business runs",
+      "text": [
+        "I help teams get the most out of Odoo — from first implementation to deep customization, third-party integrations and the automations that quietly save hours every week.",
+        "Whether you need a single custom module or a full ERP rollout, I focus on clean, maintainable solutions that fit the way your team actually works."
+      ],
+      "image": "images/services_i_offer.png"
+    },
+    "cta": "Start a project",
+    "items": [
+      {
+        "icon": "sliders",
+        "title": "Odoo Implementation & Customization",
+        "desc": "End-to-end Odoo setup and tailoring — configuring apps, custom workflows, reports and access rules around the way your team actually works."
+      },
+      {
+        "icon": "code",
+        "title": "Custom Module Development",
+        "desc": "Bespoke Odoo modules built from scratch in Python, XML and OWL — for Sales, Inventory, Accounting, HR and anything in between."
+      },
+      {
+        "icon": "link",
+        "title": "API & Connector Integrations",
+        "desc": "Connecting Odoo with Shopify, payment gateways, logistics and other tools through reliable REST and XML-RPC integrations."
+      },
+      {
+        "icon": "cpu",
+        "title": "AI Integration",
+        "desc": "Bringing AI into your stack — chatbots, document parsing and smart automation embedded directly into Odoo and web apps."
+      },
+      {
+        "icon": "zap",
+        "title": "Business Process Automation",
+        "desc": "Mapping and automating manual workflows to cut busywork, reduce errors and give your team back their time."
+      },
+      {
+        "icon": "refresh",
+        "title": "Migration, Upgrades & Support",
+        "desc": "Safe version migrations (v15 → v19) and legacy data moves, plus ongoing maintenance, performance tuning and support."
+      }
+    ]
+  },
   "contact": {
     "introHeading": "Don't be shy!",
     "introText": "Feel free to reach out. I'm always open to discussing new projects, creative ideas or opportunities to be part of your vision. I usually reply within 24 hours.",
@@ -1616,6 +1659,11 @@
       "eyebrow": "About me",
       "title": "Who I",
       "ghost": "am"
+    },
+    "services": {
+      "eyebrow": "What I do",
+      "title": "Services I",
+      "ghost": "offer"
     },
     "skills": {
       "eyebrow": "My skills",

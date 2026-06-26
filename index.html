@@ -170,12 +170,7 @@ section{position:relative;z-index:1}
 .reveal[data-rv="blur"]{filter:blur(10px)}
 .reveal.in{opacity:1;transform:none;filter:none}
 
-/* ===== Extra motion: cursor follower, card tilt, timeline draw, ghost parallax, hero constellation, projects wipe ===== */
-.cursor-ring{position:fixed;top:0;left:0;width:28px;height:28px;border:1.5px solid var(--accent-text);border-radius:50%;pointer-events:none;z-index:9999;opacity:0;transition:opacity .25s,width .2s,height .2s,background .2s,border-color .2s;will-change:transform}
-.cursor-ring.on{opacity:.65}
-.cursor-ring.tap{width:40px;height:40px}
-.cursor-ring.hot{width:46px;height:46px;border-color:var(--accent);background:var(--accent-dim)}
-@media(hover:none){.cursor-ring{display:none!important}}
+/* ===== Extra motion: card tilt, timeline draw, ghost parallax, hero constellation, projects wipe ===== */
 
 .proj-card,.pcard{transform-style:preserve-3d;will-change:transform}
 
@@ -206,7 +201,6 @@ section{position:relative;z-index:1}
 .dl-btn.tfx .dl-ic{transform:translateX(var(--dl-dx,0))}
 
 @media(prefers-reduced-motion:reduce){
-  .cursor-ring{display:none!important}
   .tl-fill{display:none}
   .tl-item.lit::before{transform:none}
   .hero-canvas{display:none}
@@ -424,15 +418,49 @@ header.nav.scrolled{
 .stat-card .num{font-family:var(--font-display);font-weight:800;font-size:clamp(2rem,4vw,3rem);line-height:1;color:var(--accent-text)}
 .stat-card .lbl{font-family:var(--font-mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:10px}
 
+/* services */
+.services-intro{display:grid;grid-template-columns:minmax(0,300px) 1fr;gap:clamp(28px,4vw,56px);align-items:center;margin-bottom:clamp(40px,5vw,64px)}
+.services-intro-copy h3{font-family:var(--font-display);font-size:clamp(1.4rem,2.4vw,2rem);font-weight:700;line-height:1.18;letter-spacing:-.01em;margin-bottom:16px}
+.services-intro-copy p{color:var(--muted);font-size:.98rem;line-height:1.7;max-width:54ch}
+.services-intro-copy p+p{margin-top:14px}
+.services-intro-img{order:-1;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);background:var(--bg-2);box-shadow:0 30px 70px -40px rgba(0,0,0,.7);animation:svcFloat 7s ease-in-out infinite}
+.services-intro-img img{display:block;width:100%;height:auto;transition:transform .6s cubic-bezier(.16,1,.3,1)}
+.services-intro-img:hover img{transform:scale(1.05)}
+@keyframes svcFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@media(prefers-reduced-motion:reduce){.services-intro-img{animation:none}.services-intro-img img,.services-intro-img:hover img{transition:none;transform:none}}
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,2vw,24px);margin-top:18px}
+.service-card{position:relative;border:1px solid var(--line);border-radius:var(--radius);background:var(--bg-2);padding:30px 26px;transition:border-color .3s,transform .3s}
+.service-card:hover{border-color:var(--accent-text);transform:translateY(-6px)}
+.svc-ic{display:inline-flex;align-items:center;justify-content:center;width:50px;height:50px;border-radius:14px;background:var(--accent-dim);color:var(--accent-text);margin-bottom:22px;transition:background .3s,color .3s}
+.svc-ic svg{width:24px;height:24px}
+.service-card:hover .svc-ic{background:var(--accent);color:#0b0b0e}
+.service-card h3{font-family:var(--font-display);font-size:1.18rem;font-weight:700;line-height:1.2;letter-spacing:-.01em;margin-bottom:10px}
+.service-card p{color:var(--muted);font-size:.92rem;line-height:1.6}
+
+/* image lightbox / zoom popup */
+.zoomable,.services-intro-img img{cursor:zoom-in}
+.img-zoom{position:fixed;inset:0;z-index:9000;display:flex;align-items:center;justify-content:center;padding:24px;background:rgba(7,7,9,.88);backdrop-filter:blur(8px);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .3s ease,visibility .3s}
+.img-zoom.open{opacity:1;visibility:visible;pointer-events:auto}
+.img-zoom img{max-width:95vw;max-height:92vh;width:auto;height:auto;border-radius:10px;box-shadow:0 40px 120px -30px #000;transform:scale(.94);transition:transform .35s cubic-bezier(.16,1,.3,1);cursor:zoom-out}
+.img-zoom.open img{transform:scale(1)}
+.img-zoom-close{position:absolute;top:18px;right:20px;width:44px;height:44px;border-radius:50%;border:1px solid var(--line-strong);background:var(--bg-2);color:var(--text);font-size:1.5rem;line-height:1;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background .2s,color .2s,border-color .2s,transform .25s}
+.img-zoom-close:hover{background:var(--accent);color:#0b0b0e;border-color:var(--accent);transform:rotate(90deg)}
+@media(prefers-reduced-motion:reduce){.img-zoom,.img-zoom img,.img-zoom-close{transition:none}.img-zoom img,.img-zoom.open img{transform:none}}
+
 /* skills */
 .skills-wrap{display:grid;grid-template-columns:repeat(2,1fr);gap:26px 50px;margin-top:18px}
 .skill .skill-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}
 .skill .name{font-weight:600}
 .skill .pct{font-family:var(--font-mono);font-size:.82rem;color:var(--accent-text)}
-.bar{height:6px;background:var(--bg-3);border-radius:999px;overflow:hidden}
-.bar i{position:relative;display:block;height:100%;width:0;border-radius:999px;background:linear-gradient(90deg,var(--accent),#a6e000);transition:width 1.3s cubic-bezier(.16,1,.3,1)}
+.bar{position:relative;height:6px;background:var(--bg-3);border-radius:999px}
+.bar i{position:relative;display:block;height:100%;width:0;border-radius:999px;overflow:hidden;background:linear-gradient(90deg,var(--accent),#a6e000);transition:width 1.3s cubic-bezier(.16,1,.3,1)}
 .bar i::after{content:"";position:absolute;inset:0;border-radius:999px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent);transform:translateX(-100%);animation:sweep 2.6s ease-in-out infinite;animation-delay:1.2s}
 @keyframes sweep{0%{transform:translateX(-100%)}55%,100%{transform:translateX(220%)}}
+/* glowing spark that rides the tip of each filled bar (left tracks the fill width) */
+.bar::after{content:"";position:absolute;top:50%;left:var(--w,0);width:10px;height:10px;border-radius:50%;background:radial-gradient(circle,#fff 0%,var(--accent) 42%,transparent 72%);box-shadow:0 0 4px 0 var(--accent),0 0 8px 1px var(--accent-glow);transform:translate(-50%,-50%) scale(.6);opacity:0;z-index:2;pointer-events:none;transition:left 1.3s cubic-bezier(.16,1,.3,1),opacity .5s ease}
+.bar.lit::after{opacity:1;animation:barSpark 1.5s ease-in-out infinite}
+@keyframes barSpark{0%,100%{transform:translate(-50%,-50%) scale(.85);box-shadow:0 0 3px 0 var(--accent),0 0 6px 1px var(--accent-glow)}50%{transform:translate(-50%,-50%) scale(1.25);box-shadow:0 0 6px 1px var(--accent),0 0 13px 3px var(--accent-glow)}}
+@media(prefers-reduced-motion:reduce){.bar.lit::after{animation:none;transform:translate(-50%,-50%) scale(1)}}
 
 /* timeline */
 .tl-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,90px);margin-top:18px}
@@ -524,7 +552,8 @@ header.nav.scrolled{
 .shy-char{position:relative;display:inline-block}
 .shy-space{display:inline-block;width:.32em}
 .shy-sizer{visibility:hidden}
-.shy-layer{position:absolute;left:0;top:0;transform-origin:50% 62%;opacity:0;backface-visibility:hidden;will-change:transform,opacity}
+.shy-layer{position:absolute;left:0;top:0;transform-origin:50% 62%;opacity:0;backface-visibility:hidden}
+.shy-ghost{-webkit-user-select:none;user-select:none}   /* only the crisp lead copy is selectable -> clean text selection */
 .shy.go .shy-layer.shy-lead{animation:shyRise var(--shy-spin,320ms) cubic-bezier(.16,1.1,.3,1) var(--d) both,shyAppear var(--shy-spin,320ms) linear var(--d) both}
 .shy.go .shy-layer.shy-ghost{animation:shyRise var(--shy-spin,320ms) cubic-bezier(.16,1.1,.3,1) var(--d) both,shyGhost var(--shy-spin,320ms) linear var(--d) both}
 @keyframes shyRise{from{transform:translateY(.95em) rotate(-30deg) scale(.55)}to{transform:translateY(0) rotate(0) scale(1)}}
@@ -967,10 +996,15 @@ body.pp-lock{overflow:hidden}
   .skills-wrap{grid-template-columns:1fr}
   .awards-grid{grid-template-columns:1fr}
   .stats-row{grid-template-columns:repeat(2,1fr)}
+  .services-grid{grid-template-columns:repeat(2,1fr)}
+  .services-intro{grid-template-columns:1fr;gap:30px}
+  .services-intro-img{max-width:360px;margin:0 auto}
 }
 @media(max-width:540px){
   .container{padding:0 18px}
   .info-list{grid-template-columns:1fr}
+  .services-grid{grid-template-columns:1fr}
+  .services-intro-img{max-width:300px}
   .hero-stats{gap:22px}
   .hero-stats .s b{font-size:1.5rem}
   .badge-float.b1{left:6px}
@@ -1168,6 +1202,7 @@ body.pp-lock .chat-fab,body.pp-lock .chat-panel{display:none}
     <nav class="nav-links">
       <a href="#home" class="active">Home</a>
       <a href="#about">About</a>
+      <a href="#services">Services</a>
       <a href="#projects">Projects</a>
       <a href="#works">Portfolio</a>
       <a href="#awards">Awards</a>
@@ -1199,6 +1234,7 @@ body.pp-lock .chat-fab,body.pp-lock .chat-panel{display:none}
 <aside class="mobile-menu" id="mobileMenu">
   <a href="#home">Home</a>
   <a href="#about">About</a>
+  <a href="#services">Services</a>
   <a href="#skills">Skills</a>
   <a href="#projects">Projects</a>
   <a href="#works">Portfolio</a>
@@ -1307,6 +1343,63 @@ body.pp-lock .chat-fab,body.pp-lock .chat-panel{display:none}
       <div class="stat-card reveal"><div class="num"><span data-count="30" data-suffix="+">0</span></div><div class="lbl">Completed projects</div></div>
       <div class="stat-card reveal"><div class="num"><span data-count="30" data-suffix="+">0</span></div><div class="lbl">Awards &amp; certificates</div></div>
       <div class="stat-card reveal"><div class="num"><span data-count="100" data-suffix="%">0</span></div><div class="lbl">Client satisfaction</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============== SERVICES ============== -->
+<section class="pad" id="services" style="padding-top:0">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">What I do</span>
+      <h2 class="section-title">Services I <span class="ghost">offer</span></h2>
+    </div>
+    <div class="services-intro reveal">
+      <div class="services-intro-copy">
+        <h3 id="servicesIntroHeading">Solutions tailored to how your business runs</h3>
+        <div id="servicesIntroText">
+          <p>I help teams get the most out of Odoo — from first implementation to deep customization, third-party integrations and the automations that quietly save hours every week.</p>
+          <p>Whether you need a single custom module or a full ERP rollout, I focus on clean, maintainable solutions that fit the way your team actually works.</p>
+        </div>
+      </div>
+      <div class="services-intro-img">
+        <img id="servicesIntroImg" class="zoomable" src="images/services_i_offer.png" alt="Services I offer" loading="lazy" width="1071" height="1469">
+      </div>
+    </div>
+    <div class="services-grid" id="servicesGrid">
+      <article class="service-card reveal">
+        <div class="svc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg></div>
+        <h3>Odoo Implementation &amp; Customization</h3>
+        <p>End-to-end Odoo setup and tailoring — configuring apps, custom workflows, reports and access rules around the way your team actually works.</p>
+      </article>
+      <article class="service-card reveal">
+        <div class="svc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+        <h3>Custom Module Development</h3>
+        <p>Bespoke Odoo modules built from scratch in Python, XML and OWL — for Sales, Inventory, Accounting, HR and anything in between.</p>
+      </article>
+      <article class="service-card reveal">
+        <div class="svc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></div>
+        <h3>API &amp; Connector Integrations</h3>
+        <p>Connecting Odoo with Shopify, payment gateways, logistics and other tools through reliable REST and XML-RPC integrations.</p>
+      </article>
+      <article class="service-card reveal">
+        <div class="svc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/></svg></div>
+        <h3>AI Integration</h3>
+        <p>Bringing AI into your stack — chatbots, document parsing and smart automation embedded directly into Odoo and web apps.</p>
+      </article>
+      <article class="service-card reveal">
+        <div class="svc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+        <h3>Business Process Automation</h3>
+        <p>Mapping and automating manual workflows to cut busywork, reduce errors and give your team back their time.</p>
+      </article>
+      <article class="service-card reveal">
+        <div class="svc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></div>
+        <h3>Migration, Upgrades &amp; Support</h3>
+        <p>Safe version migrations (v15 → v19) and legacy data moves, plus ongoing maintenance, performance tuning and support.</p>
+      </article>
+    </div>
+    <div class="reveal" style="display:flex;justify-content:center;margin-top:clamp(32px,4vw,48px)">
+      <a href="#contact" class="btn btn-primary" id="servicesCta"><span class="svc-cta-txt">Start a project</span><span class="btn-arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></span></a>
     </div>
   </div>
 </section>
@@ -2633,6 +2726,35 @@ body.pp-lock .chat-fab,body.pp-lock .chat-panel{display:none}
     }).join(''));
   }
 
+  /* icon-name -> inline SVG, so data.json stays plain (mirrors SOCIAL_SVG) */
+  var SERVICE_ICONS = {
+    sliders: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>',
+    code: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>',
+    link: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>',
+    cpu: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/></svg>',
+    zap: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>',
+    refresh: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>'
+  };
+  function renderServices(d){
+    var sv = d.services; if(!sv) return;
+    var items = Array.isArray(sv) ? sv : sv.items;          /* accept [..] or {cta, items:[..]} */
+    if(items && items.length){
+      var cards = items.filter(function(it){ return it && (it.title || it.desc); }).map(function(it){
+        var ic = SERVICE_ICONS[it.icon] || SERVICE_ICONS.sliders;
+        return '<article class="service-card reveal"><div class="svc-ic">' + ic + '</div>' +
+          '<h3>' + e(it.title) + '</h3><p>' + e(it.desc) + '</p></article>';
+      }).join('');
+      if(cards) setHTML('#servicesGrid', cards);            /* keep the static fallback if every item was empty */
+    }
+    var iv = (!Array.isArray(sv) && sv.intro) ? sv.intro : null;     /* description block before the cards */
+    if(iv){
+      if(iv.heading){ var ih = $('#servicesIntroHeading'); if(ih) ih.textContent = iv.heading; }
+      if(iv.text){ var itx = $('#servicesIntroText'); if(itx){ var ps = Array.isArray(iv.text) ? iv.text : [iv.text]; itx.innerHTML = ps.map(function(p){ return '<p>' + e(p) + '</p>'; }).join(''); } }
+      if(iv.image){ var iim = $('#servicesIntroImg'); if(iim) iim.setAttribute('src', iv.image); }
+    }
+    if(!Array.isArray(sv) && sv.cta){ var lbl = $('#servicesCta .svc-cta-txt'); if(lbl) lbl.textContent = sv.cta; }
+  }
+
   /* ---- Experience duration: parse a "Mon YYYY – Mon YYYY|Present" range and count
          months inclusively (LinkedIn-style), so May 2023 – Mar 2026 = "2 years 11
          months". "Present" uses today's date, so durations stay current. ---- */
@@ -2784,6 +2906,7 @@ body.pp-lock .chat-fab,body.pp-lock .chat-panel{display:none}
       if(ti && cfg.title!=null) ti.innerHTML = e(cfg.title) + ' <span class="ghost">' + e(cfg.ghost) + '</span>';
     }
     head('#about', s.about);
+    head('#services', s.services);
     head('skills', s.skills);
     head('#projects', s.featured);
     head('#works', s.works);
@@ -2818,7 +2941,7 @@ body.pp-lock .chat-fab,body.pp-lock .chat-panel{display:none}
   }
 
   function renderAll(d){
-    var fns = [renderMeta, renderHero, renderMarquee, renderAbout, renderSkillsFeatured,
+    var fns = [renderMeta, renderHero, renderMarquee, renderAbout, renderSkillsFeatured, renderServices,
       renderExperience, renderEducation, renderFeatured, renderWorks, renderAwards,
       renderCertsFeatured, renderAllProjects, renderAllCerts, renderAllSkills,
       renderSections, renderContact];
@@ -2983,11 +3106,12 @@ body.pp-lock .chat-fab,body.pp-lock .chat-panel{display:none}
     setupMusic();
     setupProjectsIntroVideo();
     setupUiConfig();
+    setupImageLightbox();
 
     /* ---- Nav: scroll bg + active link + progress ---- */
     var nav = document.getElementById('nav');
     var navLinks = $all('.nav-links a');
-    var sections = ['home','about','skills','projects','works','awards','certs','testimonials','contact'].map(function(id){ return document.getElementById(id); });
+    var sections = ['home','about','services','skills','projects','works','awards','certs','testimonials','contact'].map(function(id){ return document.getElementById(id); });
     var scrollProg = document.getElementById('scrollProg');
     var toTop = document.getElementById('toTop');
     function onScroll(){
@@ -3044,7 +3168,12 @@ body.pp-lock .chat-fab,body.pp-lock .chat-panel{display:none}
     var skillObs = new IntersectionObserver(function(entries){
       entries.forEach(function(en){
         if(en.isIntersecting){
-          en.target.querySelectorAll('i[data-pct]').forEach(function(bar){ bar.style.width = bar.dataset.pct + '%'; });
+          en.target.querySelectorAll('i[data-pct]').forEach(function(fill){
+            var pct = fill.dataset.pct + '%';
+            fill.style.width = pct;
+            var track = fill.parentElement;                 /* the .bar; spark rides its tip */
+            if(track){ track.style.setProperty('--w', pct); track.classList.add('lit'); }
+          });
           skillObs.unobserve(en.target);
         }
       });
@@ -3841,6 +3970,37 @@ body.pp-lock .chat-fab,body.pp-lock .chat-panel{display:none}
     });
   }
 
+  /* Click a .zoomable image (e.g. the Services intro) to view it large in a popup.
+     One shared overlay, opened via event delegation so it survives re-renders. */
+  function setupImageLightbox(){
+    if(document.getElementById('imgZoom')) return;
+    var box = document.createElement('div'); box.className = 'img-zoom'; box.id = 'imgZoom'; box.setAttribute('aria-hidden', 'true');
+    var btn = document.createElement('button'); btn.type = 'button'; btn.className = 'img-zoom-close'; btn.setAttribute('aria-label', 'Close image'); btn.innerHTML = '&times;';
+    var big = document.createElement('img'); big.alt = '';
+    box.appendChild(btn); box.appendChild(big); document.body.appendChild(box);
+    var lastFocus = null;
+    function open(src, alt){
+      if(!src) return;
+      big.setAttribute('src', src); big.alt = alt || '';
+      box.classList.add('open'); box.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('pp-lock');
+      lastFocus = document.activeElement; try { btn.focus(); } catch(e){}
+    }
+    function close(){
+      box.classList.remove('open'); box.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('pp-lock');
+      if(lastFocus && lastFocus.focus) try { lastFocus.focus(); } catch(e){}
+    }
+    document.addEventListener('click', function(ev){
+      var c = ev.target.closest && ev.target.closest('.services-intro-img, img.zoomable, .zoomable');
+      if(!c) return;
+      var im = c.tagName === 'IMG' ? c : c.querySelector('img');
+      if(im) open(im.currentSrc || im.src, im.alt);
+    });
+    box.addEventListener('click', function(){ close(); });          /* click backdrop / image / × to close */
+    document.addEventListener('keydown', function(ev){ if(ev.key === 'Escape' && box.classList.contains('open')) close(); });
+  }
+
   /* "Don't be shy!" — each letter springs up from below the baseline with a stack of
      fading echo copies behind it (a motion-blur trail), staggered left-to-right.
      Plays when the Contact section scrolls into view, and replays on each re-entry. */
@@ -3862,7 +4022,7 @@ body.pp-lock .chat-fab,body.pp-lock .chat-panel{display:none}
     for(var i = 0; i < text.length; i++){
       var ch = text.charAt(i);
       if(ch === ' '){
-        var sp = document.createElement('span'); sp.className = 'shy-space'; word.appendChild(sp);
+        var sp = document.createElement('span'); sp.className = 'shy-space'; sp.textContent = ' '; word.appendChild(sp);
         continue;
       }
       var box = document.createElement('span'); box.className = 'shy-char';
@@ -3880,7 +4040,7 @@ body.pp-lock .chat-fab,body.pp-lock .chat-panel{display:none}
       }
       var lead = document.createElement('span'); lead.className = 'shy-layer shy-lead'; lead.textContent = ch;
       lead.style.setProperty('--d', base + 'ms');
-      if(reduceMo) lead.style.opacity = '1';                // static: just show it
+      if(reduceMo){ lead.style.opacity = '1'; lead.style.transform = 'none'; }   // static: just show it
       box.appendChild(lead);
 
       word.appendChild(box); li++;
@@ -3980,20 +4140,6 @@ body.pp-lock .chat-fab,body.pp-lock .chat-panel{display:none}
 
     /* hero constellation — drifts on every device (cursor-repel just needs a mouse) */
     setupConstellation();
-
-    if(touch) return;
-
-    /* custom cursor follower */
-    var ring = document.createElement('div'); ring.className = 'cursor-ring'; document.body.appendChild(ring);
-    var rx = 0, ry = 0, tx = 0, ty = 0, shown = false;
-    window.addEventListener('mousemove', function(e){ tx = e.clientX; ty = e.clientY; if(!shown){ shown = true; rx = tx; ry = ty; ring.classList.add('on'); } });
-    document.addEventListener('mouseleave', function(){ ring.classList.remove('on'); });
-    document.addEventListener('mouseenter', function(){ if(shown) ring.classList.add('on'); });
-    document.addEventListener('mousedown', function(){ ring.classList.add('tap'); });
-    document.addEventListener('mouseup', function(){ ring.classList.remove('tap'); });
-    document.addEventListener('mouseover', function(e){ if(e.target.closest && e.target.closest('a,button,.btn,input,textarea,select,[role="button"]')) ring.classList.add('hot'); });
-    document.addEventListener('mouseout', function(e){ if(e.target.closest && e.target.closest('a,button,.btn,input,textarea,select,[role="button"]')) ring.classList.remove('hot'); });
-    (function follow(){ rx += (tx - rx) * 0.2; ry += (ty - ry) * 0.2; ring.style.transform = 'translate(' + rx + 'px,' + ry + 'px) translate(-50%,-50%)'; requestAnimationFrame(follow); })();
   }
 
   /* ---- Intro: the "Asmar." logo animates once and settles as a static wordmark,
