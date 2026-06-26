@@ -249,8 +249,10 @@ header.nav.scrolled{
 .btn-shine:hover::after,.btn-shine:focus-visible::after{animation:btnShine .85s ease}
 @keyframes btnShine{0%{transform:translateX(-130%)}100%{transform:translateX(130%)}}
 @media(prefers-reduced-motion:reduce){.btn-shine:hover::after,.btn-shine:focus-visible::after{animation:none}}
-/* "Send message" — paper plane flies off on submit (toast shows once it lands) */
-.btn.sending{overflow:hidden}
+/* "Send message" — paper plane flies off on submit (toast shows once it lands).
+   NB: the button must NOT clip here — the plane/contrail travel ~165px to the right,
+   well past the button edge, so overflow stays visible while .sending is active. */
+.btn.sending{overflow:visible}
 .plane-wrap{position:relative;display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px}
 .plane-wrap .plane{position:relative;z-index:2;width:16px;height:16px;display:block}
 .plane-trail{position:absolute;left:8px;top:-4px;width:168px;height:24px;overflow:visible;opacity:0;pointer-events:none;z-index:1;-webkit-mask-image:linear-gradient(90deg,transparent,#000 55%);mask-image:linear-gradient(90deg,transparent,#000 55%)}
@@ -3171,8 +3173,8 @@ body.pp-lock .chat-fab,body.pp-lock .chat-panel{display:none}
           en.target.querySelectorAll('i[data-pct]').forEach(function(fill){
             var pct = fill.dataset.pct + '%';
             fill.style.width = pct;
-            var track = fill.parentElement;                 /* the .bar; spark rides its tip */
-            if(track){ track.style.setProperty('--w', pct); track.classList.add('lit'); }
+            var bar = fill.parentElement;                   /* the .bar; spark rides its tip */
+            if(bar){ bar.style.setProperty('--w', pct); bar.classList.add('lit'); }
           });
           skillObs.unobserve(en.target);
         }
@@ -3232,6 +3234,7 @@ body.pp-lock .chat-fab,body.pp-lock .chat-panel{display:none}
       function done(){ if(after) after(); showSuccessToast(); }
       var plane = btn && btn.querySelector('.plane');
       if(reduceMo || !plane){ done(); return; }
+      btn.classList.remove('sending'); void btn.offsetWidth;   /* restart cleanly on the freshly-rebuilt button */
       btn.classList.add('sending');
       var fired = false;
       function finish(){ if(fired) return; fired = true; btn.classList.remove('sending'); done(); }
@@ -3384,8 +3387,8 @@ body.pp-lock .chat-fab,body.pp-lock .chat-panel{display:none}
     if(document.readyState === 'complete'){ heroIn(); } else { window.addEventListener('load', heroIn); }
 
     /* ---- Seamless marquee (duplicate content) ---- */
-    var track = document.getElementById('marqueeTrack');
-    if(track){ track.innerHTML += track.innerHTML; }
+    var marqueeEl = document.getElementById('marqueeTrack');     /* NB: not 'track' — that name shadows the track() analytics fn in this scope */
+    if(marqueeEl){ marqueeEl.innerHTML += marqueeEl.innerHTML; }
 
     /* ---- Pointer flourishes ---- */
     if(!reduceMo){
